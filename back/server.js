@@ -5,6 +5,7 @@ import cors from "cors"
 import { env } from "./config/index.js"
 
 // ROUTES
+import userRoutes from "./routers/user.router.js"
 
 // APP EXPRESS
 const app = express()
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // PREFIXES ROUTES
+app.use("/api/user", userRoutes)
 
 // SERVER
 app.listen(PORT, () => {
