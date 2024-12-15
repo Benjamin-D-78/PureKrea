@@ -6,9 +6,11 @@ import { env } from "./config/index.js"
 
 // ROUTES
 import userRoutes from "./routers/user.router.js"
+import itemRoutes from "./routers/item.router.js"
 
 // APP EXPRESS
 const app = express()
+
 
 // PORT
 const PORT = env.PORT || 8000
@@ -29,6 +31,7 @@ app.use(cookieParser());
 
 // PREFIXES ROUTES
 app.use("/api/user", userRoutes)
+app.use("/api/item", itemRoutes)
 
 // SERVER
 app.listen(PORT, () => {

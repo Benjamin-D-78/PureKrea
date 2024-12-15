@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 
 const itemSchema = mongoose.Schema({
     name: {type: String, unique: true, required: true},
-    brand: {type: String, required: true},
+    width: {type: Number, required: true},
+    color: {type: String, required: true},
+    content: {type: String, required: true},
+    detail: {type: String, required: true},
     category: {type: String, required: true},
     stock: {type: Number, required: false},
     price: {type: Number, required: true},

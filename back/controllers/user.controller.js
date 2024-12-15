@@ -15,6 +15,7 @@ export const inscription = async (req, res, next) => {
         res.status(201).json("L'utilisateur a bien été créé.");
 
     } catch (error) {
+        console.log("Echec lors de l'inscription : ", error)
         next(error);
     }
 }
