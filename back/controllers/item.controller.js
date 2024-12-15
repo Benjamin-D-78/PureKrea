@@ -2,14 +2,6 @@ import Item from "../models/item.model.js";
 
 // CREATION ITEM
 export const creationItem = async (req, res) => {
-    // const imageItem = JSON.parse(req.body.item);
-    // delete imageItem._id;
-    // const newImage = new Item({...imageItem, imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`})
-
-    // newImage.save()
-    // .then(() => {res.status(201).json({message: "Objet enregistré"})})
-    // .catch(error => { res.status(400).json( { error })})
-
     try {
         console.log(req.body);
         const response = await Item.create(req.body);
@@ -54,3 +46,14 @@ export const upItem = async (req,res) => {
     }
 }
 
+// DELETE
+export const deleteItem = async (req, res) => {
+    try {
+        const response = await Item.findByIdAndDelete(req.params.id)
+
+        res.status(200).json(response)
+
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}

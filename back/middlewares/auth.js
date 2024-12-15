@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
-import {env} from "../config/index"
-import { newError } from "./error"
+import {env} from "../config/index.js"
+import { newError } from "./error.js"
 
 // Vérification du Token
 export const Token = (req, res, next) => {
@@ -8,7 +8,7 @@ export const Token = (req, res, next) => {
 
     if (!token) return next(newError(401, "Accès refusé."))
 
-    jwt.verify(token, env.token, (err, uder) => {
+    jwt.verify(token, env.TOKEN, (err, user) => {
         if(err) {
             return next(newError(403, "Token non valide."))
         }
