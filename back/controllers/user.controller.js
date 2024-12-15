@@ -11,7 +11,7 @@ export const inscription = async (req, res, next) => {
 
         await userModel.create({ ...req.body, password: hashedMDP });
 
-        res.status(201).json("L'utilisateur a bien été créé.");
+        res.status(201).json({Message: "L'utilisateur a bien été créé."});
 
     } catch (error) {
         console.log("Echec lors de l'inscription : ", error)
@@ -25,12 +25,12 @@ export const connexion = async (req, res, next) => {
         // Recherche de l'utilisateur dans la BDD
         const rechercheUser = await userModel.findOne({email: req.body.email});
 
-        if(!rechercheUser) return res.status(404).json("Utilisateur non trouvé.");
+        if(!rechercheUser) return res.status(404).json({Message: "Utilisateur non trouvé."});
 
         // Comparaison du MDP fourni dans la requête avec le MDP dans la BDD.
         const compareMDP = await bcrypt.compare(req.body.password, rechercheUser.password)
 
-        if(!compareMDP) return res.status(400).json("Mauvais Mot De Passe.")
+        if(!compareMDP) return res.status(400).json({Message: "Mauvais Mot De Passe."})
 
         // Création du Token de connexion avec expiration sous 24h.
         // Ici nous incluons l'ID de l'utilisateur dans lequel on signe le token via la clé secrète (env.token).
@@ -82,12 +82,12 @@ export const upUser = async (req, res) => {
     try { // On vérifie si l'utilisateur existe :
         const response = await userModel.findById(req.params.id);
 
-        if(!response) return res.status(404).json("Utilisateur non trouvé.");
+        if(!response) return res.status(404).json({Message: "Utilisateur non trouvé."});
 
         // toString (avec majuscule !) ; ici on compare si l'id de l'utilisateur à updater est le même id que l'utilisateur qui souhaite faire cet update.
         // req.user.id car on fait appel au "user" définit dans le "auth.js".
         if(req.user.id !== response._id.toString()){
-            return res.status(403).json("Accès refusé : vous n'êtes pas l'utilisateur concerné.")
+            return res.status(403).json({Message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
         }
 
         // Mise à jour de l'utilisateur :
@@ -95,7 +95,7 @@ export const upUser = async (req, res) => {
             req.params.id,
             {$set: req.body},
             {new: true})
-        res.status(200).json({message: "Utilisateur updaté", update})
+        res.status(200).json({message: "Informations mises à jour avec succès.", update})
 
     } catch (error) {
         console.log("Erreur lors de la tentative de mise à jour : ", error)
