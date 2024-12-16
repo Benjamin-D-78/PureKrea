@@ -1,0 +1,30 @@
+/*.header *{
+    text-decoration: none;
+    list-style-type: none;
+} */
+
+nav{
+    background-image: url("../../images/NavBar/fond_NavBar.jpg");
+}
+
+header{
+    width: 100%;
+    /* position: fixed; */
+    
+    margin-top: 0;
+}
+
+.navlink {
+    color: #333;
+    text-decoration: none;
+  }
+
+img{
+    width: 8rem
+}
+
+ul{
+    display: flex;
+    align-items: end;
+    text-decoration: none;
+}
