@@ -3,8 +3,15 @@ import Item from "../models/item.model.js";
 // CREATION ITEM
 export const creationItem = async (req, res) => {
     try {
-        console.log(req.body);
         const response = await Item.create(req.body);
+        // const images = req.files; // Récupération des fichiers images depuis la requête
+        // const pathImgExtrated = images.reduce((acc, file, index) => { // Création d'un objet contenant les chemins des images uploadées. Utilisation de reduce pour transformer le tableau d'images en objet
+        //     if(acc[`img`]) acc[`img${index}`] = `/uploads/${file.filename}`; // Si une image principale existe déjà, on ajoute les suivantes avec un index
+        //     else acc[`img`] = `/uploads/${file.filename}`; // Sinon, on crée l'image principale
+        //     return acc;
+        //     }, {});
+        
+        // const article = await Item.create({...req.body, picture: pathImgExtrated });
 
         res.status(201).json({Message: "Item créé avec succès.", response});
 

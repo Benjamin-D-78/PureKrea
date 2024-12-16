@@ -1,12 +1,24 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from './pages/home';
+import NotFound from './components/NotFound';
+import Boutique from './pages/Boutique/Boutique';
+import Details from './pages/Details/Detail';
+
+import Dashboard from './pages/Dashboard/Dashboard';
+import Items from './pages/Dashboard/Items';
+import Utilisateurs from './pages/Dashboard/Utilisateurs';
 
 function App() {
   return (
     <Routes>
-      <Route index element={<Home/>}/>
+      <Route index element={<Boutique/>}/>
+      <Route path='/details/:id' element={<Details/>}/>
+      <Route path='*' element={<NotFound/>}/>
+      <Route path='/dashboard' element={<Dashboard/>}>
+          <Route path='/dashboard/items' element={<Items/>}/>
+          <Route path='/dashboard/utilisateurs' element={<Utilisateurs/>}/>
+      </Route>
     </Routes>
   );
 }
