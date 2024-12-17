@@ -6,7 +6,7 @@ const itemSchema = mongoose.Schema({
     color: {type: String, required: true},
     content: {type: String, required: true},
     detail: {type: String, required: true},
-    category: {type: String, required: true},
+    category: {type: Number, required: true},
     stock: {type: Number, required: false},
     price: {type: Number, required: true},
     picture: {
