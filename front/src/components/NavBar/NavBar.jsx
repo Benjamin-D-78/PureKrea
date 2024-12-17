@@ -1,36 +1,49 @@
 import React from 'react'
 import { useState } from 'react'
 import { NavLink } from "react-router-dom"
-import style from "./navbar.module.css"
+import navbar from "./navbar.module.css"
 import logo from "../../images/NavBar/logo.png"
-// import hamburger from "../images/NavBar/hamburger.jpg"
-// import close from "../images/NavBar/close.jpg"
+import hamburger from "../../images/NavBar/hamburger.svg"
+import close from "../../images/NavBar/close.svg"
 
 export default function NavBar() {
 
     const [montrerMenu, setMontrerMenu] = useState(false)
 
     return (
-        <header>
-            <nav className={style.nav}>
-                <ul className={style.ul}>
-                    <li>
-                        <NavLink className={style.a} to="/"><img className={style.img} src={logo} alt="Logo 'PureKréNavLink'" /></NavLink>
-                    </li>
-                    <li>
-                        <NavLink className={style.a} to="/nousconnaitre">Nous connaître</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className={style.a} to="/boutique">Boutique</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className={style.a} to="/rendez-vous">Prendre rendez-vous</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className={style.a} to="/contact">Contact</NavLink>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        <div>
+            <header>
+                <nav className={navbar.nav}>
+                    <div className={navbar.divImage}>
+                        <NavLink to="/"><img className={navbar.img} src={logo} alt="Logo 'PureKréNavLink'" />
+                        </NavLink>
+                    </div>
+                    <div className={`${montrerMenu ? navbar.montre : navbar.cache}`}>
+                        <ul className={navbar.ul}>
+                            <li>
+                            </li>
+                            <li>
+                                <NavLink className={navbar.a} to="/nousconnaitre">Nous connaître</NavLink>
+                            </li>
+                            <li>
+                                <NavLink className={navbar.a} to="/boutique">Boutique</NavLink>
+                            </li>
+                            <li>
+                                <NavLink className={navbar.a} to="/rendez-vous">Prendre rendez-vous</NavLink>
+                            </li>
+                            <li>
+                                <NavLink className={navbar.a} to="/contact">Contact</NavLink>
+                            </li>
+                        </ul>
+                    </div>
+                    <img 
+                        onClick={() => setMontrerMenu(!montrerMenu)}
+                        className={`${montrerMenu ? navbar.menuClose : navbar.menuBurger}`}
+                        src={montrerMenu ? close : hamburger}
+                        alt="Menu Hamburger" />
+                </nav>
+            </header>
+            <hr className={navbar.hr} />
+        </div>
     )
 }

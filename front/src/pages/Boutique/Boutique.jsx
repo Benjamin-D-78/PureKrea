@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import { Link } from "react-router-dom";
+import boutique from "./boutique.module.css"
 
 const Boutique = () => {
 
@@ -13,7 +14,6 @@ const Boutique = () => {
             try {
                 const response = await fetch("http://localhost:8000/api/item/all");
                 const data = await response.json();
-                console.log(data)
                 
                 setArticle(data);
             } catch {
@@ -28,7 +28,7 @@ const Boutique = () => {
     return(
         <div>
             <NavBar/> 
-            <h1>Bienvenu sur ma page d'accueil</h1>
+            <h1 className={boutique.h1}>Liste des items</h1>
             {article.map((item) => (
                 <div key={item._id}>
                     <Link to={{pathname: `/details/${item._id}`}}>

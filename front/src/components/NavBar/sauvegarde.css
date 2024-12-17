@@ -1,0 +1,33 @@
+/* *{margin: 0} */
+.nav{
+    background-image: url("../../images/NavBar/fond_NavBar.jpg");}
+
+header{
+    width: 100%;
+    position: fixed;
+    top: -1px;}
+
+.hr{
+    margin-top: 4rem;
+    border: none;}
+
+.a{
+    color: white;
+    text-decoration: none;}
+
+li{
+    margin: 5px 0 5px 0;
+    list-style-type: none;}
+
+
+.divImage{height: 5rem;}
+.img{
+    height: 100%;}
+
+.ul{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-decoration: none;
+    margin: 0}

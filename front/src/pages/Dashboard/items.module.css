@@ -1,0 +1,49 @@
+.formulaire{
+    width: 100%;
+    margin: auto;
+    display:flex;
+    justify-content: center;}
+
+.h1{
+    text-align: center;
+    font-size: 23px;}
+
+.div1, .div2{
+    width: 40%;
+    background-color: #265E92;
+    padding: 10px;}
+
+.div1{border-radius: 10px 0 0 10px;}
+.div2{border-radius: 0 10px 10px 0;}
+
+    .div1 label, .div2 label{
+        display: inline-block;
+        width: 35%;
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        color: white;}
+
+    .inputItem{
+        width: 15rem;}
+
+.checkItem{margin-top: 2rem;}
+.boutonItem{
+    display: block;
+    width: 35%;
+    height: 2rem;
+    margin-top: 1rem;
+    border-radius: 5rem;
+    box-shadow: 3px 3px 3px;
+    background-color: white;}
+
+/* EFFETS */
+.inputItem:hover{
+    border-color: black;}
+
+.boutonItem:hover{
+    font-weight:600;}
+.boutonItem:focus{
+    box-shadow: 1px 1px 2px;
+    font-weight:600;
+    background-color: #FCF7FF;}
