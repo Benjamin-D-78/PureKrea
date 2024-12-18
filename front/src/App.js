@@ -8,6 +8,7 @@ import Details from './pages/Details/Detail';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Items from './pages/Dashboard/Items';
 import Utilisateurs from './pages/Dashboard/Utilisateurs';
+import UpdateItems from './pages/Dashboard/UpdateItems';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path='/dashboard' element={<Dashboard/>}>
           <Route path='/dashboard/items' element={<Items/>}/>
           <Route path='/dashboard/utilisateurs' element={<Utilisateurs/>}/>
+          <Route path='/dashboard/update/:id' element={<UpdateItems/>}/>
       </Route>
     </Routes>
   );

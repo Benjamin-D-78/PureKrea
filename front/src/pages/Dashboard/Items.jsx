@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
 import items from "./items.module.css"
-import Boutique from '../Boutique/Boutique'
+import BoutiqueDashboard from './BoutiqueDashboard'
 
 const AjoutItem = () => {
 
@@ -14,24 +14,18 @@ const AjoutItem = () => {
     content: "",
     detail: "",
     category: "",
-    stock: "",
+    stock: 0,
     price: "",
-    picture: {
-      img: "",
-      img2: "",
-      img3: "",
-      img4: ""
-    },
+    img: [],
     status: true,
   })
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, files } = event.target;
     if (name.startsWith("img")) { // On vérifie que la chaîne de caractère commence bien par "img"
       setItem(prev => ({
-        ...prev, picture: { // On passe la valeur actuelle de l'état avant la MAJ
-          ...prev.picture, [name]: value
-        }
+        ...prev, // Garde toutes les propriétés précédentes
+        img: files ? [...prev.img, files[0]] : prev.img, // Si des fichiers sont sélectionnés, ajoute le premier fichier au tableau d'images. Sinon, on conserve le tableau d'images existant
       }));
     } else {
       setItem(prev => ({ ...prev, [name]: value }))
@@ -40,8 +34,23 @@ const AjoutItem = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData(); // Création d'un objet FormData pour envoyer des données multipart/form-data. Permet l'envoi de fichiers et de données textuelles
+    // Ajout des champs du formulaire dans FormData
+    formData.append("name", item.name);
+    formData.append("width", parseFloat(item.width));
+    formData.append("color", item.color);
+    formData.append("content", item.content);
+    formData.append("detail", item.detail);
+    formData.append("category", parseInt(item.category));
+    formData.append("stock", parseInt(item.stock));
+    formData.append("price", parseInt(item.price)); // parseInt permet de faire une conversion des valeurs numériques en entiers
+    item.img.forEach((image) => {
+    formData.append("img", image); // Parcours du tableau d'images et ajout de chaque image dans FormData. Le nom 'img' doit correspondre au champ attendu par Multer côté serveur
+    });
+    formData.append("status", item.status);
     try {
-      const response = await axios.post("http://localhost:8000/api/item/creation", item)
+      const response = await axios.post("http://localhost:8000/api/item/creation",formData,
+        {headers: {"Content-Type": "multipart/form-data",},}) // Headers spécifiques pour l'envoi de fichiers
       console.log(response)
     } catch (error) {
       console.error("Echec de la création de l'article : ", error.message)
@@ -57,6 +66,7 @@ const AjoutItem = () => {
           <label htmlFor="name"> Nom de l'item :</label>
           <input
             className={items.inputItem}
+            id='name'
             type="text"
             name='name'
             required
@@ -64,6 +74,7 @@ const AjoutItem = () => {
           <label htmlFor="width"> Largeur :</label>
           <input
             className={items.inputItem}
+            id='width'
             type="number"
             name='width'
             required
@@ -71,6 +82,7 @@ const AjoutItem = () => {
           <label htmlFor="color"> Couleur :</label>
           <input
             className={items.inputItem}
+            id='color'
             type="text"
             name='color'
             required
@@ -78,6 +90,7 @@ const AjoutItem = () => {
           <label htmlFor="content"> Autre(s) couleur(s) :</label>
           <input
             className={items.inputItem}
+            id='content'
             type="text"
             name='content'
             required
@@ -85,6 +98,7 @@ const AjoutItem = () => {
           <label htmlFor="detail"> Motifs :</label>
           <input
             className={items.inputItem}
+            id='detail'
             type="text"
             name='detail'
             required
@@ -92,6 +106,7 @@ const AjoutItem = () => {
           <label htmlFor="category"> Collection :</label>
           <input
             className={items.inputItem}
+            id='category'
             type="number"
             name='category'
             required
@@ -99,6 +114,7 @@ const AjoutItem = () => {
           <label htmlFor="stock"> Stock :</label>
           <input
             className={items.inputItem}
+            id='stock'
             type="number"
             name='stock'
             required
@@ -106,6 +122,7 @@ const AjoutItem = () => {
           <label htmlFor="price"> Prix :</label>
           <input
             className={items.inputItem}
+            id='price'
             type="number"
             name='price'
             required
@@ -114,13 +131,15 @@ const AjoutItem = () => {
 
         <div className={items.div2}>
           {images.map((imgName, index) => (
-          <div key={imgName}>
-              <label>
-                {index === 0 ? "Image principale : " : `Image ${index}`}
+          <div key={index}>
+              <label
+                htmlFor={`image${index}`}>
+                {index === 0 ? "Image principale : " : `Image ${index+1}`}
               </label>
               <input
                 className={items.inputItem}
-                type="text"
+                id={`image${index}`}
+                type="file"
                 name={imgName}
                 placeholder={`Image ${imgName.slice(-1)}`}
                 onChange={handleChange} />
@@ -130,6 +149,7 @@ const AjoutItem = () => {
           <label htmlFor="status">En ligne : </label>
           <input
             className={items.checkItem}
+            id='status'
             type="checkbox"
             name='status'
             required
@@ -140,7 +160,7 @@ const AjoutItem = () => {
       </div>
       </section>
       </form>
-      <Boutique/>
+      <BoutiqueDashboard/>
     </div>
   )
 }

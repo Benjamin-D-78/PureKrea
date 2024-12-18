@@ -5,22 +5,22 @@ import boutique from "./boutique.module.css"
 
 const Boutique = () => {
 
-    const [article, setArticle] = useState([])
+    const [items, setItems] = useState([])
     const [error, setError] = useState(null)
 
     
     useEffect(() => {
-        const fetchArticle = async () => {
+        const fetchItems = async () => {
             try {
                 const response = await fetch("http://localhost:8000/api/item/all");
                 const data = await response.json();
                 
-                setArticle(data);
+                setItems(data);
             } catch {
                 setError(error.message);
             }
         };
-        fetchArticle();
+        fetchItems();
     }, []);
 
     if(error) return <> <p>{error}</p> </>
@@ -28,8 +28,8 @@ const Boutique = () => {
     return(
         <div>
             <NavBar/> 
-            <h1 className={boutique.h1}>Liste des items</h1>
-            {article.map((item) => (
+            <h1 className={boutique.h1}>Toutes nos cravates</h1>
+            {items.map((item) => (
                 <div key={item._id}>
                     <Link to={{pathname: `/details/${item._id}`}}>
                     <p>{item.name}</p>

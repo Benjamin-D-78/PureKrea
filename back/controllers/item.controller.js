@@ -3,20 +3,24 @@ import Item from "../models/item.model.js";
 // CREATION ITEM
 export const creationItem = async (req, res) => {
     try {
-        const response = await Item.create(req.body);
-        // const images = req.files; // Récupération des fichiers images depuis la requête
-        // const pathImgExtrated = images.reduce((acc, file, index) => { // Création d'un objet contenant les chemins des images uploadées. Utilisation de reduce pour transformer le tableau d'images en objet
-        //     if(acc[`img`]) acc[`img${index}`] = `/uploads/${file.filename}`; // Si une image principale existe déjà, on ajoute les suivantes avec un index
-        //     else acc[`img`] = `/uploads/${file.filename}`; // Sinon, on crée l'image principale
-        //     return acc;
-        //     }, {});
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ Message: "Aucune image a été chargée." });
+        }
+        const { body } = req;
         
-        // const article = await Item.create({...req.body, picture: pathImgExtrated });
+        const images = req.files;
+        const extractionImages = images.reduce((acc, file, index) => {
+            acc[`img${index === 0 ? '' : index}`] = `/uploads/${file.filename}`;
+            return acc;
+        }, {});
 
-        res.status(201).json({Message: "Item créé avec succès.", response});
+        const itemData = { ...body, picture: extractionImages };
+        const response = await Item.create(itemData);
+        res.status(201).json({ Message: "Item créé avec succès.", response });
 
     } catch (error) {
-        res.status(500).json({Message: "Echec lors de création de l'item.", error});
+        console.error(error);        
+        res.status(500).json({ Message: "Échec lors de création de l'item.", error});
     }
 };
 
