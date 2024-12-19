@@ -1,0 +1,42 @@
+.divContainer{
+    width: 17.5rem;
+    height: 27rem;
+    background-color: #265E92;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;}
+
+.divInscription{
+    width: 100%;
+}
+
+.labelInscription{
+    display: block;
+    margin-left: 3rem;
+    color: white;}
+span{color: red}
+
+.inputInscription{
+    display: block;
+    width: 70%;
+    height: 1.7rem;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 15px;}
+
+.submitInscription{
+    display: block;
+    margin: 0 auto;
+    margin-top: 2rem;
+    font-weight: 600;
+    font-size: 18px;
+    background-color: #C6E60F;
+    border-radius: 5px;}
+
+.connexion{
+    display: block;
+    list-style-type: none;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}

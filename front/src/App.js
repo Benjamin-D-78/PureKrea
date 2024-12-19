@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import NotFound from './components/NotFound';
 import Boutique from './pages/Boutique/Boutique';
 import Details from './pages/Details/Detail';
+import Inscription from './pages/Utilisateurs/Inscription';
+import Connexion from './pages/Utilisateurs/Connexion';
 
 import Dashboard from './pages/Dashboard/Dashboard';
 import Items from './pages/Dashboard/Items';
@@ -15,6 +17,8 @@ function App() {
     <Routes>
       <Route index element={<Boutique/>}/>
       <Route path='/details/:id' element={<Details/>}/>
+      <Route path='/inscription' element={<Inscription/>}/>
+      <Route path='/connexion' element={<Connexion/>}/>
       <Route path='*' element={<NotFound/>}/>
       <Route path='/dashboard' element={<Dashboard/>}>
           <Route path='/dashboard/items' element={<Items/>}/>
