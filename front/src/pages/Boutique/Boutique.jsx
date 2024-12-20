@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
 import { Link } from "react-router-dom";
 import boutique from "./boutique.module.css"
 import axios from "axios";
@@ -47,6 +48,7 @@ const Boutique = () => {
                     <p>Couleur : {item.color}</p>
                 </div>
             ))}
+            <Footer/>
         </div>
     );
 };

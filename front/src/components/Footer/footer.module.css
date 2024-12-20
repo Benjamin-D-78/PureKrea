@@ -1,0 +1,80 @@
+*, ::before, ::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;}
+
+/* Début gros blocs principaux */
+.footerGlobal{
+    width: 100%;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;}
+
+footer{
+    width: 100%;
+    margin: auto;
+    margin-top: auto;
+    color: white;}
+
+.footerContient{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    }
+/* Fin gros blocs principaux */
+
+
+/* Bloc Gauche */
+ .gauche{
+    margin: 0;
+    padding: 0;
+    /* width: 100%;
+    background-color: #193E61;
+    flex-basis: 30%;
+    padding: 10px 20px;
+    text-align: center; */
+}
+
+   .pGauche, .pCentre{
+        text-align: center;
+        background-color: #193E61;
+        font-family: 'Marko One', Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        margin-bottom: 1rem;}
+    
+    .contientReseaux{
+        width: 100%;
+        background-color: #FCF7FF;}
+
+    /* Linkedin et GitHub */
+    .lg{
+        display: inline-block;
+        margin: 0 10px;
+        width: 3rem;
+        text-align: center;
+        /* line-height: 50px; */
+    }
+
+/* .gcdContient{
+    margin: 20px 0 0 0;
+    text-align: center; */
+
+
+
+/* Bloc Centre */
+.boxCentre{
+    background-color: #FCF7FF;
+    flex-basis: 40%;
+    padding: 10px 20px;
+    text-align: center;}
+
+
+/* Bloc Droite */
+.droite{
+    background-color: #193E61;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+}
