@@ -20,18 +20,16 @@ export default function NavBar() {
                     </div>
                     <div className={`${montrerMenu ? navbar.montre : navbar.cache}`}>
                         <ul className={navbar.ul}>
-                            <li>
-                            </li>
-                            <li>
+                            <li className={navbar.navbarLI}>
                                 <NavLink className={navbar.a} to="/nousconnaitre">Nous connaître</NavLink>
                             </li>
-                            <li>
+                            <li className={navbar.navbarLI}>
                                 <NavLink className={navbar.a} to="/boutique">Boutique</NavLink>
                             </li>
-                            <li>
+                            <li className={navbar.navbarLI}>
                                 <NavLink className={navbar.a} to="/rendez-vous">Prendre rendez-vous</NavLink>
                             </li>
-                            <li>
+                            <li className={navbar.navbarLI}>
                                 <NavLink className={navbar.a} to="/contact">Contact</NavLink>
                             </li>
                         </ul>

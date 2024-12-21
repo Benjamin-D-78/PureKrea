@@ -3,78 +3,136 @@
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;}
-
+    
+    
 /* Début gros blocs principaux */
-.footerGlobal{
-    width: 100%;
-    background-color: yellow;
-    display: flex;
-    justify-content: center;
-    align-items: center;}
-
 footer{
     width: 100%;
-    margin: auto;
-    margin-top: auto;
-    color: white;}
-
-.footerContient{
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
-    }
-/* Fin gros blocs principaux */
+    margin-top: auto;
+    background-color: #FCF7FF;}
 
 
 /* Bloc Gauche */
- .gauche{
-    margin: 0;
-    padding: 0;
-    /* width: 100%;
-    background-color: #193E61;
-    flex-basis: 30%;
-    padding: 10px 20px;
-    text-align: center; */
+.gauche{
+    width: 100%;
 }
 
    .pGauche, .pCentre{
+        height: 3rem;
+        line-height: 3rem;
         text-align: center;
         background-color: #193E61;
+        color: white;
         font-family: 'Marko One', Arial, Helvetica, sans-serif;
-        font-size: 20px;
+        font-size: 21px;
         margin-bottom: 1rem;}
     
     .contientReseaux{
         width: 100%;
-        background-color: #FCF7FF;}
+        height: 7rem;
+        background-color: #FCF7FF;
+        display: inline-block;
+        text-align: center;}
 
     /* Linkedin et GitHub */
     .lg{
-        display: inline-block;
         margin: 0 10px;
-        width: 3rem;
-        text-align: center;
-        /* line-height: 50px; */
-    }
-
-/* .gcdContient{
-    margin: 20px 0 0 0;
-    text-align: center; */
-
+        width: 3rem;}
 
 
 /* Bloc Centre */
-.boxCentre{
-    background-color: #FCF7FF;
-    flex-basis: 40%;
-    padding: 10px 20px;
-    text-align: center;}
+.centre{
+    width: 100%;}
 
+    .divTexteNewsletter{
+        background-color: #FCF7FF;
+        text-align: center;
+        padding: 0 1rem 1rem 1rem;}
+
+    .divFormNewsletterH, .divFormNewsletterB{
+        background-color: #FCF7FF;
+        width: 100%;
+        display: inline-block;
+        text-align: center;}
+
+    .inputFormNewsletterH, .inputFormNewsletterB{
+        width: 6rem;
+        margin: 10px;}
+    
+    .inputFormNewsletterB{margin-bottom: 2rem;}
 
 /* Bloc Droite */
 .droite{
+    width: 100%;
     background-color: #193E61;
     color: white;
-    text-align: center;
-    font-size: 12px;
+    font-size: 12px;}
+
+    .texteH, .texteB{
+        margin: 1rem 0 1rem 0;
+        font-family: 'Linden Hill', Arial, Helvetica, sans-serif;
+        text-align: center;}
+
+    .footerLI{
+        text-align: center;
+        margin: 3px 0 3px 0;
+        list-style-type: none;}
+    .footerA{
+        color: white;
+        font-family: 'Linden Hill', Arial, Helvetica, sans-serif;}
+
+
+
+/* MediaQuery */
+@media screen and (min-width: 900px) {
+    /* Gros bloc principal */
+    footer{
+        background-color: #193E61;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items:flex-start;
+        flex-wrap: wrap;
+        flex-direction: row;
+        margin-top: auto;}
+
+    /* Bloc gauche */
+    .gauche{
+        flex-basis: 25%;}
+
+        .contientReseaux{
+            background-color: #193E61;}
+
+    /* Bloc centre */
+    .centre{
+        flex-basis: 45%;
+        text-align: center;
+        background-color: #FCF7FF;
+        flex-wrap: nowrap;}
+
+        .divFormNewsletterH{
+            width: 40%;
+            display: inline;
+            text-align: center;}
+
+        .divFormNewsletterB{
+            display: inline;
+            width: 50%;
+            margin-bottom: 0;}
+
+        .inputFormNewsletterH, .inputFormNewsletterB{
+            width: 5rem;
+            margin: 6px;}
+
+    /* Bloc droite */
+    .droite{
+        flex-basis: 30%;
+        padding-left: 2rem;
+        justify-content: center;
+        align-items: center;}
 }
