@@ -1,6 +1,7 @@
 import NavBar from "../../components/NavBar/NavBar";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Footer from "../../components/Footer/Footer";
 
 const Details = () => {
 
@@ -34,7 +35,7 @@ const Details = () => {
         <p>Stock : {item.stock}</p>
         <p>Prix: {item.price}</p>
         <p>Disponible: {item.status}</p>
-
+        <Footer/>
         </>
     );
 };
