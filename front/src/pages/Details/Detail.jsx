@@ -1,7 +1,7 @@
 import NavBar from "../../components/NavBar/NavBar";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/Footer/footer";
 
 const Details = () => {
 

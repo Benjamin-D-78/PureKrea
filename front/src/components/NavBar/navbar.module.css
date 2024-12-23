@@ -11,37 +11,38 @@ header{
     background-image: url("../../images/NavBar/fond_NavBar.jpg");}
 
 .ul{
-    display: flex;}
+    display: flex;
+    font-size: 1.5rem;}
 
 .navbarLI{
-    margin: 5px 20px 5px 20px;
+    margin: 0.5rem 2rem 2rem 2rem;
     list-style-type: none;}
 
 .hr{
-    margin-top: 5rem;
+    margin-top: 7rem;
     border: none;}
     
 .a{
     color: white;
     text-decoration: none;}        
         
-.divImage{height: 5rem;}
+.divImage{height: 7rem;}
 .img{
     height: 100%;}
 
 .menuBurger{
     display: none;
     position: absolute;
-    width: 25px;
-    top: 30px;
-    right: 50px;}
+    width: 2.5rem;
+    top: 2.5rem;
+    right: 5rem;}
 
 .menuClose{
     display: none;
     position: absolute;
-    width: 25px;
-    top: 30px;
-    right: 50px;}
+    width: 2.5rem;
+    top: 2.5rem;
+    right: 5rem;}
 
 
 /* EFFETS */
@@ -51,7 +52,7 @@ header{
 
 
 /* MEDIAQUERIES */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 768px) {
     .menuBurger{
         display: block;}
     .menuClose{
@@ -63,7 +64,7 @@ header{
         background-color: #FCF7FF;
         width: 100%;
         position: absolute;
-        top: 5rem;
+        top: 7rem;
         display: flex;
         justify-content: center;}
     .ul{

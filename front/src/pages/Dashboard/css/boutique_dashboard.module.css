@@ -1,6 +1,6 @@
 .h1{
     text-align: center;
-    font-size: 23px;}
+    font-size: 2rem}
 
 .thButton{display: flex;}
 .refreshItems{
@@ -13,24 +13,25 @@
 .tableItem{
     text-align: center;
     margin: auto;
-    border: outset 5px #265E92;}
+    border: outset 0.5rem #265E92;}
 
 .enteteItem{
     background-color: #265E92;
+    font-size: 1.3rem;
     color: white;}
 
 .autresTD{
     border: inset 1px;
     /* margin: 30px 0 30px; */
-    width: 5rem;}
+    width: 8rem;}
 
     .imagesTD, .boutonsTD{
         border: inset 1px}
 
 .divImage{
     display: inline-block;
-    width:50px;
-    height: 70px;}
+    width: 5rem;
+    height: 7rem;}
 
 .imgImage{
     width: 100%;

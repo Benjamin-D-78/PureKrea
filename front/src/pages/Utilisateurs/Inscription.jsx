@@ -2,7 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
 import NavBar from "../../components/NavBar/NavBar"
-import inscription from "./inscription.module.css"
+import Footer from '../../components/Footer/footer'
+import coin from "./coin.module.css"
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
@@ -35,51 +36,57 @@ const Inscription = () => {
     }
 
     return (
-        <><NavBar />
-
-            <div className={inscription.divContainer}>
-                <div className={inscription.divInscription}>
-                    <form className={inscription.formInscription} onSubmit={handleSubmit}>
-                        <label className={inscription.labelInscription} htmlFor="firstname">Nom : <span>*</span></label>
+        <>
+        <NavBar />
+            <div className={coin.divContainerIn}>
+                <div className={coin.boxIn1}>
+                <div className={coin.formIn}>
+                    <h1 className={coin.titreCoIn}>Inscription</h1>
+                    <form onSubmit={handleSubmit}>
+                        <label className={coin.labelCoIn} htmlFor="firstname">Nom : <span>*</span></label>
                         <input
-                            className={inscription.inputInscription}
+                            className={coin.inputCoIn}
                             type="text"
                             name='firstname'
                             id='firstname'
                             onChange={handleChange} />
-                        <label className={inscription.labelInscription} htmlFor="lastname">Prénom : <span>*</span></label>
+                        <label className={coin.labelCoIn} htmlFor="lastname">Prénom : <span>*</span></label>
                         <input
-                            className={inscription.inputInscription}
+                            className={coin.inputCoIn}
                             type="text"
                             name='lastname'
                             id='lastname'
                             onChange={handleChange} />
-                        <label className={inscription.labelInscription} htmlFor="email">E-mail : <span>*</span></label>
+                        <label className={coin.labelCoIn} htmlFor="email">E-mail : <span>*</span></label>
                         <input
-                            className={inscription.inputInscription}
+                            className={coin.inputCoIn}
                             type="text"
                             name='email'
                             id='email'
                             onChange={handleChange} />
-                        <label className={inscription.labelInscription} htmlFor="password">Mot de passe : <span>*</span></label>
+                        <label className={coin.labelCoIn} htmlFor="password">Mot de passe : <span>*</span></label>
                         <input
-                            className={inscription.inputInscription}
+                            className={coin.inputCoIn}
                             type="password"
                             name='password'
                             id='password'
                             onChange={handleChange} />
-                        <label className={inscription.labelInscription} htmlFor="repeatPassword">Répétez le mot de passe : <span>*</span></label>
+                        <label className={coin.labelCoIn} htmlFor="repeatPassword">Répétez le mot de passe : <span>*</span></label>
                         <input
-                            className={inscription.inputInscription}
+                            className={coin.inputCoIn}
                             type="password"
                             name='repeatPassword'
                             id='repeatPassword'
                             onChange={handleChange} />
 
-                        <button className={inscription.submitInscription}>M'inscrire</button>
-                        <Link className={inscription.connexion} to="/connexion">Déjà inscrit ?</Link>
+                        <button className={coin.submitCoIn}>M'inscrire</button>
+                        <Link className={coin.connexion} to="/connexion">Déjà inscrit ?</Link>
                     </form>
                 </div>
+                </div>
+                <div className={coin.boxCoIn2}>
+                    <Footer />
+                    </div>
             </div>
         </>
     )

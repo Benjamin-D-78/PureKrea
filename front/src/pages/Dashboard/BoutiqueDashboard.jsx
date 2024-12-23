@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar.jsx";
-import boutique_dashboard from "./boutique_dashboard.module.css"
+import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
 import { Link } from "react-router-dom";
 

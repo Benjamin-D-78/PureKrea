@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
-import items from "./items.module.css"
+import items from "./css/items.module.css"
 import BoutiqueDashboard from './BoutiqueDashboard'
 
 const AjoutItem = () => {

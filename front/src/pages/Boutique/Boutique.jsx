@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NavBar from "../../components/NavBar/NavBar.jsx";
-import Footer from "../../components/Footer/Footer.jsx";
+import Footer from "../../components/Footer/footer.jsx";
 import { Link } from "react-router-dom";
 import boutique from "./boutique.module.css"
 import axios from "axios";
@@ -16,12 +16,13 @@ const Boutique = () => {
 
     const dispatch = useDispatch();
     const store = useSelector(state => state.itemReducer.data)
-    
+
     useEffect(() => {
         const depart = async () => {
             dispatch(Actions.ITEM_DEPART())
             try {
-                const {data, status} = await axios.get("http://localhost:8000/api/item/all");
+                const { data, status } = await axios.get("http://localhost:8000/api/item/all");
+                console.log(data)
                 dispatch(Actions.ITEM_ARRIVE(data));
                 setItems(data);
             } catch (error) {
@@ -32,24 +33,45 @@ const Boutique = () => {
         depart();
     }, []);
 
-    if(error) return <> <p>{error}</p> </>
+    if (error) return <> <p>{error}</p> </>
 
-    return(
+    return (
         <div>
-            <NavBar/> 
+            <NavBar />
             <h1 className={boutique.h1}>Toutes nos cravates</h1>
             {store && store.map(item => (
                 <div key={item._id}>
-                    <Link to={{pathname: `/details/${item._id}`}}>
-                    <p>{item.name}</p>
+                    <Link to={{ pathname: `/details/${item._id}` }}>
+                        <p>{item.name}</p>
                     </Link>
+                    <img src={`http://localhost:8000${item.picture.img}`} alt={item.name} width={100} />
                     <p>Prix : {item.price}€</p>
                     <p>Largeur : {item.width}cm</p>
                     <p>Couleur : {item.color}</p>
                 </div>
             ))}
-            <Footer/>
+
+            <Footer />
+
         </div>
+
+
+        // <div>
+        //     <NavBar/>
+        //     <h1 className={boutique.h1}>Toutes nos cravates</h1>
+        //     {store && store.map(item => (
+        //         <div key={item._id}>
+        //             <Link to={{pathname: `/details/${item._id}`}}>
+        //             <p>{item.name}</p>
+        //             </Link>
+        //             <img src={`http://localhost:8000${item.picture.img}`} alt={item.name} width={100}/>
+        //             <p>Prix : {item.price}€</p>
+        //             <p>Largeur : {item.width}cm</p>
+        //             <p>Couleur : {item.color}</p>
+        //         </div>
+        //     ))}
+        //     <Footer/>
+        // </div>
     );
 };
 

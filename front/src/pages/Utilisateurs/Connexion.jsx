@@ -3,6 +3,8 @@ import { useState, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 import NavBar from '../../components/NavBar/NavBar'
+import Footer from '../../components/Footer/footer'
+import coin from "./coin.module.css"
 
 const Connexion = () => {
 
@@ -20,28 +22,37 @@ const Connexion = () => {
   }
 
   return (
-    <div>
+    <>
       <NavBar />
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">E-mail <span>*</span></label>
-          <input
-            type="email"
-            name='email'
-            id='email'
-            onChange={handleChange} />
-          <label htmlFor="password">Mot de passe <span>*</span></label>
-          <input
-            type="password"
-            name='password'
-            id='password'
-            onChange={handleChange} />
-
-          <button>Me connecter</button>
-          <Link to="/inscription">Pas encore inscrit ?</Link>
-        </form>
+      <div className={coin.divContainerCo}>
+        <div className={coin.boxCo1}>
+          <div className={coin.formCo}>
+            <h1 className={coin.titreCoIn}>Connexion</h1>
+            <form onSubmit={handleSubmit}>
+              <label className={coin.labelCoIn} htmlFor="email">E-mail <span>*</span></label>
+              <input
+                type="email"
+                name='email'
+                id='email'
+                className={coin.inputCoIn}
+                onChange={handleChange} />
+              <label className={coin.labelCoIn} htmlFor="password">Mot de passe <span>*</span></label>
+              <input
+                type="password"
+                name='password'
+                id='password'
+                className={coin.inputCoIn}
+                onChange={handleChange} />
+              <button className={coin.submitCoIn}>Me connecter</button>
+              <Link className={coin.inscription} to="/inscription">Pas encore inscrit ?</Link>
+            </form>
+          </div>
+        </div>
+        <div className={coin.boxCoIn2}>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

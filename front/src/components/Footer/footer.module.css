@@ -23,13 +23,13 @@ footer{
 }
 
    .pGauche, .pCentre{
-        height: 3rem;
-        line-height: 3rem;
+        height: 4rem;
+        line-height: 4rem;
         text-align: center;
         background-color: #193E61;
         color: white;
         font-family: 'Marko One', Arial, Helvetica, sans-serif;
-        font-size: 21px;
+        font-size: 2rem;
         margin-bottom: 1rem;}
     
     .contientReseaux{
@@ -42,7 +42,7 @@ footer{
     /* Linkedin et GitHub */
     .lg{
         margin: 0 10px;
-        width: 3rem;}
+        width: 4.5rem;}
 
 
 /* Bloc Centre */
@@ -52,7 +52,7 @@ footer{
     .divTexteNewsletter{
         background-color: #FCF7FF;
         text-align: center;
-        padding: 0 1rem 1rem 1rem;}
+        padding: 0 1.5rem 1.5rem 1.5rem;}
 
     .divFormNewsletterH, .divFormNewsletterB{
         background-color: #FCF7FF;
@@ -61,8 +61,8 @@ footer{
         text-align: center;}
 
     .inputFormNewsletterH, .inputFormNewsletterB{
-        width: 6rem;
-        margin: 10px;}
+        width: 8rem;
+        margin: 1rem;}
     
     .inputFormNewsletterB{margin-bottom: 2rem;}
 
@@ -71,7 +71,7 @@ footer{
     width: 100%;
     background-color: #193E61;
     color: white;
-    font-size: 12px;}
+    font-size: 1.1rem;}
 
     .texteH, .texteB{
         margin: 1rem 0 1rem 0;
@@ -80,7 +80,7 @@ footer{
 
     .footerLI{
         text-align: center;
-        margin: 3px 0 3px 0;
+        margin: 0.4rem 0 0.4rem 0;
         list-style-type: none;}
     .footerA{
         color: white;
@@ -89,7 +89,7 @@ footer{
 
 
 /* MediaQuery */
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 768px) {
     /* Gros bloc principal */
     footer{
         background-color: #193E61;
@@ -126,8 +126,8 @@ footer{
             margin-bottom: 0;}
 
         .inputFormNewsletterH, .inputFormNewsletterB{
-            width: 5rem;
-            margin: 6px;}
+            width: 8rem;
+            margin: 0.6rem;}
 
     /* Bloc droite */
     .droite{
