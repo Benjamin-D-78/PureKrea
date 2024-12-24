@@ -1,14 +1,20 @@
+import React from "react";
 import { useState, useEffect } from "react";
-import NavBar from "../../components/NavBar/NavBar.jsx";
 import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
 import { Link } from "react-router-dom";
 
+// ACTIONS :
+import { useDispatch, useSelector } from "react-redux";
+import * as Actions from "../../redux/reducers/item.reducer"
 
-const BoutiqueDashboard = () => {
+const Items = () => {
 
     const [items, setItems] = useState([])
     const [error, setError] = useState(null)
+
+    const dispatch = useDispatch();
+    const store = useSelector(state => state.itemReducer.data)
 
     const deleteItem = async (id) => {
         try {
@@ -24,21 +30,23 @@ const BoutiqueDashboard = () => {
     };
 
 
-        const allItems = async () => {
+        const depart = async () => {
+            dispatch(Actions.ITEM_DEPART())
             try {
-                const response = await axios.get("http://localhost:8000/api/item/all");
-                setItems(response.data);
-            } catch {
+                const { data, status } = await axios.get("http://localhost:8000/api/item/all");
+                console.log(data);
+                dispatch(Actions.ITEM_ARRIVE(data));
+                setItems(data);
+            } catch (error) {
                 setError(error.message);
             }
         };
-        useEffect(() => {allItems()}, []);
+        useEffect(() => {depart()}, []);
 
     if (error) return <> <p>{error}</p> </>;
 
     return (
         <div>
-            <NavBar />
             <h1 className={boutique_dashboard.h1}>Liste des items</h1>
             
             <table className={boutique_dashboard.tableItem}>
@@ -53,7 +61,7 @@ const BoutiqueDashboard = () => {
                         <th>Stock</th>
                         <th>Prix</th>
                         <th>Images</th>
-                        <th className={boutique_dashboard.thButton}><button className={boutique_dashboard.refreshItems} onClick={allItems}>Raffraîchir</button></th>
+                        <th className={boutique_dashboard.thButton}><button className={boutique_dashboard.refreshItems} onClick={depart}>Raffraîchir</button></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,4 +96,4 @@ const BoutiqueDashboard = () => {
     );
 };
 
-export default BoutiqueDashboard;
+export default Items;

@@ -1,75 +1,104 @@
+*, ::before, ::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;}
+
+/* Container global */
 header{
     width: 100%;
     position: fixed;
+    z-index: 10;
     top: -1px;}
-  
+/* Fin container globaux */
+
 .nav{
-    display:flex;
-    justify-content: center;
     width: 100%;
-    box-sizing: border-box;
     background-image: url("../../images/NavBar/fond_NavBar.jpg");}
+    
+/* Logo */
+.divImage{
+    width: 20%;
+    height: 8rem;
+    text-align: center;}
+.img{
+    height: 100%;
+    margin: 0.5rem 0 0 0.5rem;}
+/* Fin Logo */
+
+
+/* Menu burger */
+.menuBurger{
+    display: block;
+    position: absolute;
+    width: 2.5rem;
+    top: 2.7rem;
+    right: 5rem;}
+.menuClose{
+    display: block;
+    position: absolute;
+    width: 2.5rem;
+    top: 2.7rem;
+    right: 5rem;}
+.cache{
+    display: none;}
+.montre{
+    position: absolute;
+    top: 8rem;
+    background-color: #FCF7FF;
+    width: 100%;
+    height: 20rem;
+    align-items:center;
+    display: flex;
+    justify-content: center;}
+/* Fin menu burger */
+
 
 .ul{
     display: flex;
-    font-size: 1.5rem;}
+    flex-direction: column;}
 
-.navbarLI{
-    margin: 0.5rem 2rem 2rem 2rem;
-    list-style-type: none;}
+    .navbarLI{
+        margin: 0.5rem 2rem 2rem 2rem;
+        list-style-type: none;
+        text-align: center;
+        }
+
+    .a{
+        color: black;
+        text-decoration: none;
+        font-size: 1.5rem;
+    font-weight: 600;}
 
 .hr{
-    margin-top: 7rem;
+    margin-top: 8rem;
     border: none;}
-    
-.a{
-    color: white;
-    text-decoration: none;}        
-        
-.divImage{height: 7rem;}
-.img{
-    height: 100%;}
-
-.menuBurger{
-    display: none;
-    position: absolute;
-    width: 2.5rem;
-    top: 2.5rem;
-    right: 5rem;}
-
-.menuClose{
-    display: none;
-    position: absolute;
-    width: 2.5rem;
-    top: 2.5rem;
-    right: 5rem;}
-
-
-/* EFFETS */
-.li:active{
-    font-weight: 600;
-    color: yellow;}
 
 
 /* MEDIAQUERIES */
-@media screen and (max-width: 768px) {
-    .menuBurger{
-        display: block;}
-    .menuClose{
-        display: block;}
-    .cache{
-        display: none;}
-    .montre{
-        position: absolute;
-        background-color: #FCF7FF;
-        width: 100%;
-        position: absolute;
-        top: 7rem;
+ @media screen and (min-width: 768px) {
+    .nav{
         display: flex;
-        justify-content: center;}
+        align-items:flex-end;}
+
+    .navContainer{
+        /* background-color: yellow; */
+        width: 80%;
+        margin-right: auto;}
+
+        .cache{
+            display: flex;
+            justify-content:center;
+            width: 100%;}
+
+    .menuBurger, .menuClose{
+        display: none;}
+
     .ul{
         display: flex;
-        flex-direction: column;}
-    .a{
-        color: black;}
-}
+        flex-direction: row;}
+
+    .a{color: white;}
+
+    .navbarLI{
+        margin: 0 2.7rem 1.3rem 2.7rem;}
+ }

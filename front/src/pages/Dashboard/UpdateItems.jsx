@@ -1,14 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+// import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import items from "./css/items.module.css"
 
-const UpdateItems = () => {
+const UpdateItems = ({ id }) => {
 
-    const { id } = useParams();
+    // const { id } = useParams();
+    // const navigate = useNavigate();
+
     const navigate = useNavigate();
-
     const images = ["img", "img2", "img3", "img4"]
     const [item, setItem] = useState({
         name: "",
@@ -48,22 +50,45 @@ const UpdateItems = () => {
     };
 
     const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-        const response = await axios.put(`http://localhost:8000/api/item/update/${id}`, item, {
-            headers: { "Content-Type": "multipart/form-data" }
-        });
-        
-        if (response.status === 200) {
-            console.log("Item updated successfully:", response.data);
-            // Vous pouvez mettre à jour l'état ici ou rediriger l'utilisateur
-            setItem(response.data.response); // Si la réponse contient les nouvelles données
-            // navigate("/dashboard/items"); // Rediriger vers une autre page si nécessaire
+        event.preventDefault();
+
+        const formData = new FormData();
+
+        // Ajouter les données textuelles au FormData
+        formData.append('name', item.name);
+        formData.append('width', parseFloat(item.width));
+        formData.append('color', item.color);
+        formData.append('content', item.content);
+        formData.append('detail', item.detail);
+        formData.append('category', parseInt(item.category));
+        formData.append('stock', parseInt(item.stock));
+        formData.append('price', parseInt(item.price));
+        formData.append('status', item.status);
+
+        // Ajouter les images (existantes et nouvelles)
+        if (item.img.length > 0) {
+            item.img.forEach((image) => {
+                formData.append('img', image);
+            });
         }
-    } catch (error) {
-        console.error("Echec de la mise à jour de l'article:", error.message);
-    }
-}
+        // Ajouter les nouvelles images (celles qui sont modifiées ou ajoutées)
+        images.forEach((image, index) => {
+            if (image && image.files) {
+                formData.append(`img${index}`, image.files[0]); // Envoie la nouvelle image
+            }
+        });
+
+        try {
+            const response = await axios.put(`http://localhost:8000/api/item/update/${id}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            });
+            console.log("Item mis à jour :", response);
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour de l'item : ", error);
+        }
+    };
 
 
     return (
@@ -72,90 +97,118 @@ const UpdateItems = () => {
             <form onSubmit={handleSubmit}>
                 <section className={items.formulaire}>
                     <div className={items.div1}>
-                        <label htmlFor="name"> Nom de l'item :</label>
+                        <label htmlFor="name">Nom de l'item :</label>
                         <input
                             className={items.inputItem}
-                            id='name'
+                            id="name"
                             type="text"
-                            name='name'
+                            name="name"
                             value={item.name}
                             required
-                            onChange={handleChange} />
-                        <label htmlFor="width"> Largeur :</label>
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="width">Largeur :</label>
                         <input
                             className={items.inputItem}
-                            id='width'
+                            id="width"
                             type="number"
-                            name='width'
+                            name="width"
                             value={item.width}
                             required
-                            onChange={handleChange} />
-                        <label htmlFor="color"> Couleur :</label>
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="color">Couleur :</label>
                         <input
                             className={items.inputItem}
-                            id='color'
+                            id="color"
                             type="text"
-                            name='color'
+                            name="color"
                             value={item.color}
                             required
-                            onChange={handleChange} />
-                        <label htmlFor="content"> Autre(s) couleur(s) :</label>
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="content">Autre(s) couleur(s) :</label>
                         <input
                             className={items.inputItem}
-                            id='content'
+                            id="content"
                             type="text"
-                            name='content'
+                            name="content"
                             value={item.content}
                             required
-                            onChange={handleChange} />
-                        <label htmlFor="detail"> Motifs :</label>
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="detail">Motifs :</label>
                         <input
                             className={items.inputItem}
-                            id='detail'
+                            id="detail"
                             type="text"
-                            name='detail'
+                            name="detail"
                             value={item.detail}
                             required
-                            onChange={handleChange} />
-                        <label htmlFor="category"> Collection :</label>
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="category">Collection :</label>
                         <input
                             className={items.inputItem}
-                            id='category'
+                            id="category"
                             type="number"
-                            name='category'
+                            name="category"
                             value={item.category}
                             required
-                            onChange={handleChange} />
-                        <label htmlFor="stock"> Stock :</label>
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="stock">Stock :</label>
                         <input
                             className={items.inputItem}
-                            id='stock'
+                            id="stock"
                             type="number"
-                            name='stock'
+                            name="stock"
                             value={item.stock}
                             required
-                            onChange={handleChange} />
-                        <label htmlFor="price"> Prix :</label>
+                            onChange={handleChange}
+                        />
+                        <label htmlFor="price">Prix :</label>
                         <input
                             className={items.inputItem}
-                            id='price'
+                            id="price"
                             type="number"
-                            name='price'
+                            name="price"
                             value={item.price}
                             required
-                            onChange={handleChange} />
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className={items.div2}>
+                        {images.map((imgName, index) => (
+                            <div key={index}>
+                                <label htmlFor={`image${index}`}>
+                                    {index === 0 ? 'Image principale : ' : `Image ${index + 1}`}
+                                </label>
+                                <input
+                                    className={items.inputItem}
+                                    id={`image${index}`}
+                                    type="file"
+                                    name={imgName}
+                                    onChange={handleChange}
+                                />
+                                {item.img[index] && <p>Image actuelle : {item.img[index].name}</p>}
+                            </div>
+                        ))}
+
                         <label htmlFor="status">En ligne : </label>
                         <input
                             className={items.checkItem}
-                            id='status'
+                            id="status"
                             type="checkbox"
-                            name='status'
-                            required
+                            name="status"
                             checked={item.status}
-                            onChange={event => setItem(prev => ({ ...prev, status: event.target.checked }))} />
-                        <button className={items.boutonItem} type='submit'>Ajouter l'item</button>
+                            onChange={(event) =>
+                                setItem((prev) => ({ ...prev, status: event.target.checked }))
+                            }
+                        />
 
-
+                        <button className={items.boutonItem}>Mettre à jour l'item</button>
                     </div>
                 </section>
             </form>

@@ -109,7 +109,7 @@ export const deleteUser = async (req, res) => {
 
         if(!response) return res.status(404).json({message: "Utilisateur non trouvé."});
 
-        if(req.user.id !== response._id.toString()){
+        if(req.user.id !== response._id.toString() && req.user.role !== 'admin'){
             return res.status(403).json({message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
         }
 
@@ -118,6 +118,6 @@ export const deleteUser = async (req, res) => {
         res.status(200).json({message: "Utilisateur supprimé avec succès."});
 
     } catch (error) {
-        console.log("Erreur lors de la tentative de mise à jour : ", error);
+        console.log("Erreur lors de la tentative de suppression : ", error);
     }
 };

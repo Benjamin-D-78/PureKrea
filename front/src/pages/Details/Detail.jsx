@@ -2,6 +2,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Footer from "../../components/Footer/footer";
+import axios from "axios"
 
 const Details = () => {
 
@@ -12,8 +13,7 @@ const Details = () => {
     useEffect(() => {
         const detailsItem = async () => {
             try{
-                const response = await fetch(`http://localhost:8000/api/item/obtenir/${id}`)
-                const data = await response.json("Données récupérées avec succès.")
+                const { data, status } = await axios.get(`http://localhost:8000/api/item/obtenir/${id}`)
                 setItem(data);
             } catch (error) {
                 setError("Erreur lors de la réception des données", error)

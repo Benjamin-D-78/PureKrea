@@ -10,6 +10,8 @@ export const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState(null); // Pour stocker les informations de l'user connecté.
     const navigate = useNavigate();
 
+    useEffect(() => {connexion()}, [])
+
     const dataFormConnexion = async (dataForm) => {
         setIsLoading(true);
         try {
@@ -27,8 +29,28 @@ export const AuthProvider = ({children}) => {
         }
     }
 
+    const connexion = async () => {
+        setIsLoading(true)
+        try {
+            const authData = localStorage.getItem("auth") // On récupère les données de l'utilisateur depuis le localStorage
+            setAuth(authData ? JSON.parse(authData) : null)
+            setIsLoading(false)
+        } catch (error) {
+            console.log(error.message)
+        }
+    };
+
+    const deconnexion = () => {
+        setIsLoading(true)
+        setAuth(null) // Réinitialise le state à "null"
+
+        localStorage.removeItem("auth") // Supprime les infos de l'utilisateur du localStorage.
+        navigate("/")
+        setIsLoading(false)
+    }
+
     return (
-        <AuthContext.Provider value={{dataFormConnexion, auth, isLoading}}> {/* On fournit les données au composant enfant. */}
+        <AuthContext.Provider value={{dataFormConnexion, auth, deconnexion, isLoading}}> {/* On fournit les données au composant enfant. */}
             {children}
         </AuthContext.Provider>
     );

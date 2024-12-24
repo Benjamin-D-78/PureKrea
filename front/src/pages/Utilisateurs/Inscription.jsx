@@ -22,7 +22,7 @@ const Inscription = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if(user.password !== user.repeatPassword){
-            alert("Les mots de passe ne sont pas identique.");
+            alert("Les mots de passe ne sont pas identiques.");
             return;
         }
         try {

@@ -12,7 +12,7 @@ export const Token = (req, res, next) => {
         if(err) {
             return next(newError(403, "Token non valide."))
         }
-    req.user = user
-    next()
+    req.user = user;
+    next();
 
 })}

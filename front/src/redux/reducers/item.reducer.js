@@ -6,7 +6,7 @@ const initialState = {
     error: false
 }
 
-// Création de mon slice pour ems items
+// Création de mon slice pour mes items
 export const Item = createSlice({
     name: "Item", // Nom de mon slice
     initialState, // Etat initial

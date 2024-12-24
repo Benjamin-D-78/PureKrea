@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 
 import NotFound from './components/NotFound';
@@ -14,6 +15,7 @@ import RoutesProtegees from './components/RoutesProtegees';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Items from './pages/Dashboard/Items';
 import Utilisateurs from './pages/Dashboard/Utilisateurs';
+import AjoutUtilisateur from './pages/Dashboard/Users';
 import UpdateItems from './pages/Dashboard/UpdateItems';
 
 function App() {
@@ -38,6 +40,7 @@ function App() {
           <Route path="items" element={<Items />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />
           <Route path="update/:id" element={<UpdateItems />} />
+          <Route path="ajout" element={<AjoutUtilisateur />} />
         </Route>
       </Route>
     </Routes>
