@@ -24,7 +24,7 @@ const Utilisateurs = () => {
 
     if(auth.role === "admin") {
     try {
-      const response = await axios.delete(`http://localhost:8000/api/user/delete/${id}`)
+      const response = await axios.delete(`http://localhost:8000/api/user/delete/${id}`, { withCredentials: true })
       if (response.status === 200) {
         console.log(response)
         alert("Utilisateur supprimé avec succès");
@@ -37,7 +37,7 @@ const Utilisateurs = () => {
     const depart = async () => {
       dispatch(Actions.USER_DEPART())
       try {
-        const { data, status } = await axios.get("http://localhost:8000/api/user/all");
+        const { data, status } = await axios.get("http://localhost:8000/api/user/all", { withCredentials: true });
         console.log(data);
         dispatch(Actions.USER_ARRIVE(data));
         setUsers(data);

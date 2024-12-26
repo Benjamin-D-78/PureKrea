@@ -6,7 +6,7 @@ import BoutiqueDashboard from './BoutiqueDashboard'
 
 const AjoutItem = () => {
 
-  const images = ["img", "img2", "img3", "img4"]
+  const images = ["img", "img2", "img3"]
   const [item, setItem] = useState({
     name: "",
     width: "",
@@ -37,13 +37,13 @@ const AjoutItem = () => {
     const formData = new FormData(); // Création d'un objet FormData pour envoyer des données multipart/form-data. Permet l'envoi de fichiers et de données textuelles
     // Ajout des champs du formulaire dans FormData
     formData.append("name", item.name);
-    formData.append("width", parseFloat(item.width));
+    formData.append("width", item.width);
     formData.append("color", item.color);
     formData.append("content", item.content);
     formData.append("detail", item.detail);
-    formData.append("category", parseInt(item.category));
-    formData.append("stock", parseInt(item.stock));
-    formData.append("price", parseInt(item.price)); // parseInt permet de faire une conversion des valeurs numériques en entiers
+    formData.append("category", item.category);
+    formData.append("stock", item.stock);
+    formData.append("price", item.price);
     item.img.forEach((image) => {
     formData.append("img", image); // Parcours du tableau d'images et ajout de chaque image dans FormData. Le nom 'img' doit correspondre au champ attendu par Multer côté serveur
     });
@@ -77,6 +77,7 @@ const AjoutItem = () => {
             id='width'
             type="number"
             name='width'
+            step=".1"
             required
             onChange={handleChange} />
           <label htmlFor="color"> Couleur :</label>

@@ -82,7 +82,6 @@ const Items = () => {
 
                             {item.picture.img3 && <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={`http://localhost:8000${item.picture.img3}`} alt={`${item.name} 3`} /></div>}
                             
-                            {item.picture.img4 && <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={`http://localhost:8000${item.picture.img4}`} alt={`${item.name} 4`} /></div>}
                         </td>
                         <td className={boutique_dashboard.boutonsTD}>
                             <Link to={{ pathname: `/dashboard/update/${item._id}`}}><button className={boutique_dashboard.controlItem1}>Modifier</button></Link>

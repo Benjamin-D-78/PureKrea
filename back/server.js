@@ -1,6 +1,6 @@
+import cookieParser from "cookie-parser"
 import express from "express"
 import mongoose from "mongoose"
-import cookieParser from "cookie-parser"
 import cors from "cors"
 import path from 'path'; // Module pour gérer les chemins de fichiers
 import { fileURLToPath } from 'url'; // Module pour convertir les URL en chemins de fichiers
@@ -29,7 +29,7 @@ mongoose
 
 // MIDDLEWARE
 app.use(cors({
-    origin: `http://localhost:3000`,
+    origin: "http://localhost:3000",
     methods: 'GET, POST, DELETE, PUT',
     credentials: true
 }));

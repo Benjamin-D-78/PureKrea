@@ -35,15 +35,12 @@ p {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin: auto;
-}
+    margin: auto;}
 
 .conteneurG {
     height: 100px;
     background-color: red;
-    order: 2;
-}
-
+    order: 2;}
 /* Fin conteneur principaux */
 
 
@@ -51,90 +48,111 @@ p {
 
 /* Entête */
 .blocEntete1 {
-    background-image: url("../../images/NavBar/fond_NavBar.jpg");
-}
+    background-image: url("../../images/NavBar/fond_NavBar.jpg");}
 
 .pStock {
     text-align: center;
     color: white;
     font-weight: 600;
     font-size: 1.8rem;
-    padding: 1rem 0;
-}
+    padding: 1rem 0;}
 
 .conteneurSelect {
-    text-align: center;
-}
+    text-align: center;}
 
 .selectEntete {
     width: 7.5rem;
     height: 2rem;
     margin: 0.5rem 0.7rem;
-    font-size: 12px;
-}
-
+    font-size: 12px;}
 /* Fin entête */
 
 
 @media screen and (min-width: 768px) {
-
     /* Conteneurs principaux */
     .conteneurGlobal {
-        /* background-color: yellow; */
         display: grid;
+        grid-gap: 2rem;
         grid-template-rows: 1fr;
-        grid-template-columns: 1fr 4fr;
+        grid-template-columns: 1fr 2fr;
         width: 95%;
         margin: auto;
+
+        .conteneurG {
+            background-color: red;
+            grid-row-start: 1;
+            grid-row-end: 3;
+            display: flex;
+            flex-shrink: 0;}
     }
 
-    .conteneurG {
-        background-color: red;
-        grid-row-start: 1;
-        grid-row-end: 3;
-    }
-
-    .conteneurDH {
-        /* background-color: green; */
-    }
+    .conteneurCartes{
+        justify-content: center;}
 
     /* Bloc Paragraphe et Select */
     .blocEntete1 {
         display: flex;
-    }
 
-    .pStock {
-        padding: 1rem 0 0 1rem;
-    }
+        .entete1 {
+            display: flex;
+            flex-shrink: 0;
 
+            .pStock {
+                padding: 1rem 0 0 1rem;
+            }
+        }
+    }
     .conteneurSelect {
+        display: flex;
+        justify-content:end;
+        flex-wrap: wrap;
         margin: auto;
     }
 }
 
 
+@media screen and (min-width: 850px){
+    .conteneurGlobal {
+        display: grid;
+        grid-gap: 2rem;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 2.5fr;
+        width: 95%;
+        margin: auto;}
+}
 
+@media screen and (min-width: 1000px){
+    .conteneurGlobal {
+        display: grid;
+        grid-gap: 2rem;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 3fr;
+        width: 95%;
+        margin: auto;}
+}
 
+/* Conteneur Carte principaux */
 .conteneurCartes {
     /* display: grid; */
     display: flex;
     overflow-x: auto;
-    /* height: 100%; */
+    /* justify-content: center; */
     /* flex-wrap: wrap;
     justify-content: center; */
-    /* width: 100%; */
-}
+    /* width: 100%; */}
 
 .carte {
     background-color: #265E92;
-    /* flex-wrap: wrap; */
-    width: 18rem;
+    width: 16rem;
     height: 30rem;
-    margin: 3rem;
-    /* flex-direction: column; */
+    margin: 2.5rem;
     flex-shrink: 0;
-}
+    border-radius: 0.5rem;
+    box-shadow: 0.8rem 0.8rem 0.8rem;}
+/* Fin conteneur Carte principaux */
 
+
+/* Carte : Image et nom */
 .contientDivImg {
     width: 100%;
     height: 75%;
@@ -150,7 +168,7 @@ p {
             width: 100%;
             height: 100%;
             padding: 0.5rem;
-            background-color: red;
+            /* background-color: red; */
 
 
             .apercuImg {
@@ -160,27 +178,32 @@ p {
             }
 
             .pRef {
+                /* background-color: #ADFF2F; */
                 text-align: center;
                 height: 10%;
                 color: white;
+                font-weight: 600;
+                font-size: 1.6rem;
                 text-decoration: none;
+                transform: translateY(-100%);
+                background-color: rgba(0, 0, 204, 0.3);
             }
         }
     }
 }
 
-.imgCliquable {
-    text-decoration: none;
-}
+/* Link Image */
+.imgCliquable {text-decoration: none;}
 
+/*-------- Prix + Panier + Détails ---------*/
+/* Prix */
 .apercuCravate {
-    background-color: yellow;
     width: 100%;
     height: 25%;
     display: grid;
     grid-template-rows: 2fr 1fr;
     grid-template-columns: 1fr 1fr;
-    align-items: center;
+    justify-items: center;
     color: white;
 
     .divContientPrix {
@@ -190,20 +213,15 @@ p {
         grid-column-end: 2;
         display: flex;
         justify-content: center;
-        align-items: center;
-        background-color: red;
 
         .apercuPrix {
-            align-items: center;
             font-size: 1.8rem;
             font-weight: 900;
         }
     }
 }
 
-
-
-
+/* Panier */
 .divIconAchat {
     grid-row-start: 1;
     grid-row-end: 2;
@@ -214,14 +232,15 @@ p {
     display: flex;
     border-radius: 0.6rem;
     background-color: #ADFF2F;
+    box-shadow: 0 0 1rem black;
+
+    .iconeAchat {
+        width: 100%;
+        height: 100%;
+        padding: 0.5rem;}
 }
 
-.iconeAchat {
-    width: 100%;
-    height: 100%;
-    padding: 0.5rem;
-}
-
+/* Plus de détails */
 .divButtonDetails {
     grid-row-start: 2;
     grid-row-end: 3;
@@ -230,17 +249,40 @@ p {
     display: flex;
     width: 100%;
     margin: auto;
-    background-color: #FFFFF0;
 
+    .btnCliquable {
+        list-style-type: none;
+        text-decoration: none;
+        display: flex;
+        width: 100%;
+
+        .buttonDetails {
+            background-color: #FFFFF0;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            width: 98%;
+            margin: auto;
+            margin-top: 1rem;
+            margin-bottom: 0.2rem;
+            border-radius: 0.5rem;}
+    }
 }
 
-.buttonDetails {
-    background-color: #FFFFF0;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 600;
-    width: 80%;
-    margin: auto;
-    border-radius: 0.5rem;
+@media screen and (min-width: 768px) {
+    .conteneurCartes {
+        display: flex;
+        flex-wrap: wrap;
 
+        /* .carte {
+            background-color: #265E92;
+            display: flex;
+            flex-wrap: wrap;} */
+    }
+
+
+
+    .testTitre {
+        flex-shrink: 0;
+    }
 }

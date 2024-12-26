@@ -3,6 +3,8 @@ import NavBar from "../../components/NavBar/NavBar.jsx";
 import Footer from "../../components/Footer/footer.jsx";
 import { Link } from "react-router-dom";
 import boutique from "./boutique.module.css"
+// import Profil from "../../components/Barre-Gauche/barreGauche.jsx";
+import Accordeon from "../../components/Accordeon/accordeon.jsx";
 import axios from "axios";
 import panier from "../../images/Icones/paniers.png"
 
@@ -42,7 +44,14 @@ const Boutique = () => {
             <h1 className={boutique.h1Boutique}>Boutique</h1>
 
             <div className={boutique.conteneurGlobal}>
-                <div className={boutique.conteneurG}></div>
+                <div className={boutique.conteneurG}>
+                    <Accordeon
+                        titre="Chapitre 1"
+                        body="Bonjour"/>
+                    <Accordeon
+                        titre="Chapitre 2"
+                        body="Bonne nuit !"/>
+                </div>
 
                 <div className={boutique.conteneurDH}>
                     <div className={boutique.blocEntete1}>
@@ -96,9 +105,11 @@ const Boutique = () => {
                                     <div className={boutique.divIconAchat}>
                                         <img className={boutique.iconeAchat} src={panier} alt="icone panier" />
                                     </div>
-                                    <div className={boutique.divButtonDetails}>
-                                        <button className={boutique.buttonDetails}>Plus de détails</button>
-                                    </div>
+                                        <div className={boutique.divButtonDetails}>
+                                    <Link className={boutique.btnCliquable} to={{ pathname: `/details/${item._id}` }}>
+                                            <button className={boutique.buttonDetails}>Plus de détails</button>
+                                    </Link>
+                                        </div>
                                 </div>
                             </div>
                         ))}
