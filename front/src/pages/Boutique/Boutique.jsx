@@ -80,10 +80,12 @@ const Boutique = () => {
                         {store && store.map(item => (
                             <div className={boutique.carte} key={item._id}>
                                 <div className={boutique.contientDivImg}>
-                                    <Link to={{ pathname: `/details/${item._id}` }}>
+                                    <Link className={boutique.imgCliquable} to={{ pathname: `/details/${item._id}` }}>
                                         <div className={boutique.divImg}>
-                                            <img className={boutique.apercuImg} src={`http://localhost:8000${item.picture.img}`} alt={item.name} />
-                                            <p className={boutique.apercuRef}>{item.name}</p>
+                                            <div className={boutique.divApercuImg}>
+                                                <img className={boutique.apercuImg} src={`http://localhost:8000${item.picture.img}`} alt={item.name} />
+                                                <p className={boutique.pRef}>{item.name}</p>
+                                            </div>
                                         </div>
                                     </Link>
                                 </div>
@@ -94,9 +96,9 @@ const Boutique = () => {
                                     <div className={boutique.divIconAchat}>
                                         <img className={boutique.iconeAchat} src={panier} alt="icone panier" />
                                     </div>
-                                </div>
-                                <div className={boutique.divButtonDetails}>
-                                    <button className={boutique.buttonDetails}>Plus de détails</button>
+                                    <div className={boutique.divButtonDetails}>
+                                        <button className={boutique.buttonDetails}>Plus de détails</button>
+                                    </div>
                                 </div>
                             </div>
                         ))}

@@ -104,12 +104,17 @@ export const upUser = async (req, res) => {
 
 // DELETE USER
 export const deleteUser = async (req, res) => {
+    alert("test")
+
     try { // On vérifie si l'utilisateur existe :
         const response = await userModel.findById(req.params.id);
+        const roleUser = await userModel.findById(req.params.role)
 
-        if(!response) return res.status(404).json({message: "Utilisateur non trouvé."});
+        if(!response) 
+            return res.status(404).json({message: "Utilisateur non trouvé."});
 
         if(req.user.id !== response._id.toString() && req.user.role !== 'admin'){
+            console.log(response)
             return res.status(403).json({message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
         }
 
