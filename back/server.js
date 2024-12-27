@@ -1,4 +1,4 @@
-//import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser"
 import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
@@ -32,10 +32,11 @@ app.use(cors({
     origin: "http://localhost:3000",
     methods: 'GET, POST, DELETE, PUT',
     credentials: true,
-    allowedHeaders: ['Content-Type','Authorization','Cookie']
+    allowedHeaders: ['Content-Type','Authorization','Cookie'],
+    exposedHeaders: ['Set-Cookies']
 }));
 app.use(express.json());
-//app.use(cookieParser());
+app.use(cookieParser());
 // Ce middleware permet de servir les fichiers statiques du dossier 'uploads'. Il rend les fichiers uploadés (comme les images) accessibles via l'URL '/uploads'
 // Par exemple: une image 'photo.jpg' sera accessible via http://localhost:8000/uploads/photo.jpg
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

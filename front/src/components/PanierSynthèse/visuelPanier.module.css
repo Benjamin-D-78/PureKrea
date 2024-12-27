@@ -1,0 +1,9 @@
+.nomPrenom{
+    color: white;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: auto;
+    font-size: 2rem;}
+
+.hr{
+    border: solid 1px white;}

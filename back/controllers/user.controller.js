@@ -35,7 +35,7 @@ export const connexion = async (req, res, next) => {
         // Création du Token de connexion avec expiration sous 24h.
         // Ici nous incluons l'ID de l'utilisateur dans lequel on signe le token via la clé secrète (env.token).
         // L'expiration prend au bout de 24h.
-        const tokenUser = jwt.sign({id: rechercheUser._id}, env.TOKEN, {expiresIn: "24h"}) // TOKEN = valeur du token renseigné dans mon ".env"
+        const tokenUser = jwt.sign({id: rechercheUser._id, role: rechercheUser.role}, env.TOKEN, {expiresIn: "24h"}) // TOKEN = valeur du token renseigné dans mon ".env"
 
         // On procède à l'extraction du MDP. Les autres propriétés sont regroupées dans un nouvel objet : "others".
         const {password, ...others} = rechercheUser._doc
@@ -44,7 +44,7 @@ export const connexion = async (req, res, next) => {
         res.cookie("access_token", tokenUser, {
             httpOnly: true,
             secure: false, // A mettre sur "true" lors d'une mis een ligne du site.
-            sameSite: "None", // Protège des attaques CSRF (usurpation d'identité, etc.)
+            sameSite: "Lax", // Protège des attaques CSRF (usurpation d'identité, etc.)
             //Passer "sameSite" en "Strict" le jour où je met mon site en ligne.
             maxAge: 24*60*60*1000 // 24h en millisecondes.
         })
@@ -84,8 +84,8 @@ export const upUser = async (req, res) => {
         const response = await userModel.findById(req.params.id);
 
         if(!response) return res.status(404).json({Message: "Utilisateur non trouvé."});
-
-        // toString (avec majuscule !) ; ici on compare si l'id de l'utilisateur à updater est le même id que l'utilisateur qui souhaite faire cet update.
+        
+                // toString (avec majuscule !) ; ici on compare si l'id de l'utilisateur à updater est le même id que l'utilisateur qui souhaite faire cet update.
         // req.user.id car on fait appel au "user" définit dans le "auth.js".
         if(req.user.id !== response._id.toString()){
             return res.status(403).json({Message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
@@ -109,7 +109,7 @@ export const deleteUser = async (req, res) => {
         const response = await userModel.findById(req.params.id);
 
         if(!response) return res.status(404).json({message: "Utilisateur non trouvé."});
-
+        console.log("req.user.role : ", req.user);
         if(req.user.id !== response._id.toString() && req.user.role !== 'admin'){
             return res.status(403).json({message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
         }

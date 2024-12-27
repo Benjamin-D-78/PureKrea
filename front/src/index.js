@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from './context/AuthContext';
+import { PanierProvider } from './context/PanierContext';
 
 // STORE :
 import store from './redux/store'; // Importation du store pour gérer l'état global
@@ -16,7 +17,9 @@ root.render(
     <BrowserRouter>
       <Provider store={store}> {/* On englobe les composants de notre application. */}
         <AuthProvider> {/* Notre contexte fournit maintenant les données aux composants enfants. */}
-          <App />
+          <PanierProvider>
+            <App />
+          </PanierProvider>
         </AuthProvider>
       </Provider>
     </BrowserRouter>

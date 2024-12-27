@@ -15,7 +15,8 @@ export const AuthProvider = ({children}) => {
     const dataFormConnexion = async (dataForm) => {
         setIsLoading(true);
         try {
-            const {data, status} = await axios.post("http://localhost:8000/api/user/connexion", dataForm)
+            // , {withCredentials: true}
+            const {data, status} = await axios.post("http://localhost:8000/api/user/connexion", dataForm, {withCredentials: true})
             if(status === 200) {
                 localStorage.setItem("auth", JSON.stringify(data));
 

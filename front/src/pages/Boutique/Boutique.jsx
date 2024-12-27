@@ -3,7 +3,7 @@ import NavBar from "../../components/NavBar/NavBar.jsx";
 import Footer from "../../components/Footer/footer.jsx";
 import { Link } from "react-router-dom";
 import boutique from "./boutique.module.css"
-// import Profil from "../../components/Barre-Gauche/barreGauche.jsx";
+import Panier from "../../components/PanierSynthèse/visuelPanier.jsx";
 import Accordeon from "../../components/Accordeon/accordeon.jsx";
 import axios from "axios";
 import panier from "../../images/Icones/paniers.png"
@@ -46,10 +46,11 @@ const Boutique = () => {
             <div className={boutique.conteneurGlobal}>
                 <div className={boutique.conteneurG}>
                     <div className={boutique.accordeon}>
+                        <Panier/>
                         <p className={boutique.pOnVousDitTout}>On vous dit tout</p>
                         <Accordeon
                             titre="D'où viennent nos soies ?"
-                            corps="Toutes nos soies proviennent de chenilles du bombyx du mûrier et sont élevées à proximité de champs de mûres. (Origine : Europe de l'Est, 80% en provenance de la Chine)." />
+                            corps="Toutes nos soies proviennent de chenilles du bombyx du mûrier et sont élevées à proximité de champs de mûres. (Origine : Asie, 80% en provenance de la Chine)." />
                         <Accordeon
                             titre="Quel budget faut-il prévoir ?"
                             corps="Nos prix varient en fonction des modes de tissages pratiqués. Un investissement supplémentaire est à prévoir pour une cravate sur-mesure. Celui-ci se calcule par rapport au temps consacré à sa confection.
