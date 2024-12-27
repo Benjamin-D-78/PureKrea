@@ -14,9 +14,10 @@ import RoutesProtegees from './components/RoutesProtegees';
 
 import Dashboard from './pages/Dashboard/Dashboard';
 import Items from './pages/Dashboard/Items';
+import UpdateItems from './pages/Dashboard/UpdateItems';
 import Utilisateurs from './pages/Dashboard/Utilisateurs';
 import AjoutUtilisateur from './pages/Dashboard/Users';
-import UpdateItems from './pages/Dashboard/UpdateItems';
+import UpdateUsers from './pages/Dashboard/UpdateUsers';
 
 function App() {
   return (
@@ -39,8 +40,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="items" element={<Items />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />
-          <Route path="update/:id" element={<UpdateItems />} />
+          <Route path="update/item/:id" element={<UpdateItems />} />
           <Route path="ajout" element={<AjoutUtilisateur />} />
+          <Route path="update/utilisateur/:id" element={<UpdateUsers />} />
         </Route>
       </Route>
     </Routes>

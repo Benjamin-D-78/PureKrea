@@ -31,7 +31,7 @@ const UpdateItems = ({ id }) => {
                 const response = await axios.get(`http://localhost:8000/api/item/obtenir/${id}`)
                 setItem(response.data)
             } catch (error) {
-                console.error("Erreur lors de la modification de l'item", error.message)
+                console.error("Erreur lors de la recherche de l'item.", error.message)
             }
         };
         itemById();

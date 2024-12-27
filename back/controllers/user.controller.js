@@ -85,9 +85,9 @@ export const upUser = async (req, res) => {
 
         if(!response) return res.status(404).json({Message: "Utilisateur non trouvé."});
         
-                // toString (avec majuscule !) ; ici on compare si l'id de l'utilisateur à updater est le même id que l'utilisateur qui souhaite faire cet update.
+        // toString (avec majuscule !) ; ici on compare si l'id de l'utilisateur à updater est le même id que l'utilisateur qui souhaite faire cet update.
         // req.user.id car on fait appel au "user" définit dans le "auth.js".
-        if(req.user.id !== response._id.toString()){
+        if(req.user.id !== response._id.toString() && req.user.role !== "admin"){
             return res.status(403).json({Message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
         }
 

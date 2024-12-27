@@ -84,7 +84,7 @@ const Items = () => {
                             
                         </td>
                         <td className={boutique_dashboard.boutonsTD}>
-                            <Link to={{ pathname: `/dashboard/update/${item._id}`}}><button className={boutique_dashboard.controlItem1}>Modifier</button></Link>
+                            <Link to={{ pathname: `/dashboard/update/item/${item._id}`}}><button className={boutique_dashboard.controlItem1}>Modifier</button></Link>
                             <button onClick={() => deleteItem(item._id)} className={boutique_dashboard.controlItem3}>Supprimer</button>
                         </td>
                     </tr>

@@ -81,7 +81,7 @@ const Utilisateurs = () => {
               <td className={boutique_dashboard.autresTD}>{user.role}</td>
               <td className={boutique_dashboard.autresTD}>{user.isActive}</td>
               <td className={boutique_dashboard.boutonsTD}>
-                <Link to={{ pathname: `/user/update/${user._id}` }}><button className={boutique_dashboard.controlItem1}>Modifier</button></Link>
+                <Link to={{ pathname: `/dashboard/update/utilisateur/${user._id}` }}><button className={boutique_dashboard.controlItem1}>Modifier</button></Link>
                 <button onClick={() => deleteUser(user._id)} className={boutique_dashboard.controlItem3}>Supprimer</button>
               </td>
             </tr>

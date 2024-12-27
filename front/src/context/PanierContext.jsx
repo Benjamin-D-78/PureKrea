@@ -103,7 +103,7 @@ export const PanierProvider = ({children}) => {
     }
 
     return (
-            <PanierContext.Provider value={{ incremente , decremente, ajouterArticle, prixParQuantite, totalArticle,  panier, prixTotal }} >
+            <PanierContext.Provider value={{ incremente , decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle,  panier, prixTotal }} >
               {children}
             </PanierContext.Provider>
     )

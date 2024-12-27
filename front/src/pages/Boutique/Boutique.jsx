@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import Footer from "../../components/Footer/footer.jsx";
 import { Link } from "react-router-dom";
@@ -7,12 +7,15 @@ import Panier from "../../components/PanierSynthèse/visuelPanier.jsx";
 import Accordeon from "../../components/Accordeon/accordeon.jsx";
 import axios from "axios";
 import panier from "../../images/Icones/paniers.png"
+import { PanierContext } from "../../context/PanierContext.jsx";
 
 // ACTIONS :
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../redux/reducers/item.reducer.js"
 
 const Boutique = () => {
+
+    const {ajouterArticle} = useContext(PanierContext)
 
     const [items, setItems] = useState([])
     const [error, setError] = useState(null)

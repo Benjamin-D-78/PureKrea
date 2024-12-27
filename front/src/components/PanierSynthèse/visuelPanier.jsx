@@ -5,7 +5,7 @@ import { PanierContext } from '../../context/PanierContext';
 
 const Panier = () => {
 
-  const {incremente, decremente, ajouterArticle, prixParQuantite, totalArticle, panier, prixTotal} = useContext(PanierContext)
+  const {incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, panier, prixTotal} = useContext(PanierContext)
     
   const { auth } = useContext(AuthContext); // On récupère l'objet utilisateur depuis le contexte
   return (
@@ -17,33 +17,29 @@ const Panier = () => {
         <p>Mon panier :</p>
       </div>
 
-      {panier ? 
+      {/* {panier ? 
       <>
-        {/* <div>
+        <div>
           {panier.map((article, index) => (
             <div key={index}>
-              <p style={styles.title}>{article.name}</p>
-              <img
-                style={{ width: 170}}
-                src={article.picture[0].img}
-              />
-              <p>Prix : {priceArticleByQuantity(article.price, article.quantite)} $</p>
-              <div style={styles.quantity}>
-                <p style={styles.click} onClick={() => decremente(index)}>-</p>
+              <p>{article.name}</p>
+              <p>Prix : {prixParQuantite(article.price, article.quantite)} $</p>
+              <div>
+                <p onClick={() => decremente(index)}>-</p>
                 <p>{article.quantite}</p>
-                <p style={styles.click} onClick={() => incremente(index)} >+</p>
+                <p onClick={() => incremente(index)} >+</p>
               </div>
             </div>
           ))}
         </div>
         <div>
-          <p>Total du panier : {totalPrice}</p>
+          <p>Total du panier : {prixTotal} </p>
           <button>Passer la commande ({totalArticle()} articles)</button>
-        </div> */}
+        </div>
       </>
        : 
         <p>Panier Vide ! </p>
-      }
+      } */}
     </section>
     
   );
