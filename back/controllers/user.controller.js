@@ -44,7 +44,8 @@ export const connexion = async (req, res, next) => {
         res.cookie("access_token", tokenUser, {
             httpOnly: true,
             secure: false, // A mettre sur "true" lors d'une mis een ligne du site.
-            sameSite: "strict", // Protège des attaques CSRF (usurpation d'identité, etc.)
+            sameSite: "None", // Protège des attaques CSRF (usurpation d'identité, etc.)
+            //Passer "sameSite" en "Strict" le jour où je met mon site en ligne.
             maxAge: 24*60*60*1000 // 24h en millisecondes.
         })
         .status(200)

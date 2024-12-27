@@ -45,12 +45,28 @@ const Boutique = () => {
 
             <div className={boutique.conteneurGlobal}>
                 <div className={boutique.conteneurG}>
-                    <Accordeon
-                        titre="Chapitre 1"
-                        body="Bonjour"/>
-                    <Accordeon
-                        titre="Chapitre 2"
-                        body="Bonne nuit !"/>
+                    <div className={boutique.accordeon}>
+                        <p className={boutique.pOnVousDitTout}>On vous dit tout</p>
+                        <Accordeon
+                            titre="D'où viennent nos soies ?"
+                            corps="Toutes nos soies proviennent de chenilles du bombyx du mûrier et sont élevées à proximité de champs de mûres. (Origine : Europe de l'Est, 80% en provenance de la Chine)." />
+                        <Accordeon
+                            titre="Quel budget faut-il prévoir ?"
+                            corps="Nos prix varient en fonction des modes de tissages pratiqués. Un investissement supplémentaire est à prévoir pour une cravate sur-mesure. Celui-ci se calcule par rapport au temps consacré à sa confection.
+                            En moyenne, une cravate sur-mesure a un tarif global entre 250 et 400 euros. " />
+                        <Accordeon
+                            titre="Quel est le délai de fabrication ?"
+                            corps="Il faut compte 2 mois de délais pour la réalisation d'une cravate sur-mesure, et 2 semaines supplémentaires en cas de retouches éventuelles." />
+                        <Accordeon
+                            titre="Quelles sont nos limites en sur-mesure ?"
+                            corps="Nous n'en avons pas à proprement parler. Nos limites sont les vôtres. Néanmoins nous n'acceptons pas les demandent trop marginales et pouvant offenser autrui." />
+                        <Accordeon
+                            titre="Un rendez-vous est-il obligatoire ?"
+                            corps="Oui, un rendez-vous minimum est obligatoire. Il est la certitude que nous répondrons pleinement à vos attentes. Vous pourrez à cette occasion nous poser toutes vos questions, et nous de même." />
+                        <Accordeon
+                            titre="Quelle est notre politique de retour ?"
+                            corps="En sur-mesure, il n'y en a pas. La prise de rendez-vous est nécessaire et conçue pour éviter ce désagrément. Pour le prêt-à-porter, vous disposez d'un délai d'une semaine pour nous retourner le ou les articles à compter de leur réception." />
+                    </div>
                 </div>
 
                 <div className={boutique.conteneurDH}>
@@ -105,11 +121,11 @@ const Boutique = () => {
                                     <div className={boutique.divIconAchat}>
                                         <img className={boutique.iconeAchat} src={panier} alt="icone panier" />
                                     </div>
-                                        <div className={boutique.divButtonDetails}>
-                                    <Link className={boutique.btnCliquable} to={{ pathname: `/details/${item._id}` }}>
+                                    <div className={boutique.divButtonDetails}>
+                                        <Link className={boutique.btnCliquable} to={{ pathname: `/details/${item._id}` }}>
                                             <button className={boutique.buttonDetails}>Plus de détails</button>
-                                    </Link>
-                                        </div>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         ))}

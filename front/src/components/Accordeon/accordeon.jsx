@@ -11,7 +11,8 @@ export default function Accordeon({ titre, corps }) {
     return (
         <div className={accordeon.contientAccordeon}>
             <div className={accordeon.accordeon}>
-                <div onClick={() => setOuvrir(!ouvrir)} className={accordeon.teteAccordeon}>
+                {/* TabIndex(0) pour que l'élément soit focusable */}
+                <div onClick={() => setOuvrir(!ouvrir)} className={accordeon.teteAccordeon} tabIndex={0}>
                     <p className={accordeon.nomsChapitres}>{titre}</p>
                     <div className={accordeon.plusMoins}>{ouvrir ? "-" : "+"}</div>
                 </div>

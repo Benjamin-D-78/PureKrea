@@ -5,8 +5,7 @@ import { newError } from "./error.js"
 // Vérification du Token
 export const Token = (req, res, next) => {
     const token = req.cookies.access_token;
-    console.log("Token");
-    console.log(req)
+    console.log("Token : ", token);
 
     if (!token) return next(newError(401, "Accès refusé."))
 

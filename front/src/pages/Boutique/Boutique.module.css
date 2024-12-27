@@ -38,7 +38,6 @@ p {
     margin: auto;}
 
 .conteneurG {
-    height: 100px;
     background-color: red;
     order: 2;}
 /* Fin conteneur principaux */
@@ -51,10 +50,11 @@ p {
     background-image: url("../../images/NavBar/fond_NavBar.jpg");}
 
 .pStock {
+    font-family: "Rowdies", Arial, Helvetica, sans-serif;
     text-align: center;
     color: white;
     font-weight: 600;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     padding: 1rem 0;}
 
 .conteneurSelect {
@@ -87,6 +87,8 @@ p {
     }
 
     .conteneurCartes{
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;}
 
     /* Bloc Paragraphe et Select */
@@ -269,20 +271,18 @@ p {
     }
 }
 
-@media screen and (min-width: 768px) {
-    .conteneurCartes {
-        display: flex;
-        flex-wrap: wrap;
 
-        /* .carte {
-            background-color: #265E92;
-            display: flex;
-            flex-wrap: wrap;} */
-    }
+/* Accordeon */
+.pOnVousDitTout{
+    text-align: center;
+    color: white;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    padding: 1rem 0;
+    margin-bottom: 0;
+    font-size: 2rem;
+}
 
-
-
-    .testTitre {
-        flex-shrink: 0;
-    }
+.accordeon{
+    width: 100%;
+    background-color: #193E61;
 }
