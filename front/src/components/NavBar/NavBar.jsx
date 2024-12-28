@@ -27,6 +27,9 @@ export default function NavBar() {
                                     <NavLink className={navbar.a} to="/">Boutique</NavLink>
                                 </li>
                                 <li className={navbar.navbarLI}>
+                                    <NavLink className={navbar.a} to="/nous-connaitre">Nous connaître</NavLink>
+                                </li>
+                                <li className={navbar.navbarLI}>
                                     <NavLink className={navbar.a} to="/rendez-vous">Prendre rendez-vous</NavLink>
                                 </li>
                                 <li className={navbar.navbarLI}>
