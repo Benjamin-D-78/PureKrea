@@ -6,11 +6,11 @@ import path from 'path'; // Module pour gérer les chemins de fichiers
 import { fileURLToPath } from 'url'; // Module pour convertir les URL en chemins de fichiers
 import { env } from "./config/index.js"
 
-
+// MULTER
 const __filename = fileURLToPath(import.meta.url); // Obtient le chemin du fichier actuel
 const __dirname = path.dirname(__filename); // Obtient le répertoire du fichier actuel
 
-// ROUTES
+// ROUTAGE
 import userRoutes from "./routers/user.router.js"
 import itemRoutes from "./routers/item.router.js"
 

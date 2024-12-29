@@ -17,5 +17,5 @@ const userSchema = mongoose.Schema({
 },  {timestamps: {createdAT: true}
 })
 
-userSchema.plugin(mongooseUniqueValidator)
+userSchema.plugin(mongooseUniqueValidator) // Vérifie que les champs déclarés comme unique le sont bien dans la BDD
 export default mongoose.model("User", userSchema)
