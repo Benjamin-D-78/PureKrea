@@ -15,7 +15,7 @@ import * as Actions from "../../redux/reducers/item.reducer.js"
 
 const Boutique = () => {
 
-    const {ajouterArticle} = useContext(PanierContext)
+    const {incremente , decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, prixTotal} = useContext(PanierContext)
 
     const [items, setItems] = useState([])
     const [error, setError] = useState(null)
