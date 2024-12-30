@@ -28,7 +28,7 @@ const Utilisateurs = () => {
       if (response.status === 200) {
         console.log(response)
         alert("Utilisateur supprimé avec succès");
-        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));} // On met à jour le state local en retirant de la liste l'item supprimé.
+        setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));} // On met à jour le state local en retirant de la liste l'utilisateur supprimé.
     } catch (error) {
       console.log("Erreur lors de la suppression de l'utilisateur", error)
     }
