@@ -76,11 +76,11 @@ const Items = () => {
                         <td className={boutique_dashboard.autresTD}>{item.stock}</td>
                         <td className={boutique_dashboard.autresTD}>{item.price}€</td>
                         <td className={boutique_dashboard.imagesTD}>
-                            <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={`http://localhost:8000${item.picture.img}`} alt={item.name} /></div>
+                            <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={item.picture.img} alt={item.name} /></div>
 
-                            {item.picture.img2 && <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={`http://localhost:8000${item.picture.img2}`} alt={`${item.name} 2`} /></div>}
+                            {item.picture.img2 && <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={item.picture.img2} alt={`${item.name} 2`} /></div>}
 
-                            {item.picture.img3 && <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={`http://localhost:8000${item.picture.img3}`} alt={`${item.name} 3`} /></div>}
+                            {item.picture.img3 && <div className={boutique_dashboard.divImage}><img className={boutique_dashboard.imgImage} src={item.picture.img3} alt={`${item.name} 3`} /></div>}
                             
                         </td>
                         <td className={boutique_dashboard.boutonsTD}>

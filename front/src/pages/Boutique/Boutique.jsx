@@ -112,7 +112,7 @@ const Boutique = () => {
                                     <Link className={boutique.imgCliquable} to={{ pathname: `/details/${item._id}` }}>
                                         <div className={boutique.divImg}>
                                             <div className={boutique.divApercuImg}>
-                                                <img className={boutique.apercuImg} src={`http://localhost:8000${item.picture.img}`} alt={item.name} />
+                                                <img className={boutique.apercuImg} src={item.picture.img} alt={item.name} />
                                                 <p className={boutique.pRef}>{item.name}</p>
                                             </div>
                                         </div>

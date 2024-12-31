@@ -1,17 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-// import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import items from "./css/items.module.css"
 
-const UpdateItems = ({ id }) => {
+const UpdateItems = () => {
 
-    // const { id } = useParams();
-    // const navigate = useNavigate();
-
+    const { id } = useParams();
     const navigate = useNavigate();
-    const images = ["img", "img2", "img3", "img4"]
+
+    const images = ["img", "img2", "img3"]
     const [item, setItem] = useState({
         name: "",
         width: "",
@@ -21,7 +19,12 @@ const UpdateItems = ({ id }) => {
         category: "",
         stock: "",
         price: "",
-        img: [],
+        picture: {
+            img: "",
+            img2: "",
+            img3: "",
+            img4: ""
+        },
         status: true,
     })
 
@@ -29,6 +32,7 @@ const UpdateItems = ({ id }) => {
         const itemById = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/item/obtenir/${id}`)
+                console.log(response.data)
                 setItem(response.data)
             } catch (error) {
                 console.error("Erreur lors de la recherche de l'item.", error.message)
@@ -38,11 +42,11 @@ const UpdateItems = ({ id }) => {
     }, [id])
 
     const handleChange = (event) => {
-        const { name, value, files } = event.target;
+        const { name, value } = event.target;
         if (name.startsWith("img")) { // On vérifie que la chaîne de caractère commence bien par "img"
             setItem(prev => ({
                 ...prev, // Garde toutes les propriétés précédentes
-                img: files ? [...prev.img, files[0]] : prev.img, // Si des fichiers sont sélectionnés, ajoute le premier fichier au tableau d'images. Sinon, on conserve le tableau d'images existant
+                picture: {...prev.picture, [name]: value}
             }));
         } else {
             setItem(prev => ({ ...prev, [name]: value }))
@@ -52,39 +56,9 @@ const UpdateItems = ({ id }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formData = new FormData();
-
-        // Ajouter les données textuelles au FormData
-        formData.append('name', item.name);
-        formData.append('width', parseFloat(item.width));
-        formData.append('color', item.color);
-        formData.append('content', item.content);
-        formData.append('detail', item.detail);
-        formData.append('category', parseInt(item.category));
-        formData.append('stock', parseInt(item.stock));
-        formData.append('price', parseInt(item.price));
-        formData.append('status', item.status);
-
-        // Ajouter les images (existantes et nouvelles)
-        if (item.img.length > 0) {
-            item.img.forEach((image) => {
-                formData.append('img', image);
-            });
-        }
-        // Ajouter les nouvelles images (celles qui sont modifiées ou ajoutées)
-        images.forEach((image, index) => {
-            if (image && image.files) {
-                formData.append(`img${index}`, image.files[0]); // Envoie la nouvelle image
-            }
-        });
-
         try {
-            const response = await axios.put(`http://localhost:8000/api/item/update/${id}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                }
-            });
-            console.log("Item mis à jour :", response);
+            const response = await axios.put(`http://localhost:8000/api/item/update/${id}`, item);
+            navigate("/dashboard/items")
         } catch (error) {
             console.error("Erreur lors de la mise à jour de l'item : ", error);
         }
@@ -188,11 +162,11 @@ const UpdateItems = ({ id }) => {
                                 <input
                                     className={items.inputItem}
                                     id={`image${index}`}
-                                    type="file"
+                                    type="text"
                                     name={imgName}
                                     onChange={handleChange}
+                                    value={item.picture[imgName] ? item.picture[imgName] : ""}
                                 />
-                                {item.img[index] && <p>Image actuelle : {item.img[index].name}</p>}
                             </div>
                         ))}
 
