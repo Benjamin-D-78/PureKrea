@@ -16,16 +16,21 @@ const AjoutItem = () => {
     category: "",
     stock: 0,
     price: "",
-    img: [],
+    picture: {
+      img: "",
+      img2: "",
+      img3: "",
+      img4: ""
+  },
     status: true,
   })
 
   const handleChange = (event) => {
-    const { name, value, files } = event.target;
+    const { name, value } = event.target;
     if (name.startsWith("img")) { // On vérifie que la chaîne de caractère commence bien par "img"
       setItem(prev => ({
         ...prev, // Garde toutes les propriétés précédentes
-        img: files ? [...prev.img, files[0]] : prev.img, // Si des fichiers sont sélectionnés, ajoute le premier fichier au tableau d'images. Sinon, on conserve le tableau d'images existant
+        picture: {...prev.picture, [name]: value}
       }));
     } else {
       setItem(prev => ({ ...prev, [name]: value }))
@@ -34,23 +39,9 @@ const AjoutItem = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(); // Création d'un objet FormData pour envoyer des données multipart/form-data. Permet l'envoi de fichiers et de données textuelles
-    // Ajout des champs du formulaire dans FormData
-    formData.append("name", item.name);
-    formData.append("width", item.width);
-    formData.append("color", item.color);
-    formData.append("content", item.content);
-    formData.append("detail", item.detail);
-    formData.append("category", item.category);
-    formData.append("stock", item.stock);
-    formData.append("price", item.price);
-    item.img.forEach((image) => {
-    formData.append("img", image); // Parcours du tableau d'images et ajout de chaque image dans FormData. Le nom 'img' doit correspondre au champ attendu par Multer côté serveur
-    });
-    formData.append("status", item.status);
+
     try {
-      const response = await axios.post("http://localhost:8000/api/item/creation",formData,
-        {headers: {"Content-Type": "multipart/form-data",},}) // Headers spécifiques pour l'envoi de fichiers
+      const response = await axios.post("http://localhost:8000/api/item/creation", item)
       console.log(response)
     } catch (error) {
       console.error("Echec de la création de l'article : ", error.message)
@@ -140,7 +131,7 @@ const AjoutItem = () => {
               <input
                 className={items.inputItem}
                 id={`image${index}`}
-                type="file"
+                type="text"
                 name={imgName}
                 placeholder={`Image ${imgName.slice(-1)}`}
                 onChange={handleChange} />

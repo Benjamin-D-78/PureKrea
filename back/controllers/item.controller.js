@@ -3,19 +3,7 @@ import Item from "../models/item.model.js";
 // CREATION ITEM
 export const creationItem = async (req, res) => {
     try {
-        if (!req.files || req.files.length === 0) {
-            return res.status(400).json({ Message: "Aucune image a été chargée." });
-        }
-        const { body } = req;
-        
-        const images = req.files;
-        const extractionImages = images.reduce((acc, file, index) => {
-            acc[`img${index === 0 ? '' : index}`] = `/uploads/${file.filename}`;
-            return acc;
-        }, {});
-
-        const itemData = { ...body, picture: extractionImages };
-        const response = await Item.create(itemData);
+        const response = await Item.create(req.body);
         res.status(201).json({ Message: "Item créé avec succès.", response });
 
     } catch (error) {
