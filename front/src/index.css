@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* 1rem dorénavant n'est pas égale à 16px mais à 10px */
+html {
+  font-size: 62.5%;}
+p {
+  font-size: 1.4rem;}
