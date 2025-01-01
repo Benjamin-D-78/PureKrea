@@ -1,48 +1,48 @@
-*,
-::before,
-::after {
+*, ::before, ::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
+    font-family: Arial, Helvetica, sans-serif;}
 
-/* 1rem dorénavant n'est pas égale à 16px mais à 10px */
-html {
-    font-size: 62.5%;
-}
 
-p {
-    font-size: 1.4rem;
-}
 
 .h1Boutique {
     text-align: center;
     margin: 2rem 0;
-    font-size: 2.2rem;
-}
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 2.2rem;}
 
 
 
 
 /* Conteneurs principaux */
 .conteneurGlobal {
-    /* background-color: yellow; */
-    /* display: grid; */
-    /* grid-gap: 1rem; */
-    /* grid-template-rows: 1fr; */
-    /* grid-template-columns: 1fr 1fr; */
     display: flex;
     flex-direction: column;
     width: 100%;
     margin: auto;}
 
 .conteneurG {
-    background-color: red;
     order: 2;}
 /* Fin conteneur principaux */
 
 
+
+/* Accordeon */
+.accordeon{
+    width: 100%;
+    background-color: #193E61;
+    margin-bottom: 5rem ;}
+    
+    .pOnVousDitTout{
+        height: 4rem;
+        line-height: 4rem;
+        text-align: center;
+        color: white;
+        font-family: "Marko One", Arial, Helvetica, sans-serif;
+        margin-bottom: 0;
+        font-size: 2rem;}
+/* Fin Accordeon */
 
 
 /* Entête */
@@ -75,16 +75,23 @@ p {
         grid-gap: 2rem;
         grid-template-rows: 1fr;
         grid-template-columns: 1fr 2fr;
-        width: 100%;
+        width: 98%;
         margin: auto;
 
         .conteneurG {
-            background-color: red;
             grid-row-start: 1;
-            grid-row-end: 3;
+            grid-row-end: 2;
+            grid-column-start: 1;
+            grid-column-end: 2;
             display: flex;
+            flex-direction: column;
             flex-shrink: 0;}
     }
+
+    .accordeon{
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;}
+
 
     .conteneurCartes{
         display: flex;
@@ -94,14 +101,13 @@ p {
     /* Bloc Paragraphe et Select */
     .blocEntete1 {
         display: flex;
+        border-radius: 0.5rem;
 
         .entete1 {
             display: flex;
             flex-shrink: 0;
 
-            .pStock {
-                padding: 1rem 0 0 1rem;
-            }
+            .pStock {padding: 1rem 0 0 1rem;}
         }
     }
     .conteneurSelect {
@@ -119,7 +125,7 @@ p {
         grid-gap: 2rem;
         grid-template-rows: 1fr;
         grid-template-columns: 1fr 3fr;
-        width: 100%;
+        width: 98%;
         margin: auto;}
 }
 
@@ -167,6 +173,7 @@ p {
                 width: 100%;
                 height: 90%;
                 object-fit: cover;
+                border-radius: 0.5rem;
             }
 
             .pRef {
@@ -179,7 +186,7 @@ p {
                 text-decoration: none;
                 transform: translateY(-100%);
                 background-color: rgba(0, 0, 204, 0.3);
-            }
+                border-radius: 0 0 0.5rem 0.5rem;}
         }
     }
 }
@@ -262,17 +269,3 @@ p {
 }
 
 
-/* Accordeon */
-.pOnVousDitTout{
-    text-align: center;
-    color: white;
-    font-family: "Marko One", Arial, Helvetica, sans-serif;
-    padding: 1rem 0;
-    margin-bottom: 0;
-    font-size: 2rem;
-}
-
-.accordeon{
-    width: 100%;
-    background-color: #193E61;
-}

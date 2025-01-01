@@ -1,12 +1,21 @@
 import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import boutique from "./boutique.module.css"
+
+// COMPOSANTS
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import Footer from "../../components/Footer/footer.jsx";
-import { Link } from "react-router-dom";
-import boutique from "./boutique.module.css"
-import Panier from "../../components/PanierSynthèse/visuelPanier.jsx";
+import PanierTotal from "../../components/PanierSynthèse/visuelPanier.jsx";
+import ConnectezVous from "../../components/ConnectezVous/connectezVous.jsx";
+import PrenezRendezVous from "../../components/PrenezRendezVous/prenezRendezVous.jsx";
 import Accordeon from "../../components/Accordeon/accordeon.jsx";
-import axios from "axios";
-import panier from "../../images/Icones/paniers.png"
+
+// ICONES & IMAGES
+import iconePanier from "../../images/Icones/paniers.png"
+
+// CONTEXT
+import { AuthContext } from "../../context/AuthContext.jsx";
 import { PanierContext } from "../../context/PanierContext.jsx";
 
 // ACTIONS :
@@ -15,7 +24,8 @@ import * as Actions from "../../redux/reducers/item.reducer.js"
 
 const Boutique = () => {
 
-    const {incremente , decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, prixTotal} = useContext(PanierContext)
+    const {auth} = useContext(AuthContext)
+    const {incremente , decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, panier, prixTotal} = useContext(PanierContext)
 
     const [items, setItems] = useState([])
     const [error, setError] = useState(null)
@@ -28,7 +38,6 @@ const Boutique = () => {
             dispatch(Actions.ITEM_DEPART())
             try {
                 const { data, status } = await axios.get("http://localhost:8000/api/item/all");
-                console.log(data);
                 dispatch(Actions.ITEM_ARRIVE(data));
                 setItems(data);
             } catch (error) {
@@ -48,8 +57,10 @@ const Boutique = () => {
 
             <div className={boutique.conteneurGlobal}>
                 <div className={boutique.conteneurG}>
+                {auth ? <PanierTotal/> : <ConnectezVous/>}
+                <PrenezRendezVous/>
+
                     <div className={boutique.accordeon}>
-                        <Panier/>
                         <p className={boutique.pOnVousDitTout}>On vous dit tout</p>
                         <Accordeon
                             titre="D'où viennent nos soies ?"
@@ -123,7 +134,7 @@ const Boutique = () => {
                                         <p className={boutique.apercuPrix}>{item.price} €</p>
                                     </div>
                                     <div className={boutique.divIconAchat}>
-                                        <img className={boutique.iconeAchat} src={panier} alt="icone panier" />
+                                        <img onClick={() => ajouterArticle(item)} className={boutique.iconeAchat} src={iconePanier} alt="icone panier" />
                                     </div>
                                     <div className={boutique.divButtonDetails}>
                                         <Link className={boutique.btnCliquable} to={{ pathname: `/details/${item._id}` }}>
