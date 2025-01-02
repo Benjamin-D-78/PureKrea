@@ -39,7 +39,8 @@
     width: 100%;
     font-weight: 600;
     font-size: 1.4rem;
-    display: inline;}
+    display: inline;
+    cursor: pointer;}
 
 /* Texte - corps */
 .pAccordeon {
