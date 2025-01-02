@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, NavLink } from "react-router-dom"
 import footerCSS from "./footer.module.css"
-import classNames from "classnames"
 import linkedin from "../../images/Reseaux/linkedin.png"
 import github from "../../images/Reseaux/github.png"
 
@@ -24,9 +23,9 @@ export default function Footer() {
         <div>
           <p className={footerCSS.pCentre}>Newsletter</p>
         </div>
-        <div>
+        <div className={footerCSS.contientTexteEtForm}>
           <div className={footerCSS.divTexteNewsletter}>
-            <p>Abonnez-vous pour recevoir toutes nos actualités et offres exclusives !</p>
+            <p className={footerCSS.pTexteNewsletter}>Abonnez-vous pour recevoir toutes nos actualités et offres exclusives !</p>
           </div>
           <div className={footerCSS.divFormNewsletter}>
             <form>
@@ -36,7 +35,7 @@ export default function Footer() {
               </div>
               <div className={footerCSS.divFormNewsletterB}>
                 <input className={footerCSS.inputFormNewsletterB} placeholder='E-mail' type="email" id='email' name='email' required />
-                <button className={footerCSS.inputFormNewsletterB}>Je m'abonne</button>
+                <button className={footerCSS.btnEnvoiFormNewsletter}>Je m'abonne</button>
               </div>
             </form>
           </div>

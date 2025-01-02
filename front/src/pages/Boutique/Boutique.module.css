@@ -192,7 +192,9 @@
 }
 
 /* Link Image */
-.imgCliquable {text-decoration: none;}
+.imgCliquable {
+    text-decoration: none;
+    cursor: pointer;}
 
 /*-------- Prix + Panier + Détails ---------*/
 /* Prix */
@@ -236,7 +238,8 @@
     .iconeAchat {
         width: 100%;
         height: 100%;
-        padding: 0.5rem;}
+        padding: 0.5rem;
+        cursor: pointer;}
 }
 
 /* Plus de détails */
@@ -264,7 +267,8 @@
             margin: auto;
             margin-top: 1rem;
             margin-bottom: 0.2rem;
-            border-radius: 0.5rem;}
+            border-radius: 0.5rem;
+            cursor: pointer;}
     }
 }
 
