@@ -131,13 +131,9 @@
 
 /* Conteneur Carte principaux */
 .conteneurCartes {
-    /* display: grid; */
     display: flex;
     overflow-x: auto;
-    /* justify-content: center; */
-    /* flex-wrap: wrap;
-    justify-content: center; */
-    /* width: 100%; */}
+    margin-bottom: 4rem;}
 
 .carte {
     background-color: #265E92;
@@ -272,4 +268,22 @@
     }
 }
 
+.divBtnToutVoir{
+    display: flex;
+    justify-content: center;
+}
 
+.toutVoir{
+    border: none;
+    width: 30%;
+    margin: auto;
+    font-family: "Marko One" ,Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4rem;
+    background-image: url("../../images/NavBar/fond_NavBar.jpg");
+    background-size: cover; /* On recouvre entièrement le texte avec l'image */
+    background-clip: text; /* On applique l'image au texte */
+    color: transparent; /* On rend le texte transparent pour voir que l'image */
+    cursor: pointer;
+}
