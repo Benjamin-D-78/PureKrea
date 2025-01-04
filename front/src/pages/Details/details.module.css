@@ -1,0 +1,100 @@
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;}
+
+
+/* CSS PAGE BOUTIQUE */
+.conteneurGlobal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: auto;
+}
+
+.conteneurG {
+    order: 2;
+}
+
+.blocEntete1 {
+    background-image: url("../../images/NavBar/fond_NavBar.jpg");}
+
+.pName {
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1.6rem;
+    padding: 1rem 0;}
+
+
+@media screen and (min-width: 768px) {
+
+    /* Conteneurs principaux */
+    .conteneurGlobal {
+        display: grid;
+        grid-gap: 2rem;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 3fr;
+        width: 98%;
+        margin: auto;
+
+        .conteneurG {
+            grid-row-start: 1;
+            grid-row-end: 2;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+    }
+
+    .accordeon {
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;}
+
+    .blocEntete1 {
+        border-radius: 0.5rem;
+
+        .entete1 {
+            flex-shrink: 0;
+        }
+    }
+}
+/* FIN CSS PAGE BOUTIQUE */
+.conteneurIMG{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.imageDetail img, .imageDetail img2{
+    width: 90%;
+    display: block;
+    margin-left: auto;
+    margin: auto;
+    /* text-align: center; */
+  }
+
+/* .conteneurD{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr ;
+}
+
+.blocEntete1{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.conteneurIMG{
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.detailsProduit{
+    grid-column-start: 2;
+    grid-column-end: 3;
+} */
