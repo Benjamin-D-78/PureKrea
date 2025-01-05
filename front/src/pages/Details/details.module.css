@@ -64,37 +64,160 @@
     }
 }
 /* FIN CSS PAGE BOUTIQUE */
+
+
+
+
+
+
+
+
+
+
+/* DEBUT PAGE DETAILS */
+/* Images */
 .conteneurIMG{
+    margin: auto;
     display: flex;
     justify-content: center;
-    width: 100%;
+    margin-top: 1rem;}
+
+.imageDetail1, .imageDetail2{
+    width: 10rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;}
+/* Fin images */
+
+
+/* Détails produit */
+.nomProduit{
+    text-align: center;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #265E92;
+    margin: 2rem 0;
 }
 
-.imageDetail img, .imageDetail img2{
-    width: 90%;
-    display: block;
-    margin-left: auto;
-    margin: auto;
-    /* text-align: center; */
-  }
 
-/* .conteneurD{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr ;
+.conteneurDetailsProduits{
+    width: 98%;
+    display: flex;
+
+    .detailsProduitG{
+        text-align: right;
+        margin-left: 3rem;}
+
+    .detailsProduitG p{
+        font-family: "Marko One", Arial, Helvetica, sans-serif;}
+
+    .detailsProduitD{
+        margin-left: 2rem;}
 }
 
-.blocEntete1{
-    grid-column-start: 1;
-    grid-column-end: 3;
+
+
+.pPrix{
+    text-align: center;
+    font-family: "Marko One" ,Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    background-image: url("../../images/NavBar/fond_NavBar.jpg");
+    background-size: cover; /* On recouvre entièrement le texte avec l'image */
+    background-clip: text; /* On applique l'image au texte */
+    color: transparent; /* On rend le texte transparent pour voir que l'image */}
+/* Fin détails produit */
+
+
+/* Boutons */
+.contientBtnAjout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4rem;}
+
+    .btnAjout{
+        margin-top: 2rem;
+        border: none;
+        background-color: #C6E60F;
+        width: 70%;
+        height: 3rem;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        border-radius: 1.5rem;}
+
+    .contientBtnAjout a{width: 70%;}
+
+    .btnRevenir{
+        margin: 1rem 0 5rem 0;
+        background-color: white;
+        border-color: #C6E60F;
+        width: 100%;
+        height: 3rem;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        border-radius: 1.5rem;}
+/* Fin boutons */
+
+
+
+    
+
+@media screen and (min-width: 768px) {
+    .conteneurD{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;}
+
+    .nomProduit{margin-top: 2rem;}
+
+    .imageDetail1:hover, .imageDetail2:hover{transform: scale(1.1);}
+                
+    .btnAjout{width: 100%;}
+    .btnRevenir{margin-bottom: 3rem;}
+    .contientBtnAjout a{width: 100%;}
 }
 
-.conteneurIMG{
-    grid-column-start: 1;
-    grid-column-end: 2;
+@media screen and (min-width: 1000px) {
+    .conteneurD{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .conteneurDetails{
+        width: 80%;
+        padding-right: 20%;
 }
 
-.detailsProduit{
+    .conteneurIMG{
+        width: 20%;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        margin-top: 0
+        }
+
+    .btnAjout{width: 50%;}
+    .contientBtnAjout a{width: 50%;}
+    }
+
+
+
+
+
+
+
+
+
+/* .nomProduit, .detailsProduit{
     grid-column-start: 2;
     grid-column-end: 3;
-} */
+}  */

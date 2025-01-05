@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import NotFound from './components/NotFound';
 import Boutique from './pages/Boutique/Boutique';
+import Commande from './pages/Commande/commande';
 import Details from './pages/Details/Detail';
 import Inscription from './pages/Utilisateurs/Inscription';
 import Connexion from './pages/Utilisateurs/Connexion';
@@ -26,6 +27,7 @@ function App() {
       <Route path='/' element={<Layout />}>
         <Route index element={<Boutique />} />  {/* Page principale */}
         <Route path="/details/:id" element={<Details />} />
+        <Route path="/commande" element={<Commande />} />
         <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
       </Route>
 

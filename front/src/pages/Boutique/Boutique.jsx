@@ -13,6 +13,7 @@ import Accordeon from "../../components/Accordeon/accordeon.jsx";
 
 // ICONES & IMAGES
 import iconePanier from "../../images/Icones/paniers.png"
+import raffraichir from "../../images/Icones/raffraichir.svg"
 
 // CONTEXT
 import { AuthContext } from "../../context/AuthContext.jsx";
@@ -102,6 +103,15 @@ const Boutique = () => {
 
 
 
+    const resetFiltre = () => {
+        setSelectionCollection("")
+        setSelectionPrix("")
+        setSelectionLargeur("")
+        setSelectionCouleur("")
+    }
+
+
+
     if (error) return <> <p>{error}</p> </>
 
     return (
@@ -143,14 +153,18 @@ const Boutique = () => {
                         <div className={boutique.entete1}>
                             <p className={boutique.pStock}>Toutes nos cravates</p>
                         </div>
+
                         <div className={boutique.conteneurSelect}>
+                        {/* <div className={boutique.refresh}> */}
+                                <img className={boutique.refresh} onClick={resetFiltre} src={raffraichir} alt="réinitialisation des filtres" />
+                            {/* </div> */}
                             <select
                                 className={boutique.selectEntete} 
                                 name="width" 
                                 id="width"
                                 value={selectionLargeur}
                                 onChange={handleLargeur}>
-                                <option>Largeur</option>
+                                <option onClick={resetFiltre}>Largeur</option>
                                 {largeurs.map(largeur => (
                                     <option key={largeur} value={largeur}>{largeur} cm</option>
                                 ))}
@@ -189,8 +203,8 @@ const Boutique = () => {
                                 {collections.map(collection => (
                                     <option key={collection} value={collection}>{collection}</option>
                                 ))}
-                           
                             </select>
+
                         </div>
                     </div>
                     <div className={boutique.conteneurCartes}>

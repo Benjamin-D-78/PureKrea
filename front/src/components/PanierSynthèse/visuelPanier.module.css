@@ -152,4 +152,7 @@
     font-weight: 600;
     border-radius: 1.5rem;
     cursor: pointer;
+    white-space: nowrap; /* On empêche le texte de se couper en plusieurs lignes */
+    overflow: hidden; /* Ensuite on masque le texte qui dépasse */
+    text-overflow: ellipsis; /* Et on affiche des points de suspension si le texte dépasse */
 }
