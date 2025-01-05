@@ -117,7 +117,11 @@ export const PanierProvider = ({ children }) => {
                     const articleTrouve = nouveauPanier.find(item => item._id === product._id);
 
                     if (articleTrouve) {
-                        articleTrouve.quantite += 1;
+                        if (articleTrouve.quantite < product.stock) {
+                            articleTrouve.quantite += 1;
+                        } else {
+                            alert("Le stock maximum a été atteint pour cet article.")
+                        }
                     } else {
                         nouveauPanier.push({ ...product, quantite: 1 });
                     }

@@ -13,14 +13,12 @@ import Accordeon from "../../components/Accordeon/accordeon.jsx";
 
 // ICONES & IMAGES
 import iconePanier from "../../images/Icones/paniers.png"
+import raffraichir from "../../images/Icones/raffraichir.svg"
 
 // CONTEXT
 import { AuthContext } from "../../context/AuthContext.jsx";
 import { PanierContext } from "../../context/PanierContext.jsx";
 
-// ACTIONS :
-import { useDispatch, useSelector } from "react-redux";
-import * as Actions from "../../redux/reducers/item.reducer.js"
 
 const Boutique = () => {
 
@@ -47,26 +45,20 @@ const Boutique = () => {
     const [couleurs, setCouleurs] = useState([])
 
 
-
-    
-    const dispatch = useDispatch();
-    const store = useSelector(state => state.itemReducer.data)
     
     useEffect(() => { // On appelle la fonction "depart" qui déclenche mon action Redux pour indiquer qu'il n'y a pas encore de données (ITEM.DEPART)
         const depart = async () => {
-            dispatch(Actions.ITEM_DEPART())
             try {
-                const { data, status } = await axios.get("http://localhost:8000/api/item/all");
-                dispatch(Actions.ITEM_ARRIVE(data));
-                setItems(data);
+                const response = await axios.get("http://localhost:8000/api/item/all");
+                setItems(response.data);
                 
                 // On extrait les valeurs de chaque collection (category).
                 // "Set" est un objet JS qui stocke uniquement les valeurs uniques en supprimant les doublons.
                 // La fonction map parcours tous les "item" récupérés et en extrait la category, qui sont ensuite stockés dans "collections", qui appartient à la même lignée que "setCollections"
-                setCollections([...new Set(data.map(item => item.category))].sort((a, b) => b - a))
-                setPrix([...new Set(data.map(item => item.price))].sort((a, b) => a - b))
-                setLargeurs([...new Set(data.map(item => item.width))].sort((a, b) => a - b))
-                setCouleurs([...new Set(data.map(item => item.color))].sort())
+                setCollections([...new Set(response.data.map(item => item.category))].sort((a, b) => b - a))
+                setPrix([...new Set(response.data.map(item => item.price))].sort((a, b) => a - b))
+                setLargeurs([...new Set(response.data.map(item => item.width))].sort((a, b) => a - b))
+                setCouleurs([...new Set(response.data.map(item => item.color))].sort())
                 
             } catch (error) {
                 console.log("Erreur lors de l'appel API", error)
@@ -111,6 +103,15 @@ const Boutique = () => {
 
 
 
+    const resetFiltre = () => {
+        setSelectionCollection("")
+        setSelectionPrix("")
+        setSelectionLargeur("")
+        setSelectionCouleur("")
+    }
+
+
+
     if (error) return <> <p>{error}</p> </>
 
     return (
@@ -152,14 +153,18 @@ const Boutique = () => {
                         <div className={boutique.entete1}>
                             <p className={boutique.pStock}>Toutes nos cravates</p>
                         </div>
+
                         <div className={boutique.conteneurSelect}>
+                        {/* <div className={boutique.refresh}> */}
+                                <img className={boutique.refresh} onClick={resetFiltre} src={raffraichir} alt="réinitialisation des filtres" />
+                            {/* </div> */}
                             <select
                                 className={boutique.selectEntete} 
                                 name="width" 
                                 id="width"
                                 value={selectionLargeur}
                                 onChange={handleLargeur}>
-                                <option>Largeur</option>
+                                <option onClick={resetFiltre}>Largeur</option>
                                 {largeurs.map(largeur => (
                                     <option key={largeur} value={largeur}>{largeur} cm</option>
                                 ))}
@@ -198,8 +203,8 @@ const Boutique = () => {
                                 {collections.map(collection => (
                                     <option key={collection} value={collection}>{collection}</option>
                                 ))}
-                           
                             </select>
+
                         </div>
                     </div>
                     <div className={boutique.conteneurCartes}>
@@ -233,7 +238,7 @@ const Boutique = () => {
                         ))}
                     </div>
                     <div>
-                        {itemsAffiches < store.length && (
+                        {itemsAffiches < filtreItems.length && (
                             <div className={boutique.divBtnToutVoir}>
                                 <button tabIndex={0} className={boutique.toutVoir} onClick={() => setItemsAffiches(itemsAffiches.length)}>Tout voir</button>
                             </div>

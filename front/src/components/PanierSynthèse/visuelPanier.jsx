@@ -1,8 +1,10 @@
 import { React, useEffect, useState, useContext } from 'react';
 import { AuthContext } from "../../context/AuthContext"; // On importe le contexte
-import visuelPanier from "./visuelPanier.module.css"
 import { PanierContext } from '../../context/PanierContext';
+import { Link } from 'react-router-dom';
+import visuelPanier from "./visuelPanier.module.css"
 import supprimer from "../../images/Icones/supprimer.png"
+
 
 const PanierTotal = () => {
 
@@ -40,6 +42,7 @@ const PanierTotal = () => {
             {/* On créé des options de quantité allant de 1 à la quantité que j'ai en stock */}
             {/* On créé un tableau vide de longueur égale à la valeur en stock. */}
             {/* "..." = spread operator. On itère le tableau à chaque valeur du stock, c'est ce qui nous permet (avec article.stock) d'avoir le tableau avec des valeurs égales aux valeur qu'il y a en stock */}
+            {/* "_" est une convention pour dire que l'on a pas besoin de la valeur de l'élément puisquelle est "undefined". */}
             {[...Array(article.stock)].map((_, qte) => (
               <option key={qte} value={qte + 1}> {/* value={qte + 1} correspond à la quantité disponible à choisir. */}
 
@@ -55,7 +58,7 @@ const PanierTotal = () => {
         </div>
       ))}
       <div className={visuelPanier.contientBoutonCommande}>
-        <button className={visuelPanier.boutonPasserCommande}>Passer la commande</button>
+        <Link to={{pathname: "/commande"}}><button className={visuelPanier.boutonPasserCommande}>Passer la commande</button></Link>
       </div>
     </section>
 

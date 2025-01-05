@@ -4,24 +4,19 @@ import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
 import { Link } from "react-router-dom";
 
-// ACTIONS :
-import { useDispatch, useSelector } from "react-redux";
-import * as Actions from "../../redux/reducers/item.reducer"
 
 const Items = () => {
 
     const [items, setItems] = useState([])
     const [error, setError] = useState(null)
 
-    const dispatch = useDispatch();
-    const store = useSelector(state => state.itemReducer.data)
 
     const deleteItem = async (id) => {
         try {
             const response = await axios.delete(`http://localhost:8000/api/item/delete/${id}`);
 
             if (response.status === 200) {
-                console.log(response)
+                console.log(response.data)
                 alert("Item supprimé avec succès.");
                 setItems((prevItems) => prevItems.filter((item) => item._id !== id));} // On met à jour le state local en retirant de la liste l'item supprimé.
         } catch (error) {
@@ -31,12 +26,9 @@ const Items = () => {
 
 
         const depart = async () => {
-            dispatch(Actions.ITEM_DEPART())
             try {
-                const { data, status } = await axios.get("http://localhost:8000/api/item/all");
-                console.log(data);
-                dispatch(Actions.ITEM_ARRIVE(data));
-                setItems(data);
+                const response = await axios.get("http://localhost:8000/api/item/all");
+                setItems(response.data);
             } catch (error) {
                 setError(error.message);
             }
