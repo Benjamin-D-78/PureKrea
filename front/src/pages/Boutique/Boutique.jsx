@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import boutique from "./boutique.module.css"
+import boutique from "./Boutique.module.css"
 
 // COMPOSANTS
 import NavBar from "../../components/NavBar/NavBar.jsx";
-import Footer from "../../components/Footer/footer.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
 import PanierTotal from "../../components/PanierSynthèse/visuelPanier.jsx";
 import ConnectezVous from "../../components/ConnectezVous/connectezVous.jsx";
 import PrenezRendezVous from "../../components/PrenezRendezVous/prenezRendezVous.jsx";

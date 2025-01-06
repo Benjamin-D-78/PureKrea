@@ -3,7 +3,7 @@ import { useState, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 import NavBar from '../../components/NavBar/NavBar'
-import Footer from '../../components/Footer/footer'
+import Footer from '../../components/Footer/Footer'
 import coin from "./coin.module.css"
 
 const Connexion = () => {
