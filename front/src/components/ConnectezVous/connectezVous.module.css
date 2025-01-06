@@ -1,7 +1,7 @@
 .contientPEtBtn{
     background-color: #193E61;
     margin-bottom: 5rem;
-    padding: 4rem;
+    padding: 2rem;
 
     @media screen and (min-width: 768px) {
         border-radius: 0.5rem;
@@ -18,10 +18,10 @@
 .divBtnConnexion{
     display: flex;
     justify-content: center;
+    padding: 0 3rem 2rem 3rem;
 
     .linkConnexion{
-        width: 70%;
-        margin: auto;
+        width: 90%;
     }
 
     .btnConnexion{

@@ -1,6 +1,7 @@
 import { React, createContext, useState, useEffect, useContext } from "react";
 import { debounce } from "lodash"
 import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 export const PanierContext = createContext()
 
@@ -120,7 +121,7 @@ export const PanierProvider = ({ children }) => {
                         if (articleTrouve.quantite < product.stock) {
                             articleTrouve.quantite += 1;
                         } else {
-                            alert("Le stock maximum a été atteint pour cet article.")
+                            toast.error("Le stock maximum a été atteint pour cet article.", {autoClose: 1000})
                         }
                     } else {
                         nouveauPanier.push({ ...product, quantite: 1 });

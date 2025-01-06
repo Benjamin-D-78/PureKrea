@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
+import { toast } from 'react-toastify'
 import items from "./css/items.module.css"
 import BoutiqueDashboard from './BoutiqueDashboard'
 
@@ -43,8 +44,10 @@ const AjoutItem = () => {
     try {
       const response = await axios.post("http://localhost:8000/api/item/creation", item)
       console.log(response)
+      toast.success("Item créé avec succès.", {autoClose: 1000})
     } catch (error) {
-      console.error("Echec de la création de l'article : ", error.message)
+      console.error("Echec de la création de l'item : ", error.message)
+      toast.error("Echec de la création de l'item", {autoClose: 3000})
     }
   }
 

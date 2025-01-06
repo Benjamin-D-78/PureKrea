@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 const Items = () => {
@@ -17,10 +18,12 @@ const Items = () => {
 
             if (response.status === 200) {
                 console.log(response.data)
-                alert("Item supprimé avec succès.");
+                toast.success("Item supprimé avec succès.", {autoClose: 1000});
                 setItems((prevItems) => prevItems.filter((item) => item._id !== id));} // On met à jour le state local en retirant de la liste l'item supprimé.
         } catch (error) {
             console.log("Erreur lors de la suppression de l'item", error);
+            toast.error("Erreur lors de la suppression de l'item", {autoClose: 3000})
+
         }
     };
 

@@ -1,10 +1,12 @@
-import React from 'react'
-import { useState, useContext } from 'react'
+import { React, useState, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
+import coin from "./coin.module.css"
+
+// COMPOSANTS
 import NavBar from '../../components/NavBar/NavBar'
 import Footer from '../../components/Footer/Footer'
-import coin from "./coin.module.css"
+
 
 const Connexion = () => {
 

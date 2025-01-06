@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
+import { toast } from 'react-toastify'
 
 // COMPOSANTS
 import AjoutUtilisateur from './Users'
@@ -22,11 +23,12 @@ const Utilisateurs = () => {
         const response = await axios.delete(`http://localhost:8000/api/user/delete/${id}`, { withCredentials: true })
         if (response.status === 200) {
           console.log(response)
-          alert("Utilisateur supprimé avec succès");
+          toast.success("Utilisateur supprimé avec succès.", {autoClose: 1000})
           setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
         } // On met à jour le state local en retirant de la liste l'utilisateur supprimé.
       } catch (error) {
-        console.log("Erreur lors de la suppression de l'utilisateur", error)
+        console.log("Erreur lors de la suppression de l'utilisateur.", error)
+        toast.error("Erreur lors de la suppression de l'utilisateur.", {autoClose: 3000})
       }
     }
   }

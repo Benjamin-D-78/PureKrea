@@ -1,6 +1,7 @@
 import {React, useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios"
+import { toast } from 'react-toastify';
 
 function UpdateUsers(){
   const {id} = useParams();
@@ -43,9 +44,11 @@ function UpdateUsers(){
         const response = await axios.put(`http://localhost:8000/api/user/update/${id}`, utilisateur, { withCredentials: true })
         if(response.status === 200) {
           navigate("/dashboard/utilisateurs")
+          toast.success("Informations utilisateur mises à jour avec succès.", {autoClose: 1000})
         }
       } catch (error) {
         console.error("Erreur lors de la mise à jour de l'item : ", error)
+        toast.error("Erreur lors de la mise à jour de l'item.", {autoClose: 3000})
       }
     }
 

@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom"
 import { AuthProvider } from './context/AuthContext';
 import { PanierProvider } from './context/PanierContext';
+import { ToastContainer } from 'react-toastify';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +16,7 @@ root.render(
         <AuthProvider> {/* Notre contexte fournit maintenant les données aux composants enfants. */}
           <PanierProvider>
             <App />
+            <ToastContainer />
           </PanierProvider>
         </AuthProvider>
     </BrowserRouter>

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios"
+import { toast } from "react-toastify";
 
 const AjoutUtilisateur = () => {
 
@@ -22,8 +23,10 @@ const AjoutUtilisateur = () => {
         try {
             const response = await axios.post("http://localhost:8000/api/user/inscription", user)
             console.log(response)
+            toast.success("Utilisateur ajouté avec succès.", {autoClose: 1000})
         } catch (error) {
             console.log("Echec de l'ajout de l'utilisateur.", error.message)
+            toast.error("Echec de l'ajout de l'utilisateur.", {autoClose: 3000})
         }
     }
 

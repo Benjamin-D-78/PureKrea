@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios"
+import { toast } from 'react-toastify'
 import items from "./css/items.module.css"
 
 const UpdateItems = () => {
@@ -59,8 +60,10 @@ const UpdateItems = () => {
         try {
             const response = await axios.put(`http://localhost:8000/api/item/update/${id}`, item);
             navigate("/dashboard/items")
+            toast.success("Item mis à jour avec succès.", {autoClose: 1000})
         } catch (error) {
             console.error("Erreur lors de la mise à jour de l'item : ", error);
+            toast.error("Erreur lors de la mise à jour de l'item.", {autoClose: 3000})
         }
     };
 

@@ -1,11 +1,13 @@
-import React from 'react'
-import { useState } from 'react'
+import { React, useState } from 'react'
 import axios from "axios"
+import { useNavigate, Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import coin from "./coin.module.css"
+
+// COMPOSANTS
 import NavBar from "../../components/NavBar/NavBar"
 import Footer from '../../components/Footer/Footer'
-import coin from "./coin.module.css"
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+
 
 const Inscription = () => {
 
@@ -22,16 +24,18 @@ const Inscription = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if(user.password !== user.repeatPassword){
-            alert("Les mots de passe ne sont pas identiques.");
+            toast.error("Les mots de passe ne sont pas identiques.", {autoClose: 3000})
             return;
         }
         try {
             const response = await axios.post("http://localhost:8000/api/user/inscription", user)
             if (response.status === 201) {
                 navigate("/");
+                toast.success("Inscription effectuée avec succès.", {autoClose: 1000})
             }
         } catch (error) {
             console.log("Echec de l'inscription de l'utilisateur.", error.message)
+            toast.error("Un problème est survenu, veuillez nous contacter.", {autoClose: 3000})
         }
     }
 
