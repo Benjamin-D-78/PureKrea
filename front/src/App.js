@@ -27,7 +27,6 @@ function App() {
       <Route path='/' element={<Layout />}>
         <Route index element={<Boutique />} />  {/* Page principale */}
         <Route path="/details/:id" element={<Details />} />
-        <Route path="/commande" element={<Commande />} />
         <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
       </Route>
 
@@ -39,6 +38,7 @@ function App() {
 
       {/* Routes protégées */}
       <Route element={<RoutesProtegees />}>
+        <Route path="/commande" element={<Commande />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="items" element={<Items />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />

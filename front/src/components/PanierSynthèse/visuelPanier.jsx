@@ -1,7 +1,7 @@
 import { React, useEffect, useState, useContext } from 'react';
 import { AuthContext } from "../../context/AuthContext"; // On importe le contexte
 import { PanierContext } from '../../context/PanierContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import visuelPanier from "./visuelPanier.module.css"
 import supprimer from "../../images/Icones/supprimer.png"
 
@@ -11,6 +11,7 @@ const PanierTotal = () => {
   const { incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, panier, prixTotal } = useContext(PanierContext)
 
   const { auth } = useContext(AuthContext); // On récupère l'objet utilisateur depuis le contexte
+
   return (
     <section className={visuelPanier.containerPanier}>
       <p className={visuelPanier.nom}>{auth ? `${auth.firstname}` : ""}</p>
@@ -33,7 +34,7 @@ const PanierTotal = () => {
             className={visuelPanier.selectQTE}
             // On lie la quantité de l'article dans le panier à la valeur de l'option sélectionnée dans le select
             // Chaque modification dans le selecteur appelle la fonction "changerQuantite".
-            value={article.quantite} 
+            value={article.quantite}
             // on appelle onChange a chaque fois qu'une nouvelle quantité est choisie dans le select.
             // index sert à identifier quel article doit être modifié.
             // event.target.value cible na nouvelle quantité choisie convertie en nombre entier avec parseInt.
@@ -58,7 +59,7 @@ const PanierTotal = () => {
         </div>
       ))}
       <div className={visuelPanier.contientBoutonCommande}>
-        <Link to={{pathname: "/commande"}}><button className={visuelPanier.boutonPasserCommande}>Passer la commande</button></Link>
+        <Link to={{ pathname: "/commande" }}><button className={visuelPanier.boutonPasserCommande}>Passer la commande</button></Link>
       </div>
     </section>
 

@@ -4,12 +4,12 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 
 // CSS
-import boutique from "../Boutique/boutique.module.css"
+import boutique from "../Boutique/Boutique.module.css"
 import detailsCSS from "./details.module.css"
 
 // COMPOSANTS
 import NavBar from "../../components/NavBar/NavBar";
-import Footer from "../../components/Footer/footer";
+import Footer from "../../components/Footer/Footer";
 import PanierTotal from "../../components/PanierSynthèse/visuelPanier.jsx";
 import ConnectezVous from "../../components/ConnectezVous/connectezVous.jsx";
 import PrenezRendezVous from "../../components/PrenezRendezVous/prenezRendezVous.jsx";

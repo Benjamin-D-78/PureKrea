@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import axios from "axios"
 import NavBar from "../../components/NavBar/NavBar"
-import Footer from '../../components/Footer/footer'
+import Footer from '../../components/Footer/Footer'
 import coin from "./coin.module.css"
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
