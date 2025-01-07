@@ -46,7 +46,6 @@ const PanierTotal = () => {
             {/* "_" est une convention pour dire que l'on a pas besoin de la valeur de l'élément puisquelle est "undefined". */}
             {[...Array(article.stock)].map((_, qte) => (
               <option key={qte} value={qte + 1}> {/* value={qte + 1} correspond à la quantité disponible à choisir. */}
-
                 {qte + 1}
               </option>
             ))}

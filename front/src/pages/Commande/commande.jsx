@@ -24,6 +24,8 @@ const Commande = () => {
   const { auth } = useContext(AuthContext)
   const { incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, panier, prixTotal } = useContext(PanierContext)
 
+
+
   return (
     <div>
       <NavBar />
@@ -57,32 +59,83 @@ const Commande = () => {
               corps={<>En sur-mesure, il n'y en a pas. La prise de rendez-vous est nécessaire et conçue pour éviter ce désagrément.<br />Pour le prêt-à-porter, vous disposez d'un délai d'une semaine pour nous retourner le ou les articles à compter de leur réception.</>} />
           </div>
         </div>
-        <div className={detailsCSS.blocEntete1}>
-          <div className={detailsCSS.entete1}>
-            <h2 className={detailsCSS.pName}>Récapitulatif</h2>
-          </div>
-        </div>
+
         <div className={commande.conteneurD}>
+          <div className={commande.blocEntete1}>
+            <div className={commande.entete1}>
+              <h2 className={commande.pName}>Récapitulatif</h2>
+            </div>
+          </div>
           <div className={commande.conteneurGeneralRecap}>
-            <p>Livraison à {auth ? `${auth.firstname} ${auth.lastname}` : ""}</p>
+            <p className={commande.livraisonA}>Livraison à :</p>
             <div className={commande.conteneurInfoUtilisateur}>
-                <div className={commande.labelUtilisateur}>
-                  <label htmlFor="">Adresse : </label>
-                  <label htmlFor="">Code postal : </label>
-                  <label htmlFor="">Téléphone : </label>
-                  <label htmlFor="">Commentaire : </label>
+              <div className={commande.labelUtilisateur}>
+                <div>
+                  <label className={commande.labelRecap} htmlFor="">Nom : </label>
+                  {auth && auth.lastname ? (<span className={commande.pUtilisateur}>{auth.lastname}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                 </div>
-                <div className={commande.inputUtilisateur}>
-                  {auth && auth.adress ? `${auth.adress}` : <input type="text" required />}
-                  {auth && auth.postal ? `${auth.postal}` : <input type="number" required />}
-                  {auth && auth.phone ? `${auth.phone}` : <input type="number" required />}
-                  <textarea name="" id="" rows={4} cols={20}></textarea>
+                <div>
+                  <label className={commande.labelRecap} htmlFor="">Prénom : </label>
+                  {auth && auth.firstname ? <span className={commande.pUtilisateur}>{auth.firstname}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                 </div>
+                <div>
+                  <label className={commande.labelRecap} htmlFor="">Adresse : </label>
+                  {auth && auth.adress ? <span className={commande.pUtilisateur}>{auth.adress}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                </div>
+                <div>
+                  <label className={commande.labelRecap} htmlFor="">Code postal : </label>
+                  {auth && auth.postal ? <span className={commande.pUtilisateur}>{auth.postal}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                </div>
+                <div>
+                  <label className={commande.labelRecap} htmlFor="">Téléphone : </label>
+                  {auth && auth.phone ? <span className={commande.pUtilisateur}>{auth.phone}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                </div>
+                <div className={commande.contientArea}>
+                  <div className={commande.labelArea}><label className={commande.labelCommentaire} htmlFor="">Commentaire : </label></div>
+                  <div className={commande.textArea}><textarea className={commande.areaUtilisateur} name="" id="" rows={4} cols={24}></textarea></div>
+                </div>
+                <div className={commande.contientBtnMInfo}>
+                  <Link><button className={commande.btnModifierInformations}>Modifier mes informations</button></Link>
+                </div>
+              </div>
+              {/* <div className={commande.inputUtilisateur}>
+              </div> */}
+            </div>
+            <hr className={commande.hrCommande} />
+            <p className={commande.livraisonA}>Récapitulatif d'achat(s) :</p>
+            <div className={commande.conteneurInfoUtilisateur}>
+
+
+              <div className={commande.synthesePanier}>
+                <p className={commande.pNomArticle}>Référence</p>
+                <p className={commande.pLargeur}>Largeur</p>
+                <p className={commande.pQte}>Quantité</p>
+                <p className={commande.pPrix}>Prix</p>
+              </div>
+
+              {panier.map((article, index) => (
+                <div key={index} className={commande.detailsPanier}>
+                  <p className={commande.nomArticle}>{article.name}</p>
+                  <p className={commande.largeurArticle}>{article.width} cm</p>
+                  <p className={commande.quantiteArticle}>{article.quantite}</p>
+                  <p className={commande.prixArticle}>{prixParQuantite(article.price, article.quantite)} €</p>
+                </div>
+              ))}
+            </div>
+            <div className={commande.totalRecap}>
+              <p className={commande.quantiteTotalRecap}>{totalArticle()}</p>
+              <p className={commande.prixTotalRecap}>{prixTotal} €</p>
+            </div>
+            <div className={commande.contientBtnValidation1}>
+              <button className={commande.btnValidation1}>Valider la commande</button>
+            </div>
+            <div className={commande.contientBtnValidation2}>
+              <Link to={{ pathname: "/" }}><button className={commande.btnValidation2}>Revenir au panier</button></Link>
             </div>
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

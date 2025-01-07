@@ -12,6 +12,7 @@ import Connexion from './pages/Utilisateurs/Connexion';
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
 import RoutesProtegees from './components/RoutesProtegees';
+import RoutesConnexion from './components/RoutesConnexion';
 
 import Dashboard from './pages/Dashboard/Dashboard';
 import Items from './pages/Dashboard/Items';
@@ -30,6 +31,10 @@ function App() {
         <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
       </Route>
 
+      <Route element={<RoutesConnexion />}>
+        <Route path="/commande" element={<Commande />} />
+      </Route>
+
       {/* Routes publiques */}
       <Route element={<RoutesPubliques />}>
         <Route path="/inscription" element={<Inscription />} />
@@ -38,7 +43,6 @@ function App() {
 
       {/* Routes protégées */}
       <Route element={<RoutesProtegees />}>
-        <Route path="/commande" element={<Commande />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="items" element={<Items />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />

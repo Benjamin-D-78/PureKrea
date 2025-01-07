@@ -47,8 +47,8 @@ function UpdateUsers(){
           toast.success("Informations utilisateur mises à jour avec succès.", {autoClose: 1000})
         }
       } catch (error) {
-        console.error("Erreur lors de la mise à jour de l'item : ", error)
-        toast.error("Erreur lors de la mise à jour de l'item.", {autoClose: 3000})
+        console.error("Erreur lors de la mise à jour de l'utilisateur : ", error)
+        toast.error("Erreur lors de la mise à jour de l'utilisateur.", {autoClose: 3000})
       }
     }
 

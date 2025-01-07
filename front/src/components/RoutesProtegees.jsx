@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import Dashboard from '../pages/Dashboard/Dashboard';
 
 const RoutesProtegees = () => {
     const user = localStorage.getItem("auth");
