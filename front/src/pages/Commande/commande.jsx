@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 // CSS
 import boutique from "../Boutique/Boutique.module.css"
 import commande from "./commande.module.css"
-import detailsCSS from "../Details/details.module.css"
 
 // COMPOSANTS
 import NavBar from '../../components/NavBar/NavBar'
@@ -63,7 +62,7 @@ const Commande = () => {
         <div className={commande.conteneurD}>
           <div className={commande.blocEntete1}>
             <div className={commande.entete1}>
-              <h2 className={commande.pName}>Récapitulatif</h2>
+              <p className={commande.pName}>Récapitulatif</p>
             </div>
           </div>
           <div className={commande.conteneurGeneralRecap}>
