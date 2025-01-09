@@ -1,6 +1,7 @@
 import { React, createContext, useState, useEffect, useContext } from "react";
 import { debounce } from "lodash"
 import { AuthContext } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const PanierContext = createContext()
@@ -8,6 +9,7 @@ export const PanierContext = createContext()
 export const PanierProvider = ({ children }) => {
 
     const { auth } = useContext(AuthContext)
+    const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(false);
     const [panier, setPanier] = useState([]);
@@ -105,11 +107,15 @@ export const PanierProvider = ({ children }) => {
 
     const ajouterArticle = async (product) => {
         try {
+            if (!auth) { 
+                navigate("/connexion")
+            }
+
             const userId = auth ? auth._id : null;
             if (userId) {
                 const panier = await localStorage.getItem(`panier${userId}`);
                 let nouveauPanier = [];
-
+                
                 // Si le panier existe déjà, on le converti en tableau d'objet.
                 if (panier !== null) {
                     nouveauPanier = JSON.parse(panier);
@@ -121,7 +127,7 @@ export const PanierProvider = ({ children }) => {
                         if (articleTrouve.quantite < product.stock) {
                             articleTrouve.quantite += 1;
                         } else {
-                            toast.error("Le stock maximum a été atteint pour cet article.", {autoClose: 1000})
+                            toast.error("Le stock maximum a été atteint pour cet article.", { autoClose: 1000 })
                         }
                     } else {
                         nouveauPanier.push({ ...product, quantite: 1 });

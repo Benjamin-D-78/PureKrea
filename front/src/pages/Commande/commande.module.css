@@ -4,26 +4,17 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
+    font-family: Arial, Helvetica, sans-serif;}
 
-
-
-/* CSS PAGE BOUTIQUE */
 .conteneurGlobal {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin: auto;
-}
+    margin: auto;}
 
-.conteneurG {
-    order: 2;
-}
+.conteneurG {order: 2;}
 
-.blocEntete1 {
-    background-image: url("../../images/NavBar/fond_NavBar.jpg");
-}
+.blocEntete1 {background-image: url("../../images/NavBar/fond_NavBar.jpg");}
 
 .pName {
     font-family: "Marko One", Arial, Helvetica, sans-serif;
@@ -31,26 +22,19 @@
     color: white;
     font-weight: 600;
     font-size: 1.6rem;
-    padding: 1rem 0;
-}
+    padding: 1rem 0;}
 
-/* Fin conteneur principaux */
-
-
-
-
-
-
-
-
-/* Conteneur droite */
 .conteneurD {
     display: flex;
     width: 100%;
     margin: auto;
     flex-direction: column;
-    justify-content: center;
-}
+    justify-content: center;}
+
+
+
+
+
 
 /* Formulaire */
 .conteneurGeneralRecap {
@@ -58,8 +42,7 @@
     border: double #265E92;
     margin: auto;
     margin-top: 2rem;
-    margin-bottom: 5rem;
-}
+    margin-bottom: 5rem;}
 
 
 /* Bloc haut */
@@ -68,78 +51,62 @@
     font-size: 1.8rem;
     font-weight: 600;
     color: #265E92;
-    margin: 1rem 0 2rem 1rem;
-}
+    margin: 1rem 0 2rem 1rem;}
 
-.conteneurInfoUtilisateur {
-    width: 100%;
-}
+.conteneurInfoUtilisateur {width: 100%;}
 
 .pUtilisateur {
     text-align: right;
     color: black;
     margin-bottom: 0.5rem;
     font-size: 1.4rem;
-    font-family: "Linden hill", 'Courier New', Courier, monospace;
-}
+    font-family: "Linden hill", 'Courier New', Courier, monospace;}
 
 .manquantUtilisateur {
     text-align: right;
     margin-bottom: 0.5rem;
     font-size: 1.4rem;
-    font-family: "Linden hill", 'Courier New', Courier, monospace;
-}
+    font-family: "Linden hill", 'Courier New', Courier, monospace;}
 
 .labelRecap {
     width: 35%;
     margin: 0 5rem 0.5rem 2rem;
     text-align: right;
-    font-family: "Marko One", Arial, Helvetica, sans-serif;
-}
+    font-family: "Marko One", Arial, Helvetica, sans-serif;}
 
 .inputUtilisateur input {
     display: flex;
     flex-direction: column;
     margin-bottom: 0.5rem;
     border: solid 1px;
-    border-radius: 0.5rem;
-}
+    border-radius: 0.5rem;}
 
 .contientArea {
     display: flex;
-    flex-wrap: wrap;
-}
+    flex-wrap: wrap;}
 
 .labelArea {
     width: 35%;
     margin: 0 5rem 0.5rem 2rem;
-    text-align: right;
-}
+    text-align: right;}
 
-.labelCommentaire {
-    font-family: "Marko One", Arial, Helvetica, sans-serif;
-}
+.labelCommentaire {font-family: "Marko One", Arial, Helvetica, sans-serif;}
 
 .areaUtilisateur {
     display: inline;
     padding: 0%;
     margin: auto;
-    border-radius: 0.5rem;
-}
+    border-radius: 0.5rem;}
 
 .hrCommande {
     margin: 2rem 0 1.5rem 0;
-    border: solid 1px;
-}
+    border: solid 1px;}
 
 .contientBtnMInfo {
     display: flex;
-    justify-content: center;
-}
+    justify-content: center;}
 
-.contientBtnMInfo a {
-    width: 60%;
-}
+.contientBtnMInfo a {width: 60%;}
 
 .btnModifierInformations {
     width: 100%;
@@ -152,8 +119,7 @@
     border: none;
     font-weight: 600;
     border-radius: 1.5rem;
-    cursor: pointer;
-}
+    cursor: pointer;}
 
 
 
@@ -162,89 +128,110 @@
 /* Bloc bas */
 .synthesePanier {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
     text-align: center;
-    font-weight: 800;
-}
+    font-weight: 800;}
 
 .pNomArticle {
     grid-column-start: 1;
-    grid-column-end: 2;
-}
+    grid-column-end: 2;}
 
 .pLargeur {
     grid-column-start: 2;
-    grid-column-end: 3;
-}
+    grid-column-end: 3;}
+
+.pU {
+    grid-column-start: 3;
+    grid-column-end: 4;}
 
 .pQte {
-    grid-column-start: 3;
-    grid-column-end: 4;
-}
+    grid-column-start: 4;
+    grid-column-end: 5;}
 
 .pPrix {
-    grid-column-start: 4;
-    grid-column-end: 5;
-}
+    grid-column-start: 5;
+    grid-column-end: 6;}
+
+
 
 
 
 .detailsPanier {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    text-align: center;
-}
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    text-align: center;}
 
 .nomArticle {
     grid-column-start: 1;
-    grid-column-end: 2;
-}
+    grid-column-end: 2;}
 
 .largeurArticle {
     grid-column-start: 2;
-    grid-column-end: 3;
-}
+    grid-column-end: 3;}
+
+.quantiteU {
+    grid-column-start: 3;
+    grid-column-end: 4;}
 
 .quantiteArticle {
-    grid-column-start: 3;
-    grid-column-end: 4;
-}
+    grid-column-start: 4;
+    grid-column-end: 5;}
 
 .prixArticle {
-    grid-column-start: 4;
-    grid-column-end: 5;
-}
+    grid-column-start: 5;
+    grid-column-end: 6;}
+
+
+
 
 
 
 .totalRecap {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
     text-align: center;
     color: green;
-    font-weight: 800;
-}
+    font-weight: 800;}
 
 .quantiteTotalRecap {
-    grid-column-start: 3;
-    grid-column-end: 4;
-}
+    grid-column-start: 4;
+    grid-column-end: 5;}
 
 .prixTotalRecap {
-    grid-column-start: 4;
-    grid-column-end: 5;
+    grid-column-start: 5;
+    grid-column-end: 6;}
+
+
+
+
+
+.divConteneurCheckBox {
+    display: flex;
+    justify-content: sp;
+    align-content: center;
+    width: 60%;
+    margin: auto;
+    margin-top: 2rem;
+
+    .contientCheckbox {align-self: center;}
+
+    .pCGV {
+        font-size: 1.4rem;
+        font-family: "Linden Hill", Arial, Helvetica, sans-serif;
+        font-style: italic;
+        margin: auto;}
 }
+
+
+
 
 
 .contientBtnValidation1,
 .contientBtnValidation2 {
     display: flex;
-    justify-content: center;
-}
+    justify-content: center;}
 
-.contientBtnValidation2 a {
-    width: 60%;
-}
+.contientBtnValidation2 a {width: 60%;}
 
 .btnValidation1 {
     width: 60%;
@@ -256,8 +243,7 @@
     font-size: 1.4rem;
     font-weight: 600;
     border-radius: 1.5rem;
-    cursor: pointer;
-}
+    cursor: pointer;}
 
 .btnValidation2 {
     width: 100%;
@@ -269,12 +255,13 @@
     font-size: 1.4rem;
     font-weight: 600;
     border-radius: 1.5rem;
-    cursor: pointer;
-}
+    cursor: pointer;}
+
+
+
 
 
 @media screen and (min-width: 768px) {
-
     /* Conteneurs principaux */
     .conteneurGlobal {
         display: grid;
@@ -291,26 +278,15 @@
             grid-column-end: 2;
             display: flex;
             flex-direction: column;
-            min-width: 30rem;
-        }
+            min-width: 30rem;}
 
-        .conteneurD {
-            /* margin: auto; */
-            display: grid;
-            grid-gap: 2rem;
-            grid-template-rows: auto auto;
-            grid-template-columns: 1fr;
-        }
-
-
-
+        .conteneurD {width: 100%;}
     }
 
 
     .blocEntete1 {
         margin: 0;
-        border-radius: 0.5rem;
-    }
+        border-radius: 0.5rem;}
 
 
     .conteneurGeneralRecap {
@@ -318,10 +294,12 @@
         width: 100%;
         border: double #265E92;
         margin: 2rem 0 5rem 0;
-        flex-shrink: 0;
-    }
-
+        flex-shrink: 0;}
 }
+
+
+
+
 
 
 @media screen and (min-width: 1100px) {
@@ -332,5 +310,7 @@
         grid-template-columns: 1fr 3fr;
         width: 98%;
         margin: auto;
+
+        .conteneurD {width: 60%;}
     }
 }

@@ -1,0 +1,69 @@
+.span{
+    all: unset;
+    font-family: "Linden Hill", Arial, Helvetica, sans-serif;
+    font-style: italic;
+    margin: auto;
+    text-decoration: underline;
+    cursor: pointer;
+    }
+
+.conteneurPrincipal, .contientModal{
+width: 100%;
+height: 100%;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+position: fixed;}
+
+.contientModal{background-color: rgba(211, 211, 211, 0.83);}
+
+.modalCGV{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background-color: white;
+    padding: 1.5rem 3rem;
+    border-radius: 3px;
+    width: 60%;
+    max-height: 50%;
+    overflow-y: auto;}
+
+
+
+/* TEXTE CGV */
+.titreH1{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-weight: 600;
+    margin: 2rem}
+
+.divPreambule p{margin: 0;}
+
+.titre{
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin: 3rem;}
+
+.divA1, .divA2, .divA3, .divA4, .divA5, .divA6, .divA62, .divA7, .divA8, .divA9, .divA10, .divA11, .divA12, .divA13, .divA14{
+    margin: 0;}
+
+
+
+.contientBtnFermer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;}
+
+.btnFermer{
+    margin: 100px auto 0;
+    text-align: center;
+    color: white;
+    background-color: #193E61;
+    border-radius: 1.5rem;
+    width: 10rem;
+    height: 3rem;
+    cursor: pointer;}

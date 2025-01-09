@@ -91,7 +91,7 @@ const Details = () => {
                 <div >
                     <div className={detailsCSS.blocEntete1}>
                         <div className={detailsCSS.entete1}>
-                            <h2 className={detailsCSS.pName}>Plus de détails</h2>
+                            <p className={detailsCSS.pName}>Plus de détails</p>
                         </div>
                     </div>
                     {/* <div className={detailsCSS.contientConteneurD}> */}
