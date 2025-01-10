@@ -22,7 +22,7 @@ import { PanierContext } from '../../context/PanierContext'
 const Commande = () => {
 
   const { auth } = useContext(AuthContext)
-  const { incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, panier, prixTotal } = useContext(PanierContext)
+  const { incremente, decremente, ajouterArticle, retirerArticle, validerCommande, prixParQuantite, totalArticle, panier, prixTotal } = useContext(PanierContext)
 
 
 
@@ -136,15 +136,15 @@ const Commande = () => {
                       required>
                     </input>
                   </div>
-                    <p className={commande.pCGV}>En cochant cette case vous acceptez nos <ModalCGV/></p>
+                    <div className={commande.pCGV}>En cochant cette case vous acceptez nos <ModalCGV/></div>
                     
                 </div>
               </div>
               <div className={commande.contientBtnValidation1}>
-                <button className={commande.btnValidation1}>Valider la commande</button>
+                <button onClick={validerCommande} className={commande.btnValidation1}>Valider la commande</button>
               </div>
               <div className={commande.contientBtnValidation2}>
-                <Link to={{ pathname: "/" }}><button className={commande.btnValidation2}>Revenir au panier</button></Link>
+                <Link to={{ pathname: "/" }}><button  className={commande.btnValidation2}>Revenir au panier</button></Link>
               </div>
             </div>
           </div>

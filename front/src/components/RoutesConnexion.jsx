@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom'
+
 
 const RoutesConnexion = () => {
 
@@ -9,6 +10,7 @@ const RoutesConnexion = () => {
     if (!auth) {
         return <Navigate to="/connexion"/>
     }
+
     return <Outlet />
 }
 
