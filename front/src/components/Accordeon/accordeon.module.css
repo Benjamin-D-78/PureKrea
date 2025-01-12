@@ -9,6 +9,17 @@
 
 .contientAccordeon {
     width: 100%;
+    background-color: #193E61;
+    margin-bottom: 5rem ;
+
+    .pOnVousDitTout{
+        height: 4rem;
+        line-height: 4rem;
+        text-align: center;
+        color: white;
+        font-family: "Marko One", Arial, Helvetica, sans-serif;
+        margin-bottom: 0;
+        font-size: 2rem;}
 
     .accordeon {
         background-color: white;
@@ -33,6 +44,18 @@
         }
     }
 }
+
+
+
+@media screen and (min-width: 768px) {
+    .contientAccordeon{
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+    }
+}
+
+
+
 
 .nomsChapitres {
     margin: auto;

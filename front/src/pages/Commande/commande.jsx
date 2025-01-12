@@ -24,7 +24,11 @@ const Commande = () => {
   const { auth } = useContext(AuthContext)
   const { incremente, decremente, ajouterArticle, retirerArticle, validerCommande, prixParQuantite, totalArticle, panier, prixTotal } = useContext(PanierContext)
 
+  const [checkboxCochee, setCheckboxCochee] = useState(false)
 
+  const handleCheckbox = () => {
+    setCheckboxCochee(!checkboxCochee)
+  }
 
   return (
     <main>
@@ -35,29 +39,7 @@ const Commande = () => {
         <div className={commande.conteneurG}>
           {auth ? <PanierTotal /> : <ConnectezVous />}
           <PrenezRendezVous />
-
-          <div className={boutique.accordeon}>
-            <p className={boutique.pOnVousDitTout}>On vous dit tout</p>
-            <Accordeon
-              titre="D'où viennent nos soies ?"
-              corps={<>Toutes nos soies proviennent de chenilles du bombyx du mûrier et sont élevées à proximité de champs de mûres.<br /> (Origine : Asie, 80% en provenance de la Chine).</>} />
-            <Accordeon
-              titre="Quel budget faut-il prévoir ?"
-              corps={<>Nos prix varient en fonction des modes de tissages pratiqués. Un investissement supplémentaire est à prévoir pour une cravate sur-mesure.<br /> Celui-ci se calcule par rapport au temps consacré à sa confection.
-                En moyenne, une cravate sur-mesure a un tarif global entre 250 et 400 euros.</>} />
-            <Accordeon
-              titre="Quel est le délai de fabrication ?"
-              corps="Il faut compter 2 mois de délais pour la réalisation d'une cravate sur-mesure, et 2 semaines supplémentaires en cas de retouches éventuelles." />
-            <Accordeon
-              titre="Quelles sont nos limites en sur-mesure ?"
-              corps="Nous n'en avons pas à proprement parler. Nos limites sont les vôtres. Néanmoins nous n'acceptons pas les demandent trop marginales et pouvant offenser autrui." />
-            <Accordeon
-              titre="Un rendez-vous est-il obligatoire ?"
-              corps="Oui, un rendez-vous minimum est obligatoire. Il est la certitude que nous répondrons pleinement à vos attentes. Vous pourrez à cette occasion nous poser toutes vos questions, et nous de même." />
-            <Accordeon
-              titre="Quelle est notre politique de retour ?"
-              corps={<>En sur-mesure, il n'y en a pas. La prise de rendez-vous est nécessaire et conçue pour éviter ce désagrément.<br />Pour le prêt-à-porter, vous disposez d'un délai d'une semaine pour nous retourner le ou les articles à compter de leur réception.</>} />
-          </div>
+          <Accordeon />
         </div>
 
         <div >
@@ -127,24 +109,30 @@ const Commande = () => {
                 <p className={commande.quantiteTotalRecap}>{totalArticle()}</p>
                 <p className={commande.prixTotalRecap}>{prixTotal} €</p>
               </div>
-              <div>
-                <div className={commande.divConteneurCheckBox}>
-                  <div className={commande.contientCheckbox}>
-                    <input
-                      className={commande.checkboxCommande}
-                      type='checkbox'
-                      required>
-                    </input>
-                  </div>
-                    <div className={commande.pCGV}>En cochant cette case vous acceptez nos <ModalCGV/></div>
-                    
+
+              <div className={commande.divContientCheckBox}>
+                <div className={commande.contientCheckbox}>
+                  <input
+                    onChange={handleCheckbox}
+                    className={commande.checkboxCommande}
+                    type='checkbox'
+                    required>
+                  </input>
+                </div>
+                <div className={commande.divPCGV}>
+                  <p className={commande.pCGV}>En cochant cette case vous acceptez nos</p>
+                  <ModalCGV />
                 </div>
               </div>
+
               <div className={commande.contientBtnValidation1}>
-                <button onClick={validerCommande} className={commande.btnValidation1}>Valider la commande</button>
+                <button
+                  disabled={!checkboxCochee}
+                  onClick={validerCommande}
+                  className={commande.btnValidation1}>Valider la commande</button>
               </div>
               <div className={commande.contientBtnValidation2}>
-                <Link to={{ pathname: "/" }}><button  className={commande.btnValidation2}>Revenir au panier</button></Link>
+                <Link to={{ pathname: "/" }}><button className={commande.btnValidation2}>Revenir au panier</button></Link>
               </div>
             </div>
           </div>

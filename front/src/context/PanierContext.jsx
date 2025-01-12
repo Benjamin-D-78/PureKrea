@@ -187,12 +187,23 @@ export const PanierProvider = ({ children }) => {
 
             if (response.status === 201) {
                 toast.success("Commande validée avec succès!", {autoClose: 2000});
-                navigate('/confirmation');
+                const id = response.data._id
+                setPanier([])
+
+                // On supprimer le panier dans le localStorage pour l'utilisateur
+                const userId = auth ? auth._id : null
+                if (userId) {
+                    localStorage.removeItem(`panier${userId}`)
+                }
+                // On s'assure ensuite que le localStorage est bien vide avant de rediriger, d'où le temps de latence avec SetTimeOut. On attend 500 millisecondes.
+                setTimeout(() => {
+                    navigate(`/commande/confirmation/${id}`);
+                }, 500)
             }
     
         } catch (error) {
             console.error("Erreur lors de la validation de la commande:", error);
-            toast.error("Une erreur est survenue. Veuillez réessayer.");
+            toast.error("Une erreur est survenue. Veuillez réessayer.", {autoClose: 3000});
         }
     };
     

@@ -18,12 +18,52 @@
 
 
 
+/* Début de gestion de profil utilisateur */
+.gestionUtilisateur{
+    width: 100%;
+    display: flex;
+    margin-bottom: 1rem;}
+
+.contientSelect{width: 90%;}
+
+.contientSelect select{
+    outline: none;
+    border: none;
+    background-color: #193E61;
+    color: white;
+    width: 95%;
+    height: 4rem;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;}
+
+.contientSelect select option{font-size: 1.6rem;}
+
+.contientBtnDeconnexion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: auto;
+    background-color: rgba(255, 0, 0, 0.5);}
+
+.contientBtnDeconnexion img{
+    height: 3.5rem;
+    width: auto;
+    cursor: pointer;}
+/* Fin de gestion de profil utilisateur */
+
+
+
+
 
 .nom{
     color: white;
     font-family: "Marko One", Arial, Helvetica, sans-serif;
     text-align: center;
     margin: auto;
+    margin-top: 0;
     padding-top: 2rem;
     font-size: 2rem;}
 .prenom{

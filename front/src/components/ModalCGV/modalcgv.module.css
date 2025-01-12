@@ -2,6 +2,7 @@
     all: unset;
     font-family: "Linden Hill", Arial, Helvetica, sans-serif;
     font-style: italic;
+    font-size: 1.4rem;
     margin: auto;
     text-decoration: underline;
     cursor: pointer;

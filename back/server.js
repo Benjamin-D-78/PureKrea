@@ -8,6 +8,7 @@ import { env } from "./config/index.js"
 // ROUTAGE
 import userRoutes from "./routers/user.router.js"
 import itemRoutes from "./routers/item.router.js"
+import commandeRoutes from "./routers/commande.router.js"
 
 // APP EXPRESS
 const app = express()
@@ -36,6 +37,7 @@ app.use(cookieParser());
 // PREFIXES ROUTES
 app.use("/api/user", userRoutes)
 app.use("/api/item", itemRoutes)
+app.use("/api/commande", commandeRoutes)
 
 // SERVER
 app.listen(PORT, () => {

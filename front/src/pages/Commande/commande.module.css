@@ -205,22 +205,30 @@
 
 
 
-.divConteneurCheckBox {
+
+
+.divContientCheckBox{
     display: flex;
-    justify-content: sp;
-    align-content: center;
-    width: 60%;
-    margin: auto;
-    margin-top: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
 
-    .contientCheckbox {align-self: center;}
+    .contientCheckbox {
+        display: flex;
+        justify-content: center;
+        width: 3rem;}
 
-    .pCGV {
-        font-size: 1.4rem;
-        font-family: "Linden Hill", Arial, Helvetica, sans-serif;
-        font-style: italic;
-        margin: auto;}
+    .divPCGV{
+        display: flex;
+        flex-direction: column;
+    
+        .pCGV {
+            font-size: 1.4rem;
+            font-family: "Linden Hill", Arial, Helvetica, sans-serif;
+            font-style: italic;
+            margin: 0;} 
+    }
 }
+
 
 
 
@@ -236,7 +244,6 @@
 .btnValidation1 {
     width: 60%;
     height: 3rem;
-    margin-top: 2rem;
     background-color: #C6E60F;
     border: none;
     font-family: Arial, Helvetica, sans-serif;
