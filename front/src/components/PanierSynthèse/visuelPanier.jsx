@@ -35,10 +35,10 @@ const PanierTotal = () => {
     setSelection(value)
 
     if(value === "Mon profil") {
-      navigate("/monprofil")
+      navigate(`/monprofil`)
 
     } else if(value === "Mes commandes") {
-      navigate(`/mescommandes/${id}`)
+      navigate(`/mescommandes`)
     }
   }
 

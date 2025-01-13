@@ -54,7 +54,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{dataFormConnexion, auth, deconnexion, isLoading}}> {/* On fournit les données au composant enfant. */}
+        <AuthContext.Provider value={{dataFormConnexion, auth, setAuth, deconnexion, isLoading}}> {/* On fournit les données au composant enfant. */}
             {children}
         </AuthContext.Provider>
     );

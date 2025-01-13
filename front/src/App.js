@@ -10,6 +10,7 @@ import Inscription from './pages/Utilisateurs/Inscription';
 import Connexion from './pages/Utilisateurs/Connexion';
 import Confirmation from './pages/Confirmation/Confirmation';
 import MesCommandes from './pages/MesCommandes/MesCommandes';
+import MonProfil from './pages/MonProfil/MonProfil';
 
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
@@ -35,7 +36,8 @@ function App() {
 
       <Route element={<RoutesConnexion />}>
         <Route path="/commande" element={<Commande />} />
-        <Route path="/mescommandes/:id" element={<MesCommandes />} />
+        <Route path="/mescommandes" element={<MesCommandes />} />
+        <Route path="/monprofil" element={<MonProfil />} />
         <Route path="/commande/confirmation/:id" element={<Confirmation />} />
       </Route>
 

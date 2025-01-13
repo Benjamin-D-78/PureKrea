@@ -1,10 +1,7 @@
-import React, { useContext } from 'react'
+import { React, useContext } from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios"
-
-// CONTEXT
-import { AuthContext } from '../../context/AuthContext.jsx';
 
 // COMPOSANTS
 import NavBar from '../../components/NavBar/NavBar'
@@ -21,12 +18,10 @@ import mesCommandes from "./mesCommandes.module.css"
 
 const MesCommandes = () => {
 
-    const {auth} = useContext(AuthContext)
-    console.log(auth)
+    // const { auth } = useContext(AuthContext)
 
     const [commandes, setCommandes] = useState([]);
     const { id } = useParams();
-    console.log(id)
 
     // const token = localStorage.getItem("auth_token");
 
@@ -68,8 +63,24 @@ const MesCommandes = () => {
                             <p className={commande.pName}>Récapitulatif</p>
                         </div>
                     </div>
-                    <div className={commande.conteneurD}>
-                        <div className={commande.conteneurGeneralRecap}>
+                    <div className={mesCommandes.conteneurD}>
+                        <div className={mesCommandes.conteneurGeneralRecap}>
+                            <p className={commande.livraisonA}>Mes commandes</p>
+                            <div className={mesCommandes.entete2}>
+                                <p className={mesCommandes.ent1}>Date</p>
+                                <p className={mesCommandes.ent2}>Total</p>
+                                <p className={mesCommandes.ent3}>Commande</p>
+                                <p className={mesCommandes.ent4}>Facture</p>
+                            </div>
+
+                            {commandes.map((commande, index) => (
+                                <div className={mesCommandes.contientDetails} key={index}>
+                                    <p className={mesCommandes.date}>{new Date(commande.date).toLocaleDateString()}</p>
+                                    <p className={mesCommandes.total}>{commande.prixTotal} €</p>
+                                    <p className={mesCommandes.commande}>{commande._id}</p>
+                                    <p className={mesCommandes.facture}>Télécharger</p>
+                                </div>
+                            ))}
 
                         </div>
                     </div>

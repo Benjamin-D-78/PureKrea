@@ -22,6 +22,7 @@ import { PanierContext } from '../../context/PanierContext'
 const Commande = () => {
 
   const { auth } = useContext(AuthContext)
+  console.log(auth)
   const { incremente, decremente, ajouterArticle, retirerArticle, validerCommande, prixParQuantite, totalArticle, panier, prixTotal } = useContext(PanierContext)
 
   const [checkboxCochee, setCheckboxCochee] = useState(false)
@@ -29,6 +30,12 @@ const Commande = () => {
   const handleCheckbox = () => {
     setCheckboxCochee(!checkboxCochee)
   }
+
+  const verifieInformations = () => {
+    return !(auth && auth.firstname && auth.lastname && auth.adress && auth.postal && auth.town && auth.phone)
+  }
+
+  const informationsManquantes = verifieInformations();
 
   return (
     <main>
@@ -68,6 +75,10 @@ const Commande = () => {
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Code postal : </label>
                     {auth && auth.postal ? <span className={commande.pUtilisateur}>{auth.postal}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                  </div>
+                  <div>
+                    <label className={commande.labelRecap} htmlFor="">Ville : </label>
+                    {auth && auth.town ? <span className={commande.pUtilisateur}>{auth.town}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Téléphone : </label>
@@ -127,7 +138,7 @@ const Commande = () => {
 
               <div className={commande.contientBtnValidation1}>
                 <button
-                  disabled={!checkboxCochee}
+                  disabled={!checkboxCochee || informationsManquantes}
                   onClick={validerCommande}
                   className={commande.btnValidation1}>Valider la commande</button>
               </div>

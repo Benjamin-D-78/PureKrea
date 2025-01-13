@@ -49,8 +49,10 @@
     background-color: rgba(255, 0, 0, 0.5);}
 
 .contientBtnDeconnexion img{
-    height: 3.5rem;
-    width: auto;
+    height: 90%;
+    width: 90%;
+    padding: 0;
+    
     cursor: pointer;}
 /* Fin de gestion de profil utilisateur */
 

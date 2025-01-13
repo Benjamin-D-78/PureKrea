@@ -82,7 +82,6 @@ export const userID = async (req, res) => {
 export const upUser = async (req, res) => {
     try { // On vérifie si l'utilisateur existe :
         const response = await userModel.findById(req.params.id);
-
         if(!response) return res.status(404).json({Message: "Utilisateur non trouvé."});
         
         // toString (avec majuscule !) ; ici on compare si l'id de l'utilisateur à updater est le même id que l'utilisateur qui souhaite faire cet update.
@@ -91,11 +90,27 @@ export const upUser = async (req, res) => {
             return res.status(403).json({Message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
         }
 
+        // Si le mot de passe est modifié, on le hache avant de le sauvegarder
+        if(req.body.password) {
+            if(!req.body.ancienMDP){
+                return res.status(400).json({Message: "Le mot de passe actuel est requis."})
+            }
+
+            // On vérifie que le mot de passe actuel envoyé par l'utilisateur coresspond à celui stocké dans la BDD
+            const correspond = await bcrypt.compare(req.body.ancienMDP, response.password);
+            if(!correspond) {
+                return res.status(400).json({Message : "Le mot de passe actuel est incorrect."})
+            }
+
+            // On hashe le nouveau MDP
+            const hashedPassword = await bcrypt.hash(req.body.password, 10); // On hache le nouveau mot de passe
+            req.body.password = hashedPassword //On remplace le MDP par sa version hachée.
+        }
         // Mise à jour de l'utilisateur :
         const update = await userModel.findByIdAndUpdate(
             req.params.id,
-            {$set: req.body},
-            {new: true})
+            {$set: req.body}, // set est propre à mongoose, et spécifie les champs qui doivent être mis à jour.
+            {new: true}) // On envoie le nouveau document mis à jour.
         res.status(200).json({message: "Informations mises à jour avec succès.", update})
 
     } catch (error) {
