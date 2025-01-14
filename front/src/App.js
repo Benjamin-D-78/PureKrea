@@ -36,8 +36,8 @@ function App() {
 
       <Route element={<RoutesConnexion />}>
         <Route path="/commande" element={<Commande />} />
-        <Route path="/mescommandes" element={<MesCommandes />} />
-        <Route path="/monprofil" element={<MonProfil />} />
+        <Route path="/mescommandes/:id" element={<MesCommandes />} />
+        <Route path="/monprofil/:id" element={<MonProfil />} />
         <Route path="/commande/confirmation/:id" element={<Confirmation />} />
       </Route>
 

@@ -26,7 +26,6 @@ const MesCommandes = () => {
     // const token = localStorage.getItem("auth_token");
 
     useEffect(() => {
-        console.log(id)
         const userAuth = localStorage.getItem("auth");
         const auth = userAuth && JSON.parse(userAuth);
 
@@ -34,14 +33,11 @@ const MesCommandes = () => {
             const commandesByUser = async () => {
                 try {
                     const response = await axios.get(`http://localhost:8000/api/commande/obtenir/commandes/${id}`, { withCredentials: true })
-                    console.log(response.data)
                     setCommandes(response.data)
                 } catch (error) {
                     console.error("Erreur lors de la recherche des commandes", error.message)
                 }
-
             };
-
             commandesByUser();
         }
     }, [id])
