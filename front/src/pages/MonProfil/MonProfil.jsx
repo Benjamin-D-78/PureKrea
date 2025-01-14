@@ -1,6 +1,6 @@
 import { React, useContext } from 'react'
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, } from 'react-router-dom';
 import axios from "axios"
 import { toast } from 'react-toastify';
 
@@ -14,9 +14,9 @@ import { AuthContext } from '../../context/AuthContext.jsx';
 import NavBar from '../../components/NavBar/NavBar'
 import Footer from '../../components/Footer/Footer'
 import PanierTotal from "../../components/PanierSynthèse/visuelPanier.jsx";
-import ConnectezVous from "../../components/ConnectezVous/connectezVous.jsx";
 import PrenezRendezVous from "../../components/PrenezRendezVous/prenezRendezVous.jsx";
 import Accordeon from "../../components/Accordeon/accordeon.jsx";
+import ModalSuppression from '../../components/ModalSuppression/ModalSuppression.jsx';
 
 // CSS
 import boutique from "../Boutique/Boutique.module.css"
@@ -28,7 +28,6 @@ const MonProfil = () => {
 
     const { id } = useParams();
     const { auth, setAuth } = useContext(AuthContext);
-    const navigate = useNavigate();
 
 
 
@@ -50,18 +49,7 @@ const MonProfil = () => {
 
 
 
-    const deleteUser = async (id) => {
-        try {
-            const response = await axios.delete(`http://localhost:8000/api/user/delete/${id}`)
-            if(response.status === 200){
-                setAuth();
-                toast.success("Compte supprimé avec succès.", {autoClose: 2000})
-                navigate("/connexion")
-            }
-        } catch (error) {
-            console.error("Erreur lors de la suppression du profil", error)
-        }
-    }
+
 
 
 
@@ -82,16 +70,16 @@ const MonProfil = () => {
         town: ""
     });
 
-    const [error, setError] = useState({
-        lastname: "",
-        firstname: "",
-        email: "",
-        password: "",
-        phone: "",
-        adress: "",
-        postal: "",
-        town: ""
-    })
+    // const [error, setError] = useState({
+    //     lastname: "",
+    //     firstname: "",
+    //     email: "",
+    //     password: "",
+    //     phone: "",
+    //     adress: "",
+    //     postal: "",
+    //     town: ""
+    // })
 
     useEffect(() => {
         const userById = async () => {
@@ -138,10 +126,24 @@ const MonProfil = () => {
         //     toast.error("Votre mot de passe doit contenir entre 10 et 50 caractères, dont une minusculte, une majuscule, un chiffre et un caractère spécial.")
         //     isValid = false;
         // }
-
         const phoneRegexr = /^\d{10}$/;
         if (utilisateur.phone && !phoneRegexr.test(utilisateur.phone)) {
             toast.error("Votre numéro doit comporter 10 chiffres.")
+            isValid = false;
+        }
+        const adressRegexr = /^[a-zA-Z0-9\s\-'^¨èéàù]{8,70}$/;
+        if (utilisateur.adress && !adressRegexr.test(utilisateur.adress)) {
+            toast.error("Votre adresse doit avoir entre 8 et 70 caractères. Les chiffres, tirets et apostrophes sont permis.")
+            isValid = false;
+        }
+        const postalRegexr = /^\d{5}$/;
+        if (utilisateur.postal && !postalRegexr.test(utilisateur.postal)) {
+            toast.error("Votre code postal doit comporter 5 chiffres.")
+            isValid = false;
+        }
+        const townRegexr = /^[a-zA-Z\s\-'^¨èéàù]{2,50}$/;
+        if (utilisateur.town && !townRegexr.test(utilisateur.town)) {
+            toast.error("Votre ville doit avoir entre 2 et 50 caractères.")
             isValid = false;
         }
 
@@ -283,6 +285,8 @@ const MonProfil = () => {
                                             name='email'
                                             id='email'
                                             onChange={handleChange}
+                                            minLength={1}
+                                            maxLength={60}
                                             pattern="^(?![.-_])[A-Za-z0-9._-]{8,58}[A-Za-z0-9]@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
@@ -346,10 +350,15 @@ const MonProfil = () => {
                                     <div className={monProfil.inputsProfil}>
                                         {utilisateur && utilisateur.phone ? (<span className={monProfil.pUtilisateur}>{utilisateur.phone}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                                         <input
-                                            type="number"
+                                            type="text"
                                             name='phone'
                                             id='phone'
-                                            onChange={handleChange} />
+                                            onChange={handleChange}
+                                            minLength={1}
+                                            maxLength={10}
+                                            onInput={(event) => {
+                                                event.target.value = event.target.value.replace(/\D/g, '')
+                                            }} />
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -369,29 +378,43 @@ const MonProfil = () => {
                                             name='adress'
                                             id='adress'
                                             value={utilisateur?.adress || ""}
-                                            onChange={handleChange} />
+                                            minLength={8}
+                                            maxLength={70}
+                                            onChange={handleChange} 
+                                            onInput={(event) => {
+                                                event.target.value = event.target.value.replace(/[^a-zA-Z0-9\s\-'^¨èéàù]/g, '');
+                                            }}/>
                                         <input
                                             className={monProfil.inputsSepare}
-                                            type="number"
+                                            type="text"
                                             name='postal'
                                             id='postal'
                                             value={utilisateur?.postal || ""}
-                                            onChange={handleChange} />
+                                            minLength={1}
+                                            maxLength={5}
+                                            onChange={handleChange}
+                                            onInput={(event) => {
+                                                event.target.value = event.target.value.replace(/\D/g, '')
+                                            }} />
                                         <input
                                             type="text"
                                             name='town'
                                             id='town'
                                             value={utilisateur?.town || ""}
-                                            onChange={handleChange} />
+                                            minLength={2}
+                                            maxLength={50}
+                                            onChange={handleChange}
+                                            onInput={(event) => {
+                                                // Remplacer tous les caractères non autorisés, y compris les chiffres
+                                                event.target.value = event.target.value.replace(/[^a-zA-Z\s\-'^¨èéàù]/g, '').toUpperCase();;
+                                            }} />
                                     </div>
                                 </div>
                                 <div className={monProfil.contientBtn}>
                                     <button className={monProfil.btnEnvoi}>Enregistrer les modifications</button>
                                 </div>
                             </form>
-                            <div className={monProfil.contientBtn2}>
-                                <button className={monProfil.btnSuppression} onClick={() => { deleteUser(auth._id)}}>Supprimer mon compte</button>
-                            </div>
+                            <ModalSuppression />
                         </div>
                     </div>
                 </div>

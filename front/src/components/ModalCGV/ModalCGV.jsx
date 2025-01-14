@@ -19,7 +19,7 @@ const ModalCGV = () => {
 
             {modal && (
                 <div className={modalcgv.conteneurPrincipal}>
-                    <div className={modalcgv.contientModal}></div>
+                    <div className={modalcgv.contientModal}>
                     <div className={modalcgv.modalCGV}>
                         <h1 className={modalcgv.titreH1}>Conditions générales de Ventes (CGV)</h1>
 
@@ -217,6 +217,7 @@ const ModalCGV = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             )}
         </div>
     )
