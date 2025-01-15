@@ -70,16 +70,16 @@ const MonProfil = () => {
         town: ""
     });
 
-    // const [error, setError] = useState({
-    //     lastname: "",
-    //     firstname: "",
-    //     email: "",
-    //     password: "",
-    //     phone: "",
-    //     adress: "",
-    //     postal: "",
-    //     town: ""
-    // })
+    const [error, setError] = useState({
+        lastname: "",
+        firstname: "",
+        email: "",
+        password: "",
+        phone: "",
+        adress: "",
+        postal: "",
+        town: ""
+    })
 
     useEffect(() => {
         const userById = async () => {
@@ -103,51 +103,51 @@ const MonProfil = () => {
 
 
     const formulaire = () => {
-        // const messageError = {};
+        const messageError = {};
         let isValid = true;
 
         const lastnameRegexr = /^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
         if (utilisateur.lastname && !lastnameRegexr.test(utilisateur.lastname)) {
-            toast.error("Votre nom doit contenir entre 2 et 30 caractères. Les caractères spéciaux ne sont pas autorisés.")
+            messageError.lastname = "Entre 2 et 30 caractères attendus."
             isValid = false;
         }
         const firstnameRegexr = /^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
         if (utilisateur.firstname && !firstnameRegexr.test(utilisateur.firstname)) {
-            toast.error("Votre prénom doit contenir entre 2 et 30 caractères. Les caractères spéciaux ne sont pas autorisés.")
+            messageError.firstname = "Entre 2 et 30 caractères attendus."
             isValid = false;
         }
-        const emailRegexr = /^(?![.-_])[A-Za-z0-9._-]{8,58}[A-Za-z0-9]@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+        const emailRegexr = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (utilisateur.email && !emailRegexr.test(utilisateur.email)) {
-            toast.error("Votre mail doit contenir entre 10 et 60 caractères. A l'exception de '-' et '_', les caractères spéciaux ne sont pas autorisés.")
+            messageError.email = "Entre 10 et 60 caractères attendus."
             isValid = false;
         }
-        // const passwordRegexr = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[^\w\s?!/\^$=+*:]))[A-Za-z\d^\w\s?!/\^$=+*:]{10,50}$/;
-        // if (newMDP && !passwordRegexr.test(newMDP)) {
-        //     toast.error("Votre mot de passe doit contenir entre 10 et 50 caractères, dont une minusculte, une majuscule, un chiffre et un caractère spécial.")
-        //     isValid = false;
-        // }
+        const passwordRegexr = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$/;
+        if (newMDP && !passwordRegexr.test(newMDP)) {
+            messageError.newMDP = "Entre 8 et 40 caractères, ('m', 'M', et un caractère spécial)."
+            isValid = false;
+        }
         const phoneRegexr = /^\d{10}$/;
         if (utilisateur.phone && !phoneRegexr.test(utilisateur.phone)) {
-            toast.error("Votre numéro doit comporter 10 chiffres.")
+            messageError.phone = "10 chiffres attendus."
             isValid = false;
         }
         const adressRegexr = /^[a-zA-Z0-9\s\-'^¨èéàù]{8,70}$/;
         if (utilisateur.adress && !adressRegexr.test(utilisateur.adress)) {
-            toast.error("Votre adresse doit avoir entre 8 et 70 caractères. Les chiffres, tirets et apostrophes sont permis.")
+            messageError.adress = "Adresse : Entre 8 et 70 caractères attendus."
             isValid = false;
         }
         const postalRegexr = /^\d{5}$/;
         if (utilisateur.postal && !postalRegexr.test(utilisateur.postal)) {
-            toast.error("Votre code postal doit comporter 5 chiffres.")
+            messageError.postal = " Code postal : 5 chiffres attendus."
             isValid = false;
         }
         const townRegexr = /^[a-zA-Z\s\-'^¨èéàù]{2,50}$/;
         if (utilisateur.town && !townRegexr.test(utilisateur.town)) {
-            toast.error("Votre ville doit avoir entre 2 et 50 caractères.")
+            messageError.town = "Ville : Entre 2 et 50 caractères attendus."
             isValid = false;
         }
 
-        // setError(messageError);
+        setError(messageError);
         return isValid;
     }
 
@@ -162,16 +162,18 @@ const MonProfil = () => {
         // On crée un objet. On va ici distinguer le MDP des autres champs car changer de MDP doit être une possibilité et non une obligation.
         const updateUser = {};
 
-        if (newMDP && newMDP !== repeteMDP) {
-            toast.error("Les mots de passe ne correspondent pas.");
-            return;
-        }
+
 
         // On véritife et ajoute le MDP uniquement s'il a été changé
         if (newMDP && newMDP !== "") {
             // Si un nouveau MDP est renseigné on doit aussi donner l'ancien MDP
             if (!ancienMDP || ancienMDP === "") {
                 toast.error("Le mot de passe actuel est requis pour changer de mot de passe.");
+                return;
+            }
+
+            if (newMDP && newMDP !== repeteMDP) {
+                toast.error("Les mots de passe ne correspondent pas.");
                 return;
             }
 
@@ -225,7 +227,7 @@ const MonProfil = () => {
                     <div className={mesCommandes.conteneurD}>
                         <div className={mesCommandes.conteneurGeneralRecap}>
 
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit} noValidate>
                                 <p className={monProfil.nomEntete}>Connexion & sécurité</p>
                                 <div className={monProfil.contientDonnees}>
                                     <div className={monProfil.labelsProfil}>
@@ -233,7 +235,7 @@ const MonProfil = () => {
                                         <label htmlFor="lastname">Nouveau nom : </label>
                                     </div>
                                     <div className={monProfil.inputsProfil}>
-                                        {utilisateur && utilisateur.lastname ? (<span className={monProfil.pUtilisateur}>{utilisateur.lastname}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                                        {utilisateur && utilisateur.lastname ? (<span className={monProfil.pUtilisateur}>{utilisateur.lastname}</span>) : <span>Information manquante</span>}
                                         <input
                                             type="text"
                                             name='lastname'
@@ -246,6 +248,7 @@ const MonProfil = () => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase();
                                             }}
                                         />
+                                        {error.lastname && <span>{error.lastname}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -256,7 +259,7 @@ const MonProfil = () => {
                                         <label htmlFor="firstname">Nouveau prénom : </label>
                                     </div>
                                     <div className={monProfil.inputsProfil}>
-                                        {utilisateur && utilisateur.firstname ? (<span className={monProfil.pUtilisateur}>{utilisateur.firstname}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                                        {utilisateur && utilisateur.firstname ? (<span className={monProfil.pUtilisateur}>{utilisateur.firstname}</span>) : <span>Information manquante</span>}
                                         <input
                                             type="text"
                                             name='firstname'
@@ -269,6 +272,7 @@ const MonProfil = () => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '')
                                             }}
                                         />
+                                        {error.firstname && <span>{error.firstname}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -279,7 +283,7 @@ const MonProfil = () => {
                                         <label htmlFor="email">Nouveau mail : </label>
                                     </div>
                                     <div className={monProfil.inputsProfil}>
-                                        {utilisateur && utilisateur.email ? (<span className={monProfil.pUtilisateur}>{utilisateur.email}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                                        {utilisateur && utilisateur.email ? (<span className={monProfil.pUtilisateur}>{utilisateur.email}</span>) : <span>Information manquante</span>}
                                         <input
                                             type="text"
                                             name='email'
@@ -287,10 +291,11 @@ const MonProfil = () => {
                                             onChange={handleChange}
                                             minLength={1}
                                             maxLength={60}
-                                            pattern="^(?![.-_])[A-Za-z0-9._-]{8,58}[A-Za-z0-9]@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
+                                            pattern="^[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]{2,30}\.[a-zA-Z]{2,4}$"
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
                                             }} />
+                                        {error.email && <span>{error.email}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -309,23 +314,39 @@ const MonProfil = () => {
                                                 name='ancienMDP'
                                                 id='ancienMDP'
                                                 value={ancienMDP}
-                                                // pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[^\w\s?!/\^$=+*:]))[A-Za-z\d^\w\s?!/\^$=+*:]{10,50}$"
-                                                onChange={(event) => setAncienMDP(event.target.value)} />
+                                                minLength={8}
+                                                maxLength={40}
+                                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                                onChange={(event) => setAncienMDP(event.target.value)}
+                                                onInput={(event) => {
+                                                    event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
+                                                }} />
                                             <input
                                                 className={monProfil.inputsSepare}
                                                 type={voirB ? "text" : "password"}
                                                 name='newMDP'
                                                 id='newMDP'
                                                 value={newMDP}
-                                                // pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[^\w\s?!/\^$=+*:]))[A-Za-z\d^\w\s?!/\^$=+*:]{10,50}$"
-                                                onChange={(event) => setNewMDP(event.target.value)} />
+                                                minLength={8}
+                                                maxLength={40}
+                                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                                onChange={(event) => setNewMDP(event.target.value)}
+                                                onInput={(event) => {
+                                                    event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
+                                                }} />
                                             <input
                                                 type={voirC ? "text" : "password"}
                                                 name='repeteMDP'
                                                 id='repeteMDP'
                                                 value={repeteMDP}
-                                                // pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[^\w\s?!/\^$=+*:]))[A-Za-z\d^\w\s?!/\^$=+*:]{10,50}$"
-                                                onChange={(event) => setRepeteMDP(event.target.value)} />
+                                                minLength={8}
+                                                maxLength={40}
+                                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                                onChange={(event) => setRepeteMDP(event.target.value)}
+                                                onInput={(event) => {
+                                                    event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
+                                                }} />
+                                            {error.newMDP && <span>{error.newMDP}</span>}
                                         </div>
                                         <div>
                                             <div className={monProfil.contientVoir}>
@@ -344,21 +365,22 @@ const MonProfil = () => {
 
                                 <div className={monProfil.contientDonnees}>
                                     <div className={monProfil.labelsProfil}>
-                                        <label>Téléphone : </label>
-                                        <label htmlFor="phone">Nouveau numéro : </label>
+                                        <label htmlFor="phone">Téléphone : </label>
                                     </div>
                                     <div className={monProfil.inputsProfil}>
-                                        {utilisateur && utilisateur.phone ? (<span className={monProfil.pUtilisateur}>{utilisateur.phone}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                                         <input
                                             type="text"
                                             name='phone'
                                             id='phone'
                                             onChange={handleChange}
+                                            value={utilisateur?.phone || ""}
                                             minLength={1}
                                             maxLength={10}
+                                            pattern="^\d{10}$"
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/\D/g, '')
                                             }} />
+                                        {error.phone && <span>{error.phone}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -380,10 +402,12 @@ const MonProfil = () => {
                                             value={utilisateur?.adress || ""}
                                             minLength={8}
                                             maxLength={70}
-                                            onChange={handleChange} 
+                                            pattern="[a-zA-Z0-9\s\-'^¨èéàù]{8,70}"
+                                            onChange={handleChange}
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-Z0-9\s\-'^¨èéàù]/g, '');
-                                            }}/>
+                                            }} />
+
                                         <input
                                             className={monProfil.inputsSepare}
                                             type="text"
@@ -393,9 +417,11 @@ const MonProfil = () => {
                                             minLength={1}
                                             maxLength={5}
                                             onChange={handleChange}
+                                            pattern="^\d{5}$"
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/\D/g, '')
                                             }} />
+
                                         <input
                                             type="text"
                                             name='town'
@@ -404,10 +430,14 @@ const MonProfil = () => {
                                             minLength={2}
                                             maxLength={50}
                                             onChange={handleChange}
+                                            pattern="^[a-zA-Z\s\-'^¨èéàù]{2,50}$"
                                             onInput={(event) => {
                                                 // Remplacer tous les caractères non autorisés, y compris les chiffres
                                                 event.target.value = event.target.value.replace(/[^a-zA-Z\s\-'^¨èéàù]/g, '').toUpperCase();;
                                             }} />
+                                        {error.adress && <span>{error.adress}</span>}
+                                        {error.postal && <span>{error.postal}</span>}
+                                        {error.town && <span>{error.town}</span>}
                                     </div>
                                 </div>
                                 <div className={monProfil.contientBtn}>
