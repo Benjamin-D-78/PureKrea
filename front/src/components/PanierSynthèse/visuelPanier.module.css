@@ -7,12 +7,6 @@
 .containerPanier{
     background-color: #265E92;
     margin-bottom: 5rem;}
-
-    @media screen and (min-width: 768px) {
-        .containerPanier{
-            border-radius: 0.5rem;
-            margin-bottom: 2rem;}
-    }
 /* Fin Section */
 
 
@@ -20,11 +14,14 @@
 
 /* Début de gestion de profil utilisateur */
 .gestionUtilisateur{
-    width: 100%;
+    width: 99%;
+    margin: auto;
     display: flex;
     margin-bottom: 1rem;}
 
-.contientSelect{width: 90%;}
+.contientSelect{
+    width: 90%;
+    border-radius: 0.5rem;}
 
 .contientSelect select{
     outline: none;
@@ -36,7 +33,8 @@
     font-family: "Marko One", Arial, Helvetica, sans-serif;
     font-size: 2rem;
     text-align: center;
-    cursor: pointer;}
+    cursor: pointer;
+    border-radius: 0.5rem;}
 
 .contientSelect select option{font-size: 1.6rem;}
 
@@ -46,7 +44,8 @@
     align-items: center;
     width: 4rem;
     height: auto;
-    background-color: rgba(255, 0, 0, 0.5);}
+    background-color: rgba(255, 0, 0, 0.5);
+    border-radius: 0.5rem;}
 
 .contientBtnDeconnexion img{
     height: 90%;
@@ -199,4 +198,12 @@
     white-space: nowrap; /* On empêche le texte de se couper en plusieurs lignes */
     overflow: hidden; /* Ensuite on masque le texte qui dépasse */
     text-overflow: ellipsis; /* Et on affiche des points de suspension si le texte dépasse */
+}
+
+@media screen and (min-width: 768px) {
+    .containerPanier{
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;}
+
+    .gestionUtilisateur{width: 100%;}
 }

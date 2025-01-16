@@ -9,11 +9,12 @@ import commande from "./commande.module.css"
 // COMPOSANTS
 import NavBar from '../../components/NavBar/NavBar'
 import Footer from '../../components/Footer/Footer'
-import PanierTotal from '../../components/PanierSynthèse/visuelPanier'
-import ConnectezVous from '../../components/ConnectezVous/connectezVous'
+// import PanierTotal from '../../components/PanierSynthèse/visuelPanier'
+// import ConnectezVous from '../../components/ConnectezVous/connectezVous'
 import PrenezRendezVous from '../../components/PrenezRendezVous/prenezRendezVous'
 import Accordeon from '../../components/Accordeon/accordeon'
 import ModalCGV from '../../components/ModalCGV/ModalCGV'
+import PetitCaroussel from '../../components/PetitCaroussel/PetitCaroussel'
 
 // CONTEXT
 import { AuthContext } from '../../context/AuthContext'
@@ -22,7 +23,6 @@ import { PanierContext } from '../../context/PanierContext'
 const Commande = () => {
 
   const { auth } = useContext(AuthContext)
-  console.log(auth)
   const { incremente, decremente, ajouterArticle, retirerArticle, validerCommande, prixParQuantite, totalArticle, panier, prixTotal } = useContext(PanierContext)
 
   const [checkboxCochee, setCheckboxCochee] = useState(false)
@@ -44,7 +44,8 @@ const Commande = () => {
 
       <div className={commande.conteneurGlobal}>
         <div className={commande.conteneurG}>
-          {auth ? <PanierTotal /> : <ConnectezVous />}
+          {/* {auth ? <PanierTotal /> : <ConnectezVous />} */}
+          <PetitCaroussel />
           <PrenezRendezVous />
           <Accordeon />
         </div>
