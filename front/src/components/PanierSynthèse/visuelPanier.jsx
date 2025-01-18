@@ -1,7 +1,7 @@
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
 import visuelPanier from "./visuelPanier.module.css"
-import { useParams } from 'react-router-dom';
 
 // CONTEXT
 import { AuthContext } from "../../context/AuthContext"; // On importe le contexte
@@ -15,10 +15,16 @@ import imgDeconnexion from "../../images/Icones/deconnexion.png"
 
 const PanierTotal = () => {
 
-  // const {id} = useParams();
-
   const { incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, panier, prixTotal } = useContext(PanierContext)
   const { auth, deconnexion } = useContext(AuthContext); // On récupère l'objet utilisateur depuis le contexte
+    const [utilisateur, setUtilisateur] = useState({
+      firstname: "",
+      lastname: "",
+      adress: "",
+      postal: "",
+      town: "",
+      phone: ""
+    });
 
   const [selection, setSelection] = useState("")
 
@@ -43,6 +49,21 @@ const PanierTotal = () => {
   }
 
 
+
+  useEffect(() => {
+    const userById = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/user/obtenir/${auth._id}`);
+        setUtilisateur(response.data)
+      } catch (error) {
+        console.error("Erreur lors de la recherche d'utilisateur", error)
+      }
+    };
+    userById();
+  }, [auth])
+
+
+
   return (
     <div>
         <div className={visuelPanier.gestionUtilisateur}>
@@ -58,8 +79,8 @@ const PanierTotal = () => {
           </div>
         </div>
       <section className={visuelPanier.containerPanier}>
-        <p className={visuelPanier.nom}>{auth ? `${auth.firstname}` : ""}</p>
-        <p className={visuelPanier.prenom}>{auth ? `${auth.lastname}` : ""}</p>
+        <p className={visuelPanier.nom}>{auth ? `${utilisateur.firstname}` : ""}</p>
+        <p className={visuelPanier.prenom}>{auth ? `${utilisateur.lastname}` : ""}</p>
         <hr className={visuelPanier.hr} />
 
         <p className={visuelPanier.pMonPanier}>Mon panier :</p>

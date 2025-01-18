@@ -25,6 +25,19 @@
 
 .slideCachee{display: none;}
 
+.spanBoutique{
+    color: white; 
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 1.8rem;
+    position: absolute;
+    padding: 1rem;
+    z-index: 2;
+    /* background-color: rgba(0, 0, 0, 0.2); */
+
+
+
+}
+
 
 
 

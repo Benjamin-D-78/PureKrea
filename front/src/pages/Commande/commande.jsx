@@ -23,9 +23,20 @@ import { PanierContext } from '../../context/PanierContext'
 const Commande = () => {
 
   const { auth } = useContext(AuthContext)
-  const { incremente, decremente, ajouterArticle, retirerArticle, validerCommande, prixParQuantite, totalArticle, panier, prixTotal } = useContext(PanierContext)
-
+  const { validerCommande, prixParQuantite, totalArticle, panier, prixTotal, commentaire, setCommentaire } = useContext(PanierContext)
+  // const [commentaire, setCommentaire] = useState("")
   const [checkboxCochee, setCheckboxCochee] = useState(false)
+  const [utilisateur, setUtilisateur] = useState({
+    firstname: "",
+    lastname: "",
+    adress: "",
+    postal: "",
+    town: "",
+    phone: ""
+  });
+
+
+
 
   const handleCheckbox = () => {
     setCheckboxCochee(!checkboxCochee)
@@ -36,6 +47,27 @@ const Commande = () => {
   }
 
   const informationsManquantes = verifieInformations();
+
+
+
+
+
+  useEffect(() => {
+    if (auth) {
+      const userById = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8000/api/user/obtenir/${auth._id}`);
+          setUtilisateur(response.data)
+        } catch (error) {
+          console.error("Erreur lors de la recherche de l'utilisateur", error)
+        }
+      };
+      userById();
+    }
+  }, [auth])
+
+
+
 
   return (
     <main>
@@ -63,34 +95,45 @@ const Commande = () => {
                 <div className={commande.labelUtilisateur}>
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Nom : </label>
-                    {auth && auth.lastname ? (<span className={commande.pUtilisateur}>{auth.lastname}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                    {utilisateur && utilisateur.lastname ? (<span className={commande.pUtilisateur}>{utilisateur.lastname}</span>) : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Prénom : </label>
-                    {auth && auth.firstname ? <span className={commande.pUtilisateur}>{auth.firstname}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                    {utilisateur && utilisateur.firstname ? <span className={commande.pUtilisateur}>{utilisateur.firstname}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Adresse : </label>
-                    {auth && auth.adress ? <span className={commande.pUtilisateur}>{auth.adress}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                    {utilisateur && utilisateur.adress ? <span className={commande.pUtilisateur}>{utilisateur.adress}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Code postal : </label>
-                    {auth && auth.postal ? <span className={commande.pUtilisateur}>{auth.postal}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                    {utilisateur && utilisateur.postal ? <span className={commande.pUtilisateur}>{utilisateur.postal}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Ville : </label>
-                    {auth && auth.town ? <span className={commande.pUtilisateur}>{auth.town}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                    {utilisateur && utilisateur.town ? <span className={commande.pUtilisateur}>{utilisateur.town}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div>
                     <label className={commande.labelRecap} htmlFor="">Téléphone : </label>
-                    {auth && auth.phone ? <span className={commande.pUtilisateur}>{auth.phone}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
+                    {utilisateur && utilisateur.phone ? <span className={commande.pUtilisateur}>{utilisateur.phone}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div className={commande.contientArea}>
                     <div className={commande.labelArea}><label className={commande.labelCommentaire} htmlFor="">Commentaire : </label></div>
-                    <div className={commande.textArea}><textarea className={commande.areaUtilisateur} name="" id="" rows={4} cols={24}></textarea></div>
+                    <div className={commande.textArea}>
+                      <textarea
+                        value={commentaire}
+                        className={commande.areaUtilisateur}
+                        maxLength={500}
+                        name=""
+                        id=""
+                        rows={4}
+                        cols={24}
+                        onChange={(event) => setCommentaire(event.target.value)}>
+                      </textarea>
+                    </div>
                   </div>
                   <div className={commande.contientBtnMInfo}>
-                    <Link><button className={commande.btnModifierInformations}>Modifier mes informations</button></Link>
+                    <Link to={{ pathname: `/monprofil/${utilisateur._id}` }}><button className={commande.btnModifierInformations}>Modifier mes informations</button></Link>
                   </div>
                 </div>
               </div>

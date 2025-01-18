@@ -10,6 +10,7 @@ const commandeSchema = mongoose.Schema({
         totalPrice: { type: Number, required: true }
     }],
     prixTotal: { type: Number, required: true },
+    comment: {type: String, required: false, default: ""},
     // statut: { type: String, default: 'en attente' },
     date: { type: Date, default: Date.now }
 });

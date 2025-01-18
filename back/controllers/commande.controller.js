@@ -4,7 +4,7 @@ import Item from "../models/item.model.js";
 
 export const creationCommande = async (req, res) => {
 
-    const { userId, panier } = req.body;
+    const { userId, panier, comment } = req.body;
     try {        
         // On calcul le prix total de la commande à partir des prix totaux des articles dans le panier
         const prixTotal = panier.reduce((total, item) => total + item.totalPrice, 0); 
@@ -14,7 +14,7 @@ export const creationCommande = async (req, res) => {
             userId, //ID de l'utilisateur
             panier, // les articles qu'on a mis dans le panier
             prixTotal, // Le prix total de tous les articles dans le panier
-            // statut
+            comment // Le commentaire éventuel.
         });
         
         const commandeEnregistree = await nouvelleCommande.save(); // On sauvegarde la commande
@@ -22,6 +22,7 @@ export const creationCommande = async (req, res) => {
         
     } catch (error) {
         console.error("Erreur lors de la création de la commande :", error);
+        res.status(500).json({ Message: "Erreur lors de la création de la commande", error });
     }
 };
 

@@ -15,6 +15,7 @@ export const PanierProvider = ({ children }) => {
     // const [isLoading, setIsLoading] = useState(false);
     const [panier, setPanier] = useState([]);
     const [prixTotal, setPrixTotal] = useState(0);
+    const [commentaire, setCommentaire] = useState("");
 
     useEffect(() => {
         const loadPanier = async () => {
@@ -180,9 +181,9 @@ export const PanierProvider = ({ children }) => {
                     totalPrice: item.totalPrice // On ajoute le prix total calculé pour l'article
                 })),
                 total: prixTotal,  // On indique le prix total de la commande.
+                comment: commentaire
             };
     
-            
             const response = await axios.post('http://localhost:8000/api/commande/creation', commandeData);
 
             if (response.status === 201) {
@@ -210,7 +211,7 @@ export const PanierProvider = ({ children }) => {
     
 
     return (
-        <PanierContext.Provider value={{ incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, validerCommande, panier, prixTotal }} >
+        <PanierContext.Provider value={{ incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, validerCommande, setCommentaire, panier, prixTotal }} >
             {children}
         </PanierContext.Provider>
     )
