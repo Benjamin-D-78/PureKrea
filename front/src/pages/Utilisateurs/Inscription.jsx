@@ -4,12 +4,20 @@ import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import coin from "./coin.module.css"
 
+// ICONES
+import voir from "../../images/Icones/voir.svg"
+
 // COMPOSANTS
 import NavBar from "../../components/NavBar/NavBar"
 import Footer from '../../components/Footer/Footer'
 
 
 const Inscription = () => {
+
+    const [voirA, setVoirA] = useState(false)
+    const [voirB, setVoirB] = useState(false)
+    const [mdpTape, setMdpTape] = useState(false)
+
 
     const [user, setUser] = useState({
         isActive: true
@@ -30,7 +38,7 @@ const Inscription = () => {
         const messageError = {};
         let isValid = true;
 
-        const lastnameRegexr = /^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
+        const lastnameRegexr = /^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
         if (user.lastname && !lastnameRegexr.test(user.lastname)) {
             messageError.lastname = "Entre 2 et 30 caractères attendus."
             isValid = false;
@@ -42,34 +50,49 @@ const Inscription = () => {
         }
         const emailRegexr = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (user.email && !emailRegexr.test(user.email)) {
-            messageError.email = "Entre 10 et 60 caractères attendus."
+            messageError.email = "Format email, entre 10 et 60 caractères attendus."
             isValid = false;
         }
         const passwordRegexr = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$/;
         if (user.password && !passwordRegexr.test(user.password)) {
-            messageError.newMDP = "Entre 8 et 40 caractères, ('m', 'M', et un caractère spécial)."
             isValid = false;
         }
         if (user.password !== user.repeatPassword) {
             messageError.repeatPassword = "Les mots de passe ne sont pas identiques."
             isValid = false;
         }
-        
+
         setError(messageError);
         return isValid;
     }
 
 
-
+    // Permet de mettre à jour les valeurs dans le state "utilisateur"
     const handleChange = (event) => {
-        const { name, value } = event.target
-        setUser((user) => ({ ...user, [name]: value }))
+        const { name, value } = event.target;
+        setUser((user) => ({ ...user, [name]: value })); // "..." fait une copie de l'état précédent.
+
+        // Si l'utilisateur commence à taper le mot de passe, on met à jour le state
+        if (name === 'password' && value.length > 0) {
+            setMdpTape(true);
+        }
+    }
+
+
+    const checkInput = (event) => {
+        const { name } = event.target; // On récupère le nom du champ qui a perdu le focus
+        formulaire(); // on rappelle la fonction formumaire pour tenter de revalider.
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!formulaire()) return;
+
+        if (!user.lastname || !user.firstname || !user.email || !user.password) {
+            toast.error("Veuillez remplir tous les champs", { autoClose: 3000 })
+            return;
+        }
 
         if (user.password !== user.repeatPassword) {
             toast.error("Les mots de passe ne sont pas identiques.", { autoClose: 3000 })
@@ -95,13 +118,14 @@ const Inscription = () => {
                     <div className={coin.formIn}>
                         <h1 className={coin.titreCoIn}>Inscription</h1>
                         <form onSubmit={handleSubmit} noValidate>
-                            <label className={coin.labelCoIn} htmlFor="firstname">Nom : <span>*</span></label>
+                            <label className={coin.labelCoIn} htmlFor="firstname-inscription">Nom : <span className={coin.spanInscription}>*</span></label>
                             <input
                                 className={coin.inputCoIn}
                                 type="text"
                                 name='firstname'
-                                id='firstname'
+                                id='firstname-inscription'
                                 onChange={handleChange}
+                                onBlur={checkInput}
                                 minLength={2}
                                 maxLength={30}
                                 pattern="^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
@@ -109,83 +133,117 @@ const Inscription = () => {
                                     event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase();
                                 }}
                             />
-                            {error.firstname && <span>{error.firstname}</span>}
+                            {error.firstname && <span className={coin.spanError}>{error.firstname}</span>}
                             <br />
 
-                            <label className={coin.labelCoIn} htmlFor="lastname">Prénom : <span>*</span></label>
+                            <label className={coin.labelCoIn} htmlFor="lastname-inscription">Prénom : <span className={coin.spanInscription}>*</span></label>
                             <input
                                 className={coin.inputCoIn}
                                 type="text"
                                 name='lastname'
-                                id='lastname'
+                                id='lastname-inscription'
                                 onChange={handleChange}
+                                onBlur={checkInput}
                                 minLength={2}
                                 maxLength={30}
-                                pattern="^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
+                                pattern="^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
                                 onInput={(event) => {
                                     event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '')
                                 }}
                             />
-                            {error.lastname && <span>{error.lastname}</span>}
+                            {error.lastname && <span className={coin.spanError}>{error.lastname}</span>}
                             <br />
 
-                            <label className={coin.labelCoIn} htmlFor="email">E-mail : <span>*</span></label>
+                            <label className={coin.labelCoIn} htmlFor="email-inscription">E-mail : <span className={coin.spanInscription}>*</span></label>
                             <input
                                 className={coin.inputCoIn}
                                 type="text"
                                 name='email'
-                                id='email'
+                                id='email-inscription'
                                 onChange={handleChange}
+                                onBlur={checkInput}
                                 minLength={1}
                                 maxLength={60}
                                 pattern="^[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]{2,30}\.[a-zA-Z]{2,4}$"
                                 onInput={(event) => {
                                     event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
                                 }} />
-                            {error.email && <span>{error.email}</span>}
+                            {error.email && <span className={coin.spanError}>{error.email}</span>}
                             <br />
 
-                            <label className={coin.labelCoIn} htmlFor="password">Mot de passe : <span>*</span></label>
-                            <input
-                                className={coin.inputCoIn}
-                                type="password"
-                                name='password'
-                                id='password'
-                                onChange={handleChange}
-                                minLength={8}
-                                maxLength={40}
-                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
-                                onInput={(event) => {
-                                    event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
-                                }} />
-                            {error.password && <span>{error.password}</span>}
+                            <label className={coin.labelCoIn} htmlFor="password-inscription">Mot de passe : <span className={coin.spanInscription}>*</span></label>
+                            <div className={coin.contientInputImg}>
+                                <div className={coin.inputsMDP}>
+                                    <input
+                                        className={coin.inputMDP}
+                                        type={voirA ? "text" : "password"}
+                                        name='password'
+                                        id='password-inscription'
+                                        onChange={handleChange}
+                                        onBlur={checkInput}
+                                        minLength={8}
+                                        maxLength={40}
+                                        pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                        onInput={(event) => {
+                                            event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
+                                        }} />
+                                </div>
+                                <div className={coin.contientVoir}>
+                                    <img onClick={() => setVoirA(!voirA)} className={coin.voir} src={voir} alt="Icone pour voir le mot de passe indiqué" />
+                                </div>
+                            </div>
                             <br />
 
-                            <label className={coin.labelCoIn} htmlFor="repeatPassword">Répétez le mot de passe : <span>*</span></label>
-                            <input
-                                className={coin.inputCoIn}
-                                type="password"
-                                name='repeatPassword'
-                                id='repeatPassword'
-                                onChange={handleChange}
-                                minLength={8}
-                                maxLength={40}
-                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
-                                onInput={(event) => {
-                                    event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
-                                }} />
-                            {error.repeatPassword && <span>{error.repeatPassword}</span>}
-                            <br />
+                            <label className={coin.labelCoIn} htmlFor="repeatPassword-inscription">Répétez le mot de passe : <span className={coin.spanInscription}>*</span></label>
+                            <div className={coin.contientInputImg}>
+                                <div className={coin.inputsMDP}>
+                                    <input
+                                        className={coin.inputMDP}
+                                        type={voirB ? "text" : "password"}
+                                        name='repeatPassword'
+                                        id='repeatPassword-inscription'
+                                        onChange={handleChange}
+                                        onBlur={checkInput}
+                                        minLength={8}
+                                        maxLength={40}
+                                        pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                        onInput={(event) => {
+                                            event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
+                                        }} />
+                                </div>
+                                <div className={coin.contientVoir}>
+                                    <img onClick={() => setVoirB(!voirB)} className={coin.voir} src={voir} alt="Icone pour voir le mot de passe indiqué" />
+                                </div>
+                            </div>
+                            {error.password && <span className={coin.spanError}>{error.password}</span>}
+                            {mdpTape && (
+                                <div>
+                                    {!user.password?.match(/.*[a-z].*/) && (
+                                        <span className={coin.spanError}>Au moins une lettre minuscule.</span>
+                                    )}
+                                    {!user.password?.match(/.*[A-Z].*/) && (
+                                        <span className={coin.spanError}>Au moins une lettre majuscule.</span>
+                                    )}
+                                    {!user.password?.match(/.*\d.*/) && (
+                                        <span className={coin.spanError}>Au moins un chiffre.</span>
+                                    )}
+                                    {!user.password?.match(/.*[,;.?!\*\(\)].*/) && (
+                                        <span className={coin.spanError}>Au moins un caractère spécial.</span>
+                                    )}
+                                </div>
+                            )}
 
-                            <button className={coin.submitCoIn}>M'inscrire</button>
-                            <Link className={coin.connexion} to="/connexion">Déjà inscrit ?</Link>
+                            {error.repeatPassword && <span className={coin.spanError}>{error.repeatPassword}</span>}
+                            <br />
+                            <div className={coin.contientSubmit}>
+                                <button className={coin.submitCoIn}>M'inscrire</button>
+                                <Link className={coin.connexion} to="/connexion"><button className={coin.alternatif}>Déjà inscrit ?</button></Link>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div className={coin.boxCoIn2}>
-                    <Footer />
-                </div>
             </div>
+            <Footer />
         </>
     )
 }

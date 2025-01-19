@@ -9,8 +9,6 @@ import commande from "./commande.module.css"
 // COMPOSANTS
 import NavBar from '../../components/NavBar/NavBar'
 import Footer from '../../components/Footer/Footer'
-// import PanierTotal from '../../components/PanierSynthèse/visuelPanier'
-// import ConnectezVous from '../../components/ConnectezVous/connectezVous'
 import PrenezRendezVous from '../../components/PrenezRendezVous/prenezRendezVous'
 import Accordeon from '../../components/Accordeon/accordeon'
 import ModalCGV from '../../components/ModalCGV/ModalCGV'
@@ -24,7 +22,6 @@ const Commande = () => {
 
   const { auth } = useContext(AuthContext)
   const { validerCommande, prixParQuantite, totalArticle, panier, prixTotal, commentaire, setCommentaire } = useContext(PanierContext)
-  // const [commentaire, setCommentaire] = useState("")
   const [checkboxCochee, setCheckboxCochee] = useState(false)
   const [utilisateur, setUtilisateur] = useState({
     firstname: "",

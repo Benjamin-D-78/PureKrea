@@ -12,7 +12,6 @@ export const PanierProvider = ({ children }) => {
     const { auth } = useContext(AuthContext)
     const navigate = useNavigate();
 
-    // const [isLoading, setIsLoading] = useState(false);
     const [panier, setPanier] = useState([]);
     const [prixTotal, setPrixTotal] = useState(0);
     const [commentaire, setCommentaire] = useState("");

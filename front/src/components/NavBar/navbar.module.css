@@ -65,10 +65,15 @@ header{
     .navbarLI{
         margin: 1rem 0;
         list-style-type: none;
-        text-align: center;
-        }
+        text-align: center;}
 
     .a{
+        color: black;
+        text-decoration: none;
+        font-size: 2rem;
+        font-family: "Linden Hill" ,Arial, Helvetica, sans-serif;}
+
+    .deconnexion{
         color: black;
         text-decoration: none;
         font-size: 2rem;
@@ -85,8 +90,7 @@ header{
     .nav{
         display: flex;
         justify-content: space-evenly;
-        align-items:flex-end;
-    }
+        align-items:flex-end;}
 
         .cache{
             display: flex;
@@ -103,8 +107,7 @@ header{
         flex-direction: row;}
 
     .a{color: white;}
+    .deconnexion{display: none;}
 
-    .navbarLI{
-        margin: 0 2rem 0rem 1rem;
-    }
+    .navbarLI{margin: 0 2rem 0rem 1rem;}
  }

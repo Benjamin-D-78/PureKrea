@@ -1,6 +1,9 @@
 import { React, useState, useContext } from 'react'
 import { NavLink } from "react-router-dom"
 
+// CONTEXT
+import { AuthContext } from '../../context/AuthContext'
+
 // COMPOSANTS
 import navbar from "./navbar.module.css"
 
@@ -13,7 +16,7 @@ import close from "../../images/NavBar/close.svg"
 export default function NavBar() {
 
     const [montrerMenu, setMontrerMenu] = useState(false)
-
+    const {auth, deconnexion} = useContext(AuthContext)
 
 
     return (
@@ -39,6 +42,12 @@ export default function NavBar() {
                                 <li className={navbar.navbarLI}>
                                     <NavLink className={navbar.a} to="/contact">Contact</NavLink>
                                 </li>
+                                
+                                {auth ?
+                                <li className={navbar.navbarLI}>
+                                    <NavLink className={navbar.deconnexion} onClick={deconnexion}>Déconnexion</NavLink>
+                                </li>
+                                : ""}
                             </ul>
                         </div>
                         <img

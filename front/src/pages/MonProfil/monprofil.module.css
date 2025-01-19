@@ -99,3 +99,15 @@
         border-radius: 1.4rem;
         margin-top: 1rem;}
 }
+
+
+/* ERREURS */
+.spanError{
+    display: block;
+    width: 100%;
+    max-width: 15em;
+    margin-bottom: 0.5rem;
+    padding-left: 0.2rem;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    color: red;}
+/* FIN ERREURS */

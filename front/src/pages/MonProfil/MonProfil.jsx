@@ -28,10 +28,7 @@ const MonProfil = () => {
 
     const { id } = useParams();
     const { auth, setAuth } = useContext(AuthContext);
-
-
-
-
+    const [mdpTape, setMdpTape] = useState(false)
 
     const [voirA, setVoirA] = useState(false)
     const [voirB, setVoirB] = useState(false)
@@ -85,7 +82,8 @@ const MonProfil = () => {
         const userById = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/user/obtenir/${id}`, { withCredentials: true })
-                setUtilisateur(response.data)
+                setUtilisateur(response.data);
+
             } catch (error) {
                 console.error("Erreur lors de la recherche de l'utilisateur", error.message)
             }
@@ -94,11 +92,7 @@ const MonProfil = () => {
     }, [id])
 
 
-    // Permet de mettre à jour les valeurs dans le state "utilisateur"
-    const handleChange = (event) => {
-        const { name, value } = event.target
-        setUtilisateur(prev => ({ ...prev, [name]: value })) // "..." fait une copie de l'état précédent.
-    };
+
 
 
 
@@ -106,7 +100,7 @@ const MonProfil = () => {
         const messageError = {};
         let isValid = true;
 
-        const lastnameRegexr = /^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
+        const lastnameRegexr = /^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
         if (utilisateur.lastname && !lastnameRegexr.test(utilisateur.lastname)) {
             messageError.lastname = "Entre 2 et 30 caractères attendus."
             isValid = false;
@@ -123,7 +117,7 @@ const MonProfil = () => {
         }
         const passwordRegexr = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$/;
         if (newMDP && !passwordRegexr.test(newMDP)) {
-            messageError.newMDP = "Entre 8 et 40 caractères, ('m', 'M', et un caractère spécial)."
+            messageError.newMDP = "Entre 8 et 40 caractères, (au moins une minuscule, unemajuscule, un chiffre et un caractère spécial)."
             isValid = false;
         }
         const phoneRegexr = /^\d{10}$/;
@@ -154,15 +148,37 @@ const MonProfil = () => {
 
 
 
+    // Permet de mettre à jour les valeurs dans le state "utilisateur"
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        setUtilisateur(prev => ({ ...prev, [name]: value })) // "..." fait une copie de l'état précédent.
+
+        if (name === "newMDP" && value.length > 0) {
+            setMdpTape(true)
+        }
+    };
+
+
+    const checkInput = (event) => {
+        const { name } = event.target;
+        formulaire()
+    }
+
+
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!formulaire()) return;
 
+        if (utilisateur.lastname === "" || utilisateur.firstname === "" || utilisateur.email === "" || utilisateur.newMDP === "" || utilisateur.phone === "" || utilisateur.adress === "" || utilisateur.postal === "" || utilisateur.town === "") {
+            toast.error("Veuillez modifier au moins un champ pour modifier votre profil.");
+            return;
+        }
+
         // On crée un objet. On va ici distinguer le MDP des autres champs car changer de MDP doit être une possibilité et non une obligation.
         const updateUser = {};
-
-
 
         // On véritife et ajoute le MDP uniquement s'il a été changé
         if (newMDP && newMDP !== "") {
@@ -183,20 +199,24 @@ const MonProfil = () => {
         }
 
         // On ajoute les autres champs non liés au MDP uniquement s'ils ont été renseignés, sinon les champs ne seront pas envoyés dans la requête.
-        if (utilisateur.lastname) updateUser.lastname = utilisateur.lastname
-        if (utilisateur.firstname) updateUser.firstname = utilisateur.firstname
-        if (utilisateur.email) updateUser.email = utilisateur.email
-        if (utilisateur.phone) updateUser.phone = utilisateur.phone
-        if (utilisateur.adress) updateUser.adress = utilisateur.adress
-        if (utilisateur.postal) updateUser.postal = utilisateur.postal
-        if (utilisateur.town) updateUser.town = utilisateur.town
+        if (utilisateur.lastname !== "") updateUser.lastname = utilisateur.lastname
+        if (utilisateur.firstname !== "") updateUser.firstname = utilisateur.firstname
+        if (utilisateur.email !== "") updateUser.email = utilisateur.email
+        if (utilisateur.phone !== "") updateUser.phone = utilisateur.phone
+        if (utilisateur.adress !== "") updateUser.adress = utilisateur.adress
+        if (utilisateur.postal !== "") updateUser.postal = utilisateur.postal
+        if (utilisateur.town !== "") updateUser.town = utilisateur.town
 
         try {
-            const response = await axios.put(`http://localhost:8000/api/user/update/${auth._id}`, updateUser, { withCredentials: true }
+            const response = await axios.put(`http://localhost:8000/api/user/update/${id}`, updateUser, { withCredentials: true }
             );
 
             if (response.status === 200) {
                 toast.success("Profil mis à jour avec succès. Nous vous invitons à vous reconnecter pour voir vos nouvelles données.", { autoClose: 5000 });
+                const updateAuth = { ...auth, ...response.data } //On incorpore les nouvelles données dans le auth, sinon ça écrase le auth déjà existant et le remet à zéro.
+                setAuth(updateAuth);
+                localStorage.setItem("auth", JSON.stringify(updateAuth)); // on met à jour le localStorage en convertissant l'objet updateAuth en chaîne de caractères.
+
             }
         } catch (error) {
             console.error("Erreur lors de la mise à jour des informations.", error);
@@ -241,14 +261,15 @@ const MonProfil = () => {
                                             name='lastname'
                                             id='lastname'
                                             onChange={handleChange}
+                                            onBlur={checkInput}
                                             minLength={2}
                                             maxLength={30}
-                                            pattern="^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
+                                            pattern="^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase();
                                             }}
                                         />
-                                        {error.lastname && <span>{error.lastname}</span>}
+                                        {error.lastname && <span className={monProfil.spanError}>{error.lastname}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -265,6 +286,7 @@ const MonProfil = () => {
                                             name='firstname'
                                             id='firstname'
                                             onChange={handleChange}
+                                            onBlur={checkInput}
                                             minLength={2}
                                             maxLength={30}
                                             pattern="^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
@@ -272,7 +294,7 @@ const MonProfil = () => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '')
                                             }}
                                         />
-                                        {error.firstname && <span>{error.firstname}</span>}
+                                        {error.firstname && <span className={monProfil.spanError}>{error.firstname}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -287,15 +309,16 @@ const MonProfil = () => {
                                         <input
                                             type="text"
                                             name='email'
-                                            id='email'
+                                            id='emailProfil'
                                             onChange={handleChange}
+                                            onBlur={checkInput}
                                             minLength={1}
                                             maxLength={60}
                                             pattern="^[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]{2,30}\.[a-zA-Z]{2,4}$"
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
                                             }} />
-                                        {error.email && <span>{error.email}</span>}
+                                        {error.email && <span className={monProfil.spanError}>{error.email}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -318,6 +341,7 @@ const MonProfil = () => {
                                                 maxLength={40}
                                                 pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
                                                 onChange={(event) => setAncienMDP(event.target.value)}
+                                                onBlur={checkInput}
                                                 onInput={(event) => {
                                                     event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
                                                 }} />
@@ -331,6 +355,7 @@ const MonProfil = () => {
                                                 maxLength={40}
                                                 pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
                                                 onChange={(event) => setNewMDP(event.target.value)}
+                                                onBlur={checkInput}
                                                 onInput={(event) => {
                                                     event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
                                                 }} />
@@ -343,10 +368,11 @@ const MonProfil = () => {
                                                 maxLength={40}
                                                 pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
                                                 onChange={(event) => setRepeteMDP(event.target.value)}
+                                                onBlur={checkInput}
                                                 onInput={(event) => {
                                                     event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
                                                 }} />
-                                            {error.newMDP && <span>{error.newMDP}</span>}
+                                            {error.newMDP && <span className={monProfil.spanError}>{error.newMDP}</span>}
                                         </div>
                                         <div>
                                             <div className={monProfil.contientVoir}>
@@ -373,6 +399,7 @@ const MonProfil = () => {
                                             name='phone'
                                             id='phone'
                                             onChange={handleChange}
+                                            onBlur={checkInput}
                                             value={utilisateur?.phone || ""}
                                             minLength={1}
                                             maxLength={10}
@@ -380,7 +407,7 @@ const MonProfil = () => {
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/\D/g, '')
                                             }} />
-                                        {error.phone && <span>{error.phone}</span>}
+                                        {error.phone && <span className={monProfil.spanError}>{error.phone}</span>}
                                     </div>
                                 </div>
                                 <hr className={monProfil.hr} />
@@ -404,6 +431,7 @@ const MonProfil = () => {
                                             maxLength={70}
                                             pattern="[a-zA-Z0-9\s\-'^¨èéàù]{8,70}"
                                             onChange={handleChange}
+                                            onBlur={checkInput}
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-Z0-9\s\-'^¨èéàù]/g, '');
                                             }} />
@@ -417,6 +445,7 @@ const MonProfil = () => {
                                             minLength={1}
                                             maxLength={5}
                                             onChange={handleChange}
+                                            onBlur={checkInput}
                                             pattern="^\d{5}$"
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/\D/g, '')
@@ -430,14 +459,15 @@ const MonProfil = () => {
                                             minLength={2}
                                             maxLength={50}
                                             onChange={handleChange}
+                                            onBlur={checkInput}
                                             pattern="^[a-zA-Z\s\-'^¨èéàù]{2,50}$"
                                             onInput={(event) => {
                                                 // Remplacer tous les caractères non autorisés, y compris les chiffres
                                                 event.target.value = event.target.value.replace(/[^a-zA-Z\s\-'^¨èéàù]/g, '').toUpperCase();;
                                             }} />
-                                        {error.adress && <span>{error.adress}</span>}
-                                        {error.postal && <span>{error.postal}</span>}
-                                        {error.town && <span>{error.town}</span>}
+                                        {error.adress && <span className={monProfil.spanError}>{error.adress}</span>}
+                                        {error.postal && <span className={monProfil.spanError}>{error.postal}</span>}
+                                        {error.town && <span className={monProfil.spanError}>{error.town}</span>}
                                     </div>
                                 </div>
                                 <div className={monProfil.contientBtn}>

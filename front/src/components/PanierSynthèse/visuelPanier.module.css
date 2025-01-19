@@ -14,45 +14,39 @@
 
 /* Début de gestion de profil utilisateur */
 .gestionUtilisateur{
-    width: 99%;
+    width: 100%;
     margin: auto;
     display: flex;
     margin-bottom: 1rem;}
 
 .contientSelect{
-    width: 90%;
-    border-radius: 0.5rem;}
+    width: 100%;
+}
 
 .contientSelect select{
+    appearance: none; /* On désactive l'apparence classique du select */
+    -webkit-appearance: none; /* Pour Safari */
+    -moz-appearance: none; /* Pour Firefox */
     outline: none;
     border: none;
     background-color: #193E61;
     color: white;
-    width: 95%;
+    width: 100%;
     height: 4rem;
     font-family: "Marko One", Arial, Helvetica, sans-serif;
     font-size: 2rem;
     text-align: center;
     cursor: pointer;
-    border-radius: 0.5rem;}
+}
+
+option::after {
+    content: '  ▼'; /* Ajouter la flèche comme contenu après le texte */
+  }
 
 .contientSelect select option{font-size: 1.6rem;}
 
-.contientBtnDeconnexion{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 4rem;
-    height: auto;
-    background-color: rgba(255, 0, 0, 0.5);
-    border-radius: 0.5rem;}
+.contientBtnDeconnexion{display: none;}
 
-.contientBtnDeconnexion img{
-    height: 90%;
-    width: 90%;
-    padding: 0;
-    
-    cursor: pointer;}
 /* Fin de gestion de profil utilisateur */
 
 
@@ -206,4 +200,27 @@
         margin-bottom: 2rem;}
 
     .gestionUtilisateur{width: 100%;}
+    
+    .contientSelect{
+        width: 90%;
+        border-radius: 0.5rem;}
+    
+    .contientSelect select{
+        width: 95%;
+        border-radius: 0.5rem;}
+
+    .contientBtnDeconnexion{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 4rem;
+        height: auto;
+        background-color: rgba(255, 0, 0, 0.5);
+        border-radius: 0.5rem;}
+    
+    .contientBtnDeconnexion img{
+        height: 90%;
+        width: 90%;
+        padding: 0;
+        cursor: pointer;}
 }

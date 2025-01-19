@@ -17,14 +17,14 @@ const PanierTotal = () => {
 
   const { incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, panier, prixTotal } = useContext(PanierContext)
   const { auth, deconnexion } = useContext(AuthContext); // On récupère l'objet utilisateur depuis le contexte
-    const [utilisateur, setUtilisateur] = useState({
-      firstname: "",
-      lastname: "",
-      adress: "",
-      postal: "",
-      town: "",
-      phone: ""
-    });
+  const [utilisateur, setUtilisateur] = useState({
+    firstname: "",
+    lastname: "",
+    adress: "",
+    postal: "",
+    town: "",
+    phone: ""
+  });
 
   const [selection, setSelection] = useState("")
 
@@ -40,10 +40,10 @@ const PanierTotal = () => {
     const value = event.target.value
     setSelection(value)
 
-    if(value === "Mon profil") {
+    if (value === "Mon profil") {
       navigate(`/monprofil/${auth._id}`)
 
-    } else if(value === "Mes commandes") {
+    } else if (value === "Mes commandes") {
       navigate(`/mescommandes/${auth._id}`)
     }
   }
@@ -51,33 +51,35 @@ const PanierTotal = () => {
 
 
   useEffect(() => {
-    const userById = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8000/api/user/obtenir/${auth._id}`);
-        setUtilisateur(response.data)
-      } catch (error) {
-        console.error("Erreur lors de la recherche d'utilisateur", error)
-      }
-    };
-    userById();
+    if (auth) {
+      const userById = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8000/api/user/obtenir/${auth._id}`);
+          setUtilisateur(response.data)
+        } catch (error) {
+          console.error("Erreur lors de la recherche d'utilisateur", error)
+        }
+      };
+      userById();
+    }
   }, [auth])
 
 
 
   return (
     <div>
-        <div className={visuelPanier.gestionUtilisateur}>
-          <div className={visuelPanier.contientSelect}>
-            <select value={selection} onChange={select}>
-              <option>Mon compte</option>
-              <option value="Mon profil">Mon profil</option>
-              <option value="Mes commandes">Mes commandes</option>
-            </select>
-          </div>
-          <div className={visuelPanier.contientBtnDeconnexion}>
-            <img onClick={deconnexionTotale} src={imgDeconnexion} alt="Bouton cliquable pour se déconnecter de son compte" />
-          </div>
+      <div className={visuelPanier.gestionUtilisateur}>
+        <div className={visuelPanier.contientSelect}>
+          <select value={selection} onChange={select}>
+            <option>Mon compte ▼</option>
+            <option value="Mon profil">Mon profil</option>
+            <option value="Mes commandes">Mes commandes</option>
+          </select>
         </div>
+        <div className={visuelPanier.contientBtnDeconnexion}>
+          <img onClick={deconnexionTotale} src={imgDeconnexion} alt="Bouton cliquable pour se déconnecter de son compte" />
+        </div>
+      </div>
       <section className={visuelPanier.containerPanier}>
         <p className={visuelPanier.nom}>{auth ? `${utilisateur.firstname}` : ""}</p>
         <p className={visuelPanier.prenom}>{auth ? `${utilisateur.lastname}` : ""}</p>

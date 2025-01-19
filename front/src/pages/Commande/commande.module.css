@@ -64,8 +64,8 @@
 
 .manquantUtilisateur {
     text-align: right;
-    margin-bottom: 0.5rem;
     font-size: 1.4rem;
+    color: red;
     font-family: "Linden hill", 'Courier New', Courier, monospace;}
 
 .labelRecap {
