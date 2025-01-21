@@ -49,10 +49,15 @@
 }
 
 .pUtilisateur {
+    max-width: 15rem;
     text-align: left;
     color: black;
     font-size: 1.4rem;
-    font-family: "Linden hill", 'Courier New', Courier, monospace;}
+    font-family: "Linden hill", 'Courier New', Courier, monospace;
+    white-space: nowrap; /* On empêche le texte de se couper en plusieurs lignes */
+    overflow: hidden; /* Ensuite on masque le texte qui dépasse */
+    text-overflow: ellipsis; /* Et on affiche des points de suspension si le texte dépasse */
+}
 
 .hr{
     width: 96%;

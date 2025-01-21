@@ -11,6 +11,7 @@ import Connexion from './pages/Utilisateurs/Connexion';
 import Confirmation from './pages/Confirmation/Confirmation';
 import MesCommandes from './pages/MesCommandes/MesCommandes';
 import MonProfil from './pages/MonProfil/MonProfil';
+import VerificationEmail from './pages/Verification/VerificationEmail';
 
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
@@ -31,6 +32,7 @@ function App() {
       <Route path='/' element={<Layout />}>
         <Route index element={<Boutique />} />  {/* Page principale */}
         <Route path="/details/:id" element={<Details />} />
+        <Route path="/verification/:token" element={<VerificationEmail />} />
         <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
       </Route>
 

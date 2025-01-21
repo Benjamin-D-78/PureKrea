@@ -2,6 +2,9 @@ import userModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { env } from "../config/index.js";
+import { sendEmail } from "../services/nodemailer.js";
+
+
 
 
 // SIGNUP ( hashage du MDP avec "bcrypt" contenu dans une variable)
@@ -9,9 +12,14 @@ export const inscription = async (req, res, next) => {
     try {
         const hashedMDP = await bcrypt.hash(req.body.password, 10)
 
-        await userModel.create({ ...req.body, password: hashedMDP });
+        const user = await userModel.create({ ...req.body, password: hashedMDP, isVerified: false });
 
-        res.status(201).json({Message: "L'utilisateur a bien été créé."});
+        // On créé un token spécial qui va servir à vérifier l'email.
+        const verificationToken = jwt.sign({ id: user._id }, env.TOKEN, { expiresIn: "5m" });
+        // On envoi le mail à notre utilisateur avecle lien de vérification.
+        await sendEmail(req.body, verificationToken);
+
+        res.status(201).json({ Message: "L'utilisateur a bien été créé et l'email envoyé." });
 
     } catch (error) {
         console.log("Echec lors de l'inscription : ", error)
@@ -19,26 +27,52 @@ export const inscription = async (req, res, next) => {
     }
 }
 
+// Cette fonction va vérifier l'email de l'utilisateur. C'est comme vérifier un ticket d'entrée.
+export const verifyEmail = async (req, res, next) => {
+    try {
+        // On récupère le token depuis l'URL
+        const { token } = req.params;
+        // On vérifie si le token est valide
+        const decoded = jwt.verify(token, env.TOKEN);
+        // Maintenant on active le compte de l'utilisateur
+        await userModel.findByIdAndUpdate(decoded.id, { isVerified: true }, {
+            new: true,
+        });
+
+        res.status(200).json({ message: 'Email vérifié avec succès.' });
+
+    } catch (error) {
+        // On peut aussi utiliser la fonction next()
+        console.error('Erreur de vérification:', error);
+        res.status(400).json({ message: 'Lien invalide ou expiré.' });
+    }
+};
+
 // CONNEXION
 export const connexion = async (req, res, next) => {
     try {
         // Recherche de l'utilisateur dans la BDD
-        const rechercheUser = await userModel.findOne({email: req.body.email});
+        const rechercheUser = await userModel.findOne({ email: req.body.email });
 
-        if(!rechercheUser) return res.status(404).json({Message: "Utilisateur non trouvé."});
+        if (!rechercheUser) return res.status(404).json({ Message: "Utilisateur non trouvé." });
+
+        // On vérifie si l'utilisateur a confirmé son email.
+        if(!rechercheUser.isVerified){
+            return res.status(403).json({message: "Veuillez vérifier votre email pour pouvoir vous connecter."})
+        }
 
         // Comparaison du MDP fourni dans la requête avec le MDP dans la BDD.
         const compareMDP = await bcrypt.compare(req.body.password, rechercheUser.password)
 
-        if(!compareMDP) return res.status(400).json({Message: "Mauvais Mot De Passe."})
+        if (!compareMDP) return res.status(400).json({ Message: "Mauvais Mot De Passe." })
 
         // Création du Token de connexion avec expiration sous 24h.
         // Ici nous incluons l'ID de l'utilisateur dans lequel on signe le token via la clé secrète (env.token).
         // L'expiration prend au bout de 24h.
-        const tokenUser = jwt.sign({id: rechercheUser._id, role: rechercheUser.role}, env.TOKEN, {expiresIn: "24h"}) // TOKEN = valeur du token renseigné dans mon ".env"
+        const tokenUser = jwt.sign({ id: rechercheUser._id, role: rechercheUser.role }, env.TOKEN, { expiresIn: "24h" }) // TOKEN = valeur du token renseigné dans mon ".env"
 
         // On procède à l'extraction du MDP. Les autres propriétés sont regroupées dans un nouvel objet : "others".
-        const {password, ...others} = rechercheUser._doc
+        const { password, ...others } = rechercheUser._doc
 
         // Envoi du token sous forme de cookie HTTPonly, alors qu'avant le MDP était stocké dans le local storage.
         res.cookie("access_token", tokenUser, {
@@ -46,10 +80,10 @@ export const connexion = async (req, res, next) => {
             secure: false, // A mettre sur "true" lors d'une mis een ligne du site.
             sameSite: "Lax", // Protège des attaques CSRF (usurpation d'identité, etc.)
             //Passer "sameSite" en "Strict" le jour où je met mon site en ligne.
-            maxAge: 24*60*60*1000 // 24h en millisecondes.
+            maxAge: 24 * 60 * 60 * 1000 // 24h en millisecondes.
         })
-        .status(200)
-        .json(others) // Renvoie les données en réponse à l'exception du MDP.
+            .status(200)
+            .json(others) // Renvoie les données en réponse à l'exception du MDP.
 
     } catch (error) {
         console.log("Echec total lors de la tentative de connexion : ", error)
@@ -72,7 +106,7 @@ export const userID = async (req, res) => {
     try {
         const response = await userModel.findById(req.params.id)
 
-        if(response) res.status(200).json(response)
+        if (response) res.status(200).json(response)
     } catch (error) {
         console.log("Echec lors de la réception de l'utilisateur : ", error)
     }
@@ -82,24 +116,24 @@ export const userID = async (req, res) => {
 export const upUser = async (req, res) => {
     try { // On vérifie si l'utilisateur existe :
         const response = await userModel.findById(req.params.id);
-        if(!response) return res.status(404).json({Message: "Utilisateur non trouvé."});
-        
+        if (!response) return res.status(404).json({ Message: "Utilisateur non trouvé." });
+
         // toString (avec majuscule !) ; ici on compare si l'id de l'utilisateur à updater est le même id que l'utilisateur qui souhaite faire cet update.
         // req.user.id car on fait appel au "user" définit dans le "auth.js".
-        if(req.user.id !== response._id.toString() && req.user.role !== "admin"){
-            return res.status(403).json({Message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
+        if (req.user.id !== response._id.toString() && req.user.role !== "admin") {
+            return res.status(403).json({ Message: "Accès refusé : vous n'êtes pas l'utilisateur concerné." })
         }
 
         // Si le mot de passe est modifié, on le hache avant de le sauvegarder
-        if(req.body.password) {
-            if(!req.body.ancienMDP){
-                return res.status(400).json({Message: "Le mot de passe actuel est requis."})
+        if (req.body.password) {
+            if (!req.body.ancienMDP) {
+                return res.status(400).json({ Message: "Le mot de passe actuel est requis." })
             }
 
             // On vérifie que le mot de passe actuel envoyé par l'utilisateur coresspond à celui stocké dans la BDD
             const correspond = await bcrypt.compare(req.body.ancienMDP, response.password);
-            if(!correspond) {
-                return res.status(400).json({Message : "Le mot de passe actuel est incorrect."})
+            if (!correspond) {
+                return res.status(400).json({ Message: "Le mot de passe actuel est incorrect." })
             }
 
             // On hashe le nouveau MDP
@@ -109,9 +143,9 @@ export const upUser = async (req, res) => {
         // Mise à jour de l'utilisateur :
         const update = await userModel.findByIdAndUpdate(
             req.params.id,
-            {$set: req.body}, // set est propre à mongoose, et spécifie les champs qui doivent être mis à jour.
-            {new: true}) // On envoie le nouveau document mis à jour.
-        res.status(200).json({message: "Informations mises à jour avec succès.", update})
+            { $set: req.body }, // set est propre à mongoose, et spécifie les champs qui doivent être mis à jour.
+            { new: true }) // On envoie le nouveau document mis à jour.
+        res.status(200).json({ message: "Informations mises à jour avec succès.", update })
 
     } catch (error) {
         console.log("Erreur lors de la tentative de mise à jour : ", error)
@@ -123,15 +157,15 @@ export const deleteUser = async (req, res) => {
     try { // On vérifie si l'utilisateur existe :
         const response = await userModel.findById(req.params.id);
 
-        if(!response) return res.status(404).json({message: "Utilisateur non trouvé."});
+        if (!response) return res.status(404).json({ message: "Utilisateur non trouvé." });
         console.log("req.user.role : ", req.user);
-        if(req.user.id !== response._id.toString() && req.user.role !== 'admin'){
-            return res.status(403).json({message: "Accès refusé : vous n'êtes pas l'utilisateur concerné."})
+        if (req.user.id !== response._id.toString() && req.user.role !== 'admin') {
+            return res.status(403).json({ message: "Accès refusé : vous n'êtes pas l'utilisateur concerné." })
         }
 
         // Suppression de l'utilisateur
         await userModel.findByIdAndDelete(req.params.id);
-        res.status(200).json({message: "Utilisateur supprimé avec succès."});
+        res.status(200).json({ message: "Utilisateur supprimé avec succès." });
 
     } catch (error) {
         console.log("Erreur lors de la tentative de suppression : ", error);
