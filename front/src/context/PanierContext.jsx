@@ -15,6 +15,7 @@ export const PanierProvider = ({ children }) => {
     const [panier, setPanier] = useState([]);
     const [prixTotal, setPrixTotal] = useState(0);
     const [commentaire, setCommentaire] = useState("");
+    const [idCommande, setIdCommande] = useState("");
 
     useEffect(() => {
         const loadPanier = async () => {
@@ -108,7 +109,7 @@ export const PanierProvider = ({ children }) => {
 
     const ajouterArticle = async (product) => {
         try {
-            if (!auth) { 
+            if (!auth) {
                 navigate("/connexion")
             }
 
@@ -116,7 +117,7 @@ export const PanierProvider = ({ children }) => {
             if (userId) {
                 const panier = await localStorage.getItem(`panier${userId}`);
                 let nouveauPanier = [];
-                
+
                 // Si le panier existe déjà, on le converti en tableau d'objet.
                 if (panier !== null) {
                     nouveauPanier = JSON.parse(panier);
@@ -147,28 +148,28 @@ export const PanierProvider = ({ children }) => {
     const videPanier = () => {
         setPanier([]);
         const userId = auth ? auth._id : null; // Si auth existe, on extrait l'ID que l'on stocke dans userId, puis on supprime son panier.
-        if(userId) {
+        if (userId) {
             localStorage.removeItem(`panier${userId}`)
         }
     }
 
     const validerCommande = async () => {
-        try {    
+        try {
             // On vérifie que le panier n'est pas vide.
             if (panier.length === 0) {
                 toast.error("Votre panier est vide. Veuillez ajouter des articles pour pouvoir passer commande.");
                 return;
             }
-    
+
             // On calcule le prix total du panier en ajoutant le prix total pour chaque article
             const panierTotal = panier.map(item => ({
                 ...item, // Pour chaque item du tableau "panier" on retourne un nouvel objet. Comme ça on garde toutes les prop's originales sans les modifier.
                 totalPrice: item.price * item.quantite  // Pour chaque item on ajoute une propriété "totalPrice" qui calcule le prix de l'article multiplié par la quantité.
             }));
-    
+
             // On calcule le prix total de la commande :
             const prixTotal = panierTotal.reduce((total, item) => total + item.totalPrice, 0);
-    
+
             // On créé notre objet de commande à envoyer à notre back.
             const commandeData = {
                 userId: auth._id,  // ID de l'utilisateur
@@ -182,35 +183,43 @@ export const PanierProvider = ({ children }) => {
                 total: prixTotal,  // On indique le prix total de la commande.
                 comment: commentaire
             };
-    
+
             const response = await axios.post('http://localhost:8000/api/commande/creation', commandeData);
 
             if (response.status === 201) {
-                toast.success("Commande validée avec succès!", {autoClose: 2000});
+                // toast.success("Commande validée avec succès!", { autoClose: 2000 });
                 const id = response.data._id
-                setPanier([])
+                // setPanier([])
 
                 // On supprimer le panier dans le localStorage pour l'utilisateur
-                const userId = auth ? auth._id : null
-                if (userId) {
-                    localStorage.removeItem(`panier${userId}`)
-                }
-                // On s'assure ensuite que le localStorage est bien vide avant de rediriger, d'où le temps de latence avec SetTimeOut. On attend 500 millisecondes.
-                setTimeout(() => {
-                    navigate(`/commande/confirmation/${id}`);
-                }, 500)
+                // const userId = auth ? auth._id : null
+                // if (userId) {
+                //     localStorage.removeItem(`panier${userId}`)
+                // }
+
+                setIdCommande(id)
             }
-    
+
         } catch (error) {
             console.error("Erreur lors de la validation de la commande:", error);
-            toast.error("Une erreur est survenue. Veuillez réessayer.", {autoClose: 3000});
+            toast.error("Une erreur est survenue. Veuillez réessayer.", { autoClose: 3000 });
         }
     };
-    
-    
+
+    useEffect(() => {
+        if (idCommande) {
+            // On s'assure ensuite que le localStorage est bien vide avant de rediriger, d'où le temps de latence avec SetTimeOut. On attend 500 millisecondes.
+            setTimeout(() => {
+                navigate("/commande/paiement");
+                setIdCommande("");
+            }, 500)
+        }
+    }, [idCommande, navigate])
+
+
 
     return (
-        <PanierContext.Provider value={{ incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, validerCommande, setCommentaire, panier, prixTotal }} >
+        <PanierContext.Provider value={{ incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, validerCommande, setCommentaire, setPanier, setIdCommande, panier, prixTotal }} >
             {children}
         </PanierContext.Provider>
     )

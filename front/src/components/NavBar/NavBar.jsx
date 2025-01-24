@@ -16,18 +16,18 @@ import close from "../../images/NavBar/close.svg"
 export default function NavBar() {
 
     const [montrerMenu, setMontrerMenu] = useState(false)
-    const {auth, deconnexion} = useContext(AuthContext)
+    const { auth, deconnexion } = useContext(AuthContext)
 
 
     return (
         <div>
             <header>
                 <nav className={navbar.nav}>
-                        <div className={navbar.divImage}>
-                            <NavLink to="/"><img className={navbar.img} src={logo} alt="Logo 'PureKréNavLink'" />
-                            </NavLink>
-                        </div>
-                        <div className={navbar.navContainer}>
+                    <div className={navbar.divImage}>
+                        <NavLink to="/"><img className={navbar.img} src={logo} alt="Logo 'PureKréNavLink'" />
+                        </NavLink>
+                    </div>
+                    <div className={navbar.navContainer}>
                         <div className={`${montrerMenu ? navbar.montre : navbar.cache}`}>
                             <ul className={navbar.ul}>
                                 <li className={navbar.navbarLI}>
@@ -42,12 +42,16 @@ export default function NavBar() {
                                 <li className={navbar.navbarLI}>
                                     <NavLink className={navbar.a} to="/contact">Contact</NavLink>
                                 </li>
-                                
+
                                 {auth ?
-                                <li className={navbar.navbarLI}>
-                                    <NavLink className={navbar.deconnexion} onClick={deconnexion}>Déconnexion</NavLink>
-                                </li>
-                                : ""}
+                                    <li className={navbar.navbarLI}>
+                                        <NavLink className={navbar.deconnexion} onClick={deconnexion}>Déconnexion</NavLink>
+                                    </li>
+                                    :
+                                    <li className={navbar.navbarLI}>
+                                        <NavLink className={navbar.deconnexion} to="/connexion">Connexion</NavLink>
+                                    </li>
+                                }
                             </ul>
                         </div>
                         <img

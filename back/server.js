@@ -3,12 +3,14 @@ import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 import { env } from "./config/index.js"
+// import Stripe from "stripe"
 
 
 // ROUTAGE
 import userRoutes from "./routers/user.router.js"
 import itemRoutes from "./routers/item.router.js"
 import commandeRoutes from "./routers/commande.router.js"
+import paiementRoutes from "./routers/paiement.router.js"
 
 // APP EXPRESS
 const app = express()
@@ -38,6 +40,7 @@ app.use(cookieParser());
 app.use("/api/user", userRoutes)
 app.use("/api/item", itemRoutes)
 app.use("/api/commande", commandeRoutes)
+app.use("/api/paiement", paiementRoutes)
 
 // SERVER
 app.listen(PORT, () => {

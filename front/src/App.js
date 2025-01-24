@@ -12,6 +12,7 @@ import Confirmation from './pages/Confirmation/Confirmation';
 import MesCommandes from './pages/MesCommandes/MesCommandes';
 import MonProfil from './pages/MonProfil/MonProfil';
 import VerificationEmail from './pages/Verification/VerificationEmail';
+import TestFormulaire from './stripe/TestFormulaire';
 
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
@@ -41,6 +42,7 @@ function App() {
         <Route path="/mescommandes/:id" element={<MesCommandes />} />
         <Route path="/monprofil/:id" element={<MonProfil />} />
         <Route path="/commande/confirmation/:id" element={<Confirmation />} />
+        <Route path="/commande/paiement" element={<TestFormulaire />} />
       </Route>
 
       {/* Routes publiques */}
