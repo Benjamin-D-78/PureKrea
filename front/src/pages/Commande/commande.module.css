@@ -96,6 +96,7 @@
     display: inline;
     padding: 0%;
     margin: auto;
+    border: solid 1px;
     border-radius: 0.5rem;}
 
 .hrCommande {
@@ -106,7 +107,8 @@
     display: flex;
     justify-content: center;}
 
-.contientBtnMInfo a {width: 60%;}
+.contientBtnMInfo a {
+    width: 60%;}
 
 .btnModifierInformations {
     width: 100%;
@@ -239,7 +241,9 @@
     display: flex;
     justify-content: center;}
 
-.contientBtnValidation2 a {width: 60%;}
+.contientBtnValidation2 a {
+    width: 60%;
+    color: black;}
 
 .btnValidation1 {
     width: 60%;

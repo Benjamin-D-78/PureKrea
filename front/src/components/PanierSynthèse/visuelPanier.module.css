@@ -177,7 +177,8 @@ option::after {
     padding: 0 5rem;}
 
 .contientBoutonCommande a{
-    width: 90%;}
+    width: 90%;
+    color: black}
 
 .boutonPasserCommande{
     width: 100%;

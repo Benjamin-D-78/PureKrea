@@ -18,20 +18,23 @@
 .inputsProfil input {
     display: flex;
     width: 15rem;
-    height: 1.9rem;}
+    height: 1.9rem;
+    border: solid 1px;
+    border-radius: 0.5rem;}
 
 
 
 .contientDonneesMDP{display: flex;}
 
-.contientInputImg{
-    display: flex
-}
+.contientInputImg{display: flex}
 
 .inputsMDP{
     display: flex;
-    flex-direction: column;
-}
+    flex-direction: column;}
+.inputsMDP input{
+    height: 1.9rem;
+    border: solid 1px;
+    border-radius: 0.5rem;}
 
 
 .contientVoir{
@@ -62,7 +65,8 @@
 .hr{
     width: 96%;
     margin-right: auto;
-    margin-left: auto;}
+    margin-left: auto;
+    background-color: black;}
 
 .nomEntete{
     font-family: "Marko One", Arial, Helvetica, sans-serif;

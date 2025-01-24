@@ -39,16 +39,23 @@
     color: white;
     font-weight: 600;
     font-size: 1.6rem;
-    padding: 1rem 0;}
+    padding-top: 1rem;
+}
 
 .conteneurSelect {
-    text-align: center;}
+    width: 95%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 1rem;
+}
 
 .selectEntete {
     width: 7.5rem;
     height: 2rem;
     margin: 0.5rem 0.7rem;
-    font-size: 12px;}
+    font-size: 1.2rem;}
 
 .refresh{
     width: 2rem;
@@ -103,6 +110,7 @@
         justify-content:end;
         flex-wrap: wrap;
         margin: auto;
+        padding-bottom: 0;
     }
 }
 
@@ -243,6 +251,7 @@
         text-decoration: none;
         display: flex;
         width: 100%;
+        color: black;
 
         .buttonDetails {
             background-color: #FFFFF0;

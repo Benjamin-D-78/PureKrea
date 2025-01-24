@@ -20,7 +20,7 @@ export default function NavBar() {
 
 
     return (
-        <div>
+        <div className={navbar.contientHeader}>
             <header>
                 <nav className={navbar.nav}>
                     <div className={navbar.divImage}>

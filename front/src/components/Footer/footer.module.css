@@ -37,8 +37,9 @@ footer{
         width: 100%;
         height: 12rem;
         background-color: #FCF7FF;
-        display: inline-block;
-        text-align: center;}
+        display: flex;
+        justify-content: center;
+    }
 
     /* Linkedin et GitHub */
     .lg{
@@ -120,6 +121,10 @@ footer{
     .footerA{
         color: white;
         font-family: 'Linden Hill', Arial, Helvetica, sans-serif;}
+    .footerA:hover{
+        text-decoration: none;
+        color: orange;
+    }
 
 
 
