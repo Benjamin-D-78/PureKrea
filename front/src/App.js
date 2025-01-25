@@ -41,8 +41,8 @@ function App() {
         <Route path="/commande" element={<Commande />} />
         <Route path="/mescommandes/:id" element={<MesCommandes />} />
         <Route path="/monprofil/:id" element={<MonProfil />} />
-        <Route path="/commande/confirmation/:id" element={<Confirmation />} />
         <Route path="/commande/paiement" element={<TestFormulaire />} />
+        <Route path="/commande/paiement/confirmation/:id" element={<Confirmation />} />
       </Route>
 
       {/* Routes publiques */}

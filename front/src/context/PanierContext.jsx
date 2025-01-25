@@ -187,15 +187,26 @@ export const PanierProvider = ({ children }) => {
             const response = await axios.post('http://localhost:8000/api/commande/creation', commandeData);
 
             if (response.status === 201) {
-                // toast.success("Commande validée avec succès!", { autoClose: 2000 });
+                toast.success("Commande validée avec succès!", { autoClose: 2000 });
                 const id = response.data._id
-                // setPanier([])
+
+                for (let item of panier) {
+                    try {
+                        const majStock = await axios.put(`http://localhost:8000/api/item/update/${id}`, {stock: item.stock - item.quantite})
+                        if(majStock.status === 200){
+                            console.log("Stock des items mis à jour avec succès.")
+                        }
+                    } catch (error) {
+                        console.error("Erreur lors de la mise à jour du stock : ", item.name, error)
+                    }
+                }
+                setPanier([]) // On vide le panier
 
                 // On supprimer le panier dans le localStorage pour l'utilisateur
-                // const userId = auth ? auth._id : null
-                // if (userId) {
-                //     localStorage.removeItem(`panier${userId}`)
-                // }
+                const userId = auth ? auth._id : null
+                if (userId) {
+                    localStorage.removeItem(`panier${userId}`)
+                }
 
                 setIdCommande(id)
             }
@@ -210,7 +221,8 @@ export const PanierProvider = ({ children }) => {
         if (idCommande) {
             // On s'assure ensuite que le localStorage est bien vide avant de rediriger, d'où le temps de latence avec SetTimeOut. On attend 500 millisecondes.
             setTimeout(() => {
-                navigate("/commande/paiement");
+                navigate(`/commande/paiement/confirmation/${idCommande}`);
+                //Je suis obligé de réinitialiser la valeur de idCommande sinon je rentre dans une boucle infinie.
                 setIdCommande("");
             }, 500)
         }

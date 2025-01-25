@@ -1,6 +1,8 @@
 import { React, useState, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 // CSS
 import boutique from "../Boutique/Boutique.module.css"
@@ -20,6 +22,7 @@ import { PanierContext } from '../../context/PanierContext'
 
 const Commande = () => {
 
+  const navigate = useNavigate();
   const { auth } = useContext(AuthContext)
   const { validerCommande, prixParQuantite, totalArticle, panier, prixTotal, commentaire, setCommentaire } = useContext(PanierContext)
   const [checkboxCochee, setCheckboxCochee] = useState(false)
@@ -40,10 +43,21 @@ const Commande = () => {
   }
 
   const verifieInformations = () => {
+
     return !(auth && auth.firstname && auth.lastname && auth.adress && auth.postal && auth.town && auth.phone)
   }
 
   const informationsManquantes = verifieInformations();
+
+  const errorValidation = () => {
+    if (!checkboxCochee || informationsManquantes) {
+      toast.error("Vous devez compléter vos informations et cocher nos CGV pour valider la commande.")
+    } else if (panier.length === 0) {
+      toast.error("Votre panier est vide.")
+    } else {
+      navigate("/commande/paiement")
+    }
+  }
 
 
 
@@ -156,10 +170,17 @@ const Commande = () => {
                     <p className={commande.prixArticle}>{prixParQuantite(article.price, article.quantite)} €</p>
                   </div>
                 ))}
+                <hr className={commande.hrBilan} />
               </div>
-              <div className={commande.totalRecap}>
-                <p className={commande.quantiteTotalRecap}>{totalArticle()}</p>
-                <p className={commande.prixTotalRecap}>{prixTotal} €</p>
+              <div className={commande.totalRecapHT}>
+                <p className={commande.pHT}>HT :</p>
+                <p className={commande.quantiteTotalRecapHT}>{totalArticle()}</p>
+                <p className={commande.prixTotalRecapHT}>{(prixTotal / 1.20).toFixed(2)} €</p>
+              </div>
+              <div className={commande.totalRecapTTC}>
+                <p className={commande.pTTC}>TTC :</p>
+                <p className={commande.quantiteTotalRecapTTC}>{totalArticle()}</p>
+                <p className={commande.prixTotalRecapTTC}>{prixTotal.toFixed(2)} €</p>
               </div>
 
               <div className={commande.divContientCheckBox}>
@@ -179,9 +200,10 @@ const Commande = () => {
 
               <div className={commande.contientBtnValidation1}>
                 <button
-                  disabled={!checkboxCochee || informationsManquantes}
-                  onClick={validerCommande}
-                  className={commande.btnValidation1}>Valider la commande</button>
+                  onClick={errorValidation}
+                  className={commande.btnValidation1}>Valider la commande
+                </button>
+
               </div>
               <div className={commande.contientBtnValidation2}>
                 <Link to={{ pathname: "/" }}><button className={commande.btnValidation2}>Revenir au panier</button></Link>

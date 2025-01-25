@@ -118,7 +118,7 @@ const Inscription = () => {
                     <div className={coin.formIn}>
                         <h1 className={coin.titreCoIn}>Inscription</h1>
                         <form onSubmit={handleSubmit} noValidate>
-                            <label className={coin.labelCoIn} htmlFor="firstname-inscription">Nom : <span className={coin.spanInscription}>*</span></label>
+                            <label className={coin.labelCoIn} htmlFor="firstname-inscription">Prénom : <span className={coin.spanInscription}>*</span></label>
                             <input
                                 className={coin.inputCoIn}
                                 type="text"
@@ -130,13 +130,13 @@ const Inscription = () => {
                                 maxLength={30}
                                 pattern="^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
                                 onInput={(event) => {
-                                    event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase();
+                                    event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '');
                                 }}
                             />
                             {error.firstname && <span className={coin.spanError}>{error.firstname}</span>}
                             <br />
 
-                            <label className={coin.labelCoIn} htmlFor="lastname-inscription">Prénom : <span className={coin.spanInscription}>*</span></label>
+                            <label className={coin.labelCoIn} htmlFor="lastname-inscription">Nom : <span className={coin.spanInscription}>*</span></label>
                             <input
                                 className={coin.inputCoIn}
                                 type="text"
@@ -148,7 +148,7 @@ const Inscription = () => {
                                 maxLength={30}
                                 pattern="^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
                                 onInput={(event) => {
-                                    event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '')
+                                    event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase()
                                 }}
                             />
                             {error.lastname && <span className={coin.spanError}>{error.lastname}</span>}
