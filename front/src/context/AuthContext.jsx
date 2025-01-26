@@ -30,6 +30,9 @@ export const AuthProvider = ({ children }) => {
             if (error.response && error.response.status === 400) {
                 toast.error("Email ou mot de passe incorrect.", { autoClose: 3000 })
             }
+            if (error.response && error.response.status === 403) {
+                toast.error("Vous devez valider votre adresse mail pour pouvoir vous connecter.", { autoClose: 3000 })
+            } 
             if (error.response && error.response.status === 500) {
                 toast.error("Erreur lors de la tentative de connecion. Veuillez nous contacter", { autoClose: 3000 })
             }

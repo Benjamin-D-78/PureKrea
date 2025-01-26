@@ -44,7 +44,7 @@ const Commande = () => {
 
   const verifieInformations = () => {
 
-    return !(auth && auth.firstname && auth.lastname && auth.adress && auth.postal && auth.town && auth.phone)
+    return !(auth && utilisateur.firstname && utilisateur.lastname && utilisateur.adress && utilisateur.postal && utilisateur.town && utilisateur.phone)
   }
 
   const informationsManquantes = verifieInformations();

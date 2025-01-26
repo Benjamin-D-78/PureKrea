@@ -110,7 +110,7 @@
         justify-content:end;
         flex-wrap: wrap;
         margin: auto;
-        padding-bottom: 0;
+        padding: 0 0.5rem 0 0;
     }
 }
 

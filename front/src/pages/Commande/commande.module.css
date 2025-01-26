@@ -94,7 +94,7 @@
 
 .areaUtilisateur {
     display: inline;
-    padding: 0%;
+    padding-left: 0.5rem;
     margin: auto;
     border: solid 1px;
     border-radius: 0.5rem;}
