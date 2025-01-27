@@ -1,9 +1,12 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import { React, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
 import { toast } from 'react-toastify'
+
+// ICONES
+import supprimer from "../../images/Icones/supprimer.png"
+import modifier from "../../images/Icones/modifier.png"
 
 // COMPOSANTS
 import AjoutUtilisateur from './Users'
@@ -23,12 +26,12 @@ const Utilisateurs = () => {
         const response = await axios.delete(`http://localhost:8000/api/user/delete/${id}`, { withCredentials: true })
         if (response.status === 200) {
           console.log(response)
-          toast.success("Utilisateur supprimé avec succès.", {autoClose: 1000})
+          toast.success("Utilisateur supprimé avec succès.", { autoClose: 1000 })
           setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
         } // On met à jour le state local en retirant de la liste l'utilisateur supprimé.
       } catch (error) {
         console.log("Erreur lors de la suppression de l'utilisateur.", error)
-        toast.error("Erreur lors de la suppression de l'utilisateur.", {autoClose: 3000})
+        toast.error("Erreur lors de la suppression de l'utilisateur.", { autoClose: 3000 })
       }
     }
   }
@@ -77,8 +80,10 @@ const Utilisateurs = () => {
               <td className={boutique_dashboard.autresTD}>{user.role}</td>
               <td className={boutique_dashboard.autresTD}>{user.isActive}</td>
               <td className={boutique_dashboard.boutonsTD}>
-                <Link to={{ pathname: `/dashboard/update/utilisateur/${user._id}` }}><button className={boutique_dashboard.controlItem1}>Modifier</button></Link>
-                <button onClick={() => deleteUser(user._id)} className={boutique_dashboard.controlItem3}>Supprimer</button>
+                <div className={boutique_dashboard.contientIMG}>
+                  <Link to={{ pathname: `/dashboard/update/utilisateur/${user._id}` }}><img src={modifier} alt="Icone de modification" /></Link>
+                  <img onClick={() => deleteUser(user._id)} src={supprimer} alt="Icone de suppression" />
+                </div>
               </td>
             </tr>
           ))}

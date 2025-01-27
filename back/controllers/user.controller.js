@@ -15,7 +15,7 @@ export const inscription = async (req, res, next) => {
         const user = await userModel.create({ ...req.body, password: hashedMDP, isVerified: false });
 
         // On créé un token spécial qui va servir à vérifier l'email.
-        const verificationToken = jwt.sign({ id: user._id }, env.TOKEN, { expiresIn: "5m" });
+        const verificationToken = jwt.sign({ id: user._id }, env.TOKEN, { expiresIn: "24h" });
         // On envoi le mail à notre utilisateur avecle lien de vérification.
         await sendEmail(req.body, verificationToken);
 

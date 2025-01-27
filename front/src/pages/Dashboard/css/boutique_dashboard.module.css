@@ -22,11 +22,25 @@
 
 .autresTD{
     border: inset 1px;
-    /* margin: 30px 0 30px; */
     width: 8rem;}
+.autresTDcache{border: inset 1px;}
 
     .imagesTD, .boutonsTD{
         border: inset 1px}
+
+        
+
+        
+
+.contientIMG{
+    display: flex;
+    justify-content: center;
+}
+.contientIMG img{
+    width: 2.5rem;
+    cursor: pointer;
+    margin: 1rem;
+}
 
 .divImage{
     display: inline-block;

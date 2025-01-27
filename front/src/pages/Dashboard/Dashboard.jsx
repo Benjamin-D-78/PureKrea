@@ -10,7 +10,7 @@ export default function Dashboard() {
         <h1 className={dashboard.h1}>Dashboard</h1>
         <nav className={dashboard.nav}>
           <li className={dashboard.LIdashboard}>
-            <NavLink className={dashboard.a} to="/dashboard/items">Items</NavLink>
+            <NavLink className={dashboard.a} to="/dashboard/items">Produits</NavLink>
           </li>
           <li className={dashboard.LIdashboard}>
             <NavLink className={dashboard.a} to="/dashboard/utilisateurs">Utilisateurs</NavLink>

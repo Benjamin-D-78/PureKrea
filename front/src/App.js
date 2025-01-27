@@ -2,7 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 
-import NotFound from './components/NotFound';
+import NotFound from './pages/NotFound/NotFound';
 import Boutique from './pages/Boutique/Boutique';
 import Commande from './pages/Commande/commande';
 import Details from './pages/Details/Detail';

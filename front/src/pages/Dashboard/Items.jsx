@@ -52,7 +52,7 @@ const AjoutItem = () => {
   }
 
   return (
-    <div>
+    <div className={items.conteneurPrincipal}>
       <h1 className={items.h1}>Ajouter un item</h1>
       <form onSubmit={handleSubmit}>
       <section className={items.formulaire}>

@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react'
 import axios from "axios"
 import { useParams, Link } from "react-router-dom";
+import notfound from "../NotFound/notfound.module.css"
 
 const VerificationEmail = () => {
 
@@ -23,11 +24,15 @@ const VerificationEmail = () => {
         updateVerification();
     }, [])
     return (
-        <div>
-            <h1>Verify Email</h1>
-            {/* On affiche notre message s'il existe */}
-            <p>{message && message}</p>
-            <Link to='/connexion'>Se connecter</Link>
+        <div className={notfound.contientNotFound}>
+            <div className={notfound.divNotFound}>
+                <h1>Bienvenue !</h1>
+                {/* On affiche notre message s'il existe */}
+                <p>{message && message}</p>
+                <div className={notfound.contientBtnRevenir}>
+                    <Link to="/connexion"><button className={notfound.btnRevenir}>Me connecter</button></Link>
+                </div>
+            </div>
         </div>
     )
 }
