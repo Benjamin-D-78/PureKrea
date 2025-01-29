@@ -2,6 +2,7 @@ import { React, useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import visuelPanier from "./visuelPanier.module.css"
+import { URL } from '../../utils/Constantes';
 
 // CONTEXT
 import { AuthContext } from "../../context/AuthContext"; // On importe le contexte
@@ -54,7 +55,7 @@ const PanierTotal = () => {
     if (auth) {
       const userById = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/api/user/obtenir/${auth._id}`);
+          const response = await axios.get(`${URL.USER_BY_ID}/${auth._id}`);
           setUtilisateur(response.data)
         } catch (error) {
           console.error("Erreur lors de la recherche d'utilisateur", error)

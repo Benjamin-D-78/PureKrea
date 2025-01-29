@@ -1,9 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { URL } from "../../utils/Constantes";
 
 // ICONES
 import supprimer from "../../images/Icones/supprimer.png"
@@ -18,7 +18,7 @@ const Items = () => {
 
     const deleteItem = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8000/api/item/delete/${id}`);
+            const response = await axios.delete(`${URL.ITEM_DELETE}/${id}`);
 
             if (response.status === 200) {
                 console.log(response.data)
@@ -35,7 +35,7 @@ const Items = () => {
 
     const depart = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/item/all");
+            const response = await axios.get(URL.ITEM_ALL);
             setItems(response.data);
         } catch (error) {
             setError(error.message);

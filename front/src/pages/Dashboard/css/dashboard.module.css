@@ -3,22 +3,20 @@
 }
 
 .h1{
-    text-align: center;}
+    text-align: center;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    margin-bottom: 2rem;}
 
 .LIdashboard{
     list-style-type: none;
     font-size: 1.5rem;
 }
 
-.a{
+.a{color: black;}
+.a:hover{
     text-decoration: none;
-    color: black;}
+    color: orange;}
 
 .nav{
     display: flex;
     justify-content: space-around;}
-
-/* EFFETS */
-.a:hover{
-    font-weight: 600;
-}

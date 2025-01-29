@@ -1,8 +1,8 @@
 import { React, useState, useEffect, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
-import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { URL } from '../../utils/Constantes'
 
 // CSS
 import boutique from "../Boutique/Boutique.module.css"
@@ -67,7 +67,7 @@ const Commande = () => {
     if (auth) {
       const userById = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/api/user/obtenir/${auth._id}`);
+          const response = await axios.get(`${URL.USER_BY_ID}/${auth._id}`);
           setUtilisateur(response.data)
         } catch (error) {
           console.error("Erreur lors de la recherche de l'utilisateur", error)

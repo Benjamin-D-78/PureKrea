@@ -111,6 +111,17 @@
     transition: all 0.3s ease; 
 }
 
+.linkValidation{color: white;}
+.linkValidation:hover{
+    color: orange;
+    text-decoration: none;}
+.validation{
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 1.2rem;
+}
+
 
 @media screen and (min-width: 768px) {
     .boxIn1 {width: 50%;}

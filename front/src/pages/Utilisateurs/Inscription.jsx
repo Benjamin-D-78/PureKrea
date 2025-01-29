@@ -3,6 +3,7 @@ import axios from "axios"
 import { useNavigate, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import coin from "./coin.module.css"
+import { URL } from '../../utils/Constantes'
 
 // ICONES
 import voir from "../../images/Icones/voir.svg"
@@ -10,6 +11,7 @@ import voir from "../../images/Icones/voir.svg"
 // COMPOSANTS
 import NavBar from "../../components/NavBar/NavBar"
 import Footer from '../../components/Footer/Footer'
+import { PATTERN, RGXR } from '../../utils/Regixr'
 
 
 const Inscription = () => {
@@ -25,7 +27,6 @@ const Inscription = () => {
     const navigate = useNavigate();
 
 
-
     const [error, setError] = useState({
         lastname: "",
         firstname: "",
@@ -38,22 +39,22 @@ const Inscription = () => {
         const messageError = {};
         let isValid = true;
 
-        const lastnameRegexr = /^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
+        const lastnameRegexr = RGXR.NOM ;
         if (user.lastname && !lastnameRegexr.test(user.lastname)) {
             messageError.lastname = "Entre 2 et 30 caractères attendus."
             isValid = false;
         }
-        const firstnameRegexr = /^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
+        const firstnameRegexr = RGXR.PRENOM ;
         if (user.firstname && !firstnameRegexr.test(user.firstname)) {
             messageError.firstname = "Entre 2 et 30 caractères attendus."
             isValid = false;
         }
-        const emailRegexr = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const emailRegexr = RGXR.EMAIL ;
         if (user.email && !emailRegexr.test(user.email)) {
             messageError.email = "Format email, entre 10 et 60 caractères attendus."
             isValid = false;
         }
-        const passwordRegexr = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$/;
+        const passwordRegexr = RGXR.PASSWORD ;
         if (user.password && !passwordRegexr.test(user.password)) {
             isValid = false;
         }
@@ -99,7 +100,7 @@ const Inscription = () => {
             return;
         }
         try {
-            const response = await axios.post("http://localhost:8000/api/user/inscription", user)
+            const response = await axios.post(URL.USER_INSCRIPTION, user)
             if (response.status === 201) {
                 navigate("/");
                 toast.success("Inscription effectuée avec succès.", { autoClose: 1000 })
@@ -128,7 +129,7 @@ const Inscription = () => {
                                 onBlur={checkInput}
                                 minLength={2}
                                 maxLength={30}
-                                pattern="^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
+                                pattern={PATTERN.PRENOM}
                                 onInput={(event) => {
                                     event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '');
                                 }}
@@ -146,7 +147,7 @@ const Inscription = () => {
                                 onBlur={checkInput}
                                 minLength={2}
                                 maxLength={30}
-                                pattern="^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
+                                pattern={PATTERN.NOM}
                                 onInput={(event) => {
                                     event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase()
                                 }}
@@ -164,7 +165,7 @@ const Inscription = () => {
                                 onBlur={checkInput}
                                 minLength={1}
                                 maxLength={60}
-                                pattern="^[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]{2,30}\.[a-zA-Z]{2,4}$"
+                                pattern={PATTERN.EMAIL}
                                 onInput={(event) => {
                                     event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
                                 }} />
@@ -183,7 +184,7 @@ const Inscription = () => {
                                         onBlur={checkInput}
                                         minLength={8}
                                         maxLength={40}
-                                        pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                        pattern={PATTERN.PASSWORD}
                                         onInput={(event) => {
                                             event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
                                         }} />
@@ -206,7 +207,7 @@ const Inscription = () => {
                                         onBlur={checkInput}
                                         minLength={8}
                                         maxLength={40}
-                                        pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                        pattern={PATTERN.PASSWORD}
                                         onInput={(event) => {
                                             event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
                                         }} />

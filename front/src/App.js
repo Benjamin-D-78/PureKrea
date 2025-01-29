@@ -13,6 +13,7 @@ import MesCommandes from './pages/MesCommandes/MesCommandes';
 import MonProfil from './pages/MonProfil/MonProfil';
 import VerificationEmail from './pages/Verification/VerificationEmail';
 import TestFormulaire from './stripe/TestFormulaire';
+import Renvoi from './pages/Utilisateurs/Renvoi';
 
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
@@ -34,6 +35,7 @@ function App() {
         <Route index element={<Boutique />} />  {/* Page principale */}
         <Route path="/details/:id" element={<Details />} />
         <Route path="/verification/:token" element={<VerificationEmail />} />
+        <Route path="/renvoi" element={<Renvoi />} />
         <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
       </Route>
 

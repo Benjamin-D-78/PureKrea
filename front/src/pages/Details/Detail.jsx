@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios"
+import { URL } from "../../utils/Constantes.jsx";
 
 // CSS
 import boutique from "../Boutique/Boutique.module.css"
@@ -46,7 +47,7 @@ const Details = () => {
     useEffect(() => {
         const detailsItem = async () => {
             try {
-                const { data, status } = await axios.get(`http://localhost:8000/api/item/obtenir/${id}`)
+                const { data, status } = await axios.get(`${URL.ITEM_BY_ID}/${id}`)
                 setItem(data);
             } catch (error) {
                 setError("Erreur lors de la réception des données", error)

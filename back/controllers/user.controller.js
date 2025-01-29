@@ -48,6 +48,31 @@ export const verifyEmail = async (req, res, next) => {
     }
 };
 
+// RENVOIE EMAIL
+export const renvoieEmail = async (req, res, next) => {
+    try {
+        // On regarde dans la BDD si un utilisateur a l'email correspondant à ce qui est indiqué dans le req.body
+        const user = await userModel.findOne({email: req.body.email});
+        if(!user) return res.status(404).json({Message : "Utilisateur non trouvé."})
+
+        if (user.isVerified) {
+            return res.status(400).json({ message: "L'email est déjà vérifié." });
+        }
+        
+        // On créé un nouveau JWT qui prend trois paramètres : 
+        // Le payload { id: user._id } qui inclu l'ID de l'utilisateur qui permet de vérifier l'identité de l'utilisateur à partir du token.
+        // La clé secrète qui permet de signer le token et donc de le sécuriser.
+        // L'option d'expiration (24h).
+        const verificationToken = jwt.sign({ id: user._id }, env.TOKEN, { expiresIn: "24h" });
+        await sendEmail(user, verificationToken);
+        res.status(200).json({Message : "Nouveau mail de vérification envoyé."})
+
+    } catch (error) {
+        console.log("Erreur lors de l'envoi du nouveau mail de vérification : ", error)
+        next(error)
+    }
+}
+
 // CONNEXION
 export const connexion = async (req, res, next) => {
     try {

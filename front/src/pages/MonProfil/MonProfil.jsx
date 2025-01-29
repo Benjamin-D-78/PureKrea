@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { useParams, } from 'react-router-dom';
 import axios from "axios"
 import { toast } from 'react-toastify';
+import { URL } from '../../utils/Constantes.jsx';
+import { RGXR, PATTERN } from '../../utils/Regixr.jsx';
 
 // ICONES
 import voir from "../../images/Icones/voir.png"
@@ -81,7 +83,7 @@ const MonProfil = () => {
     useEffect(() => {
         const userById = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/user/obtenir/${id}`, { withCredentials: true })
+                const response = await axios.get(`${URL.USER_BY_ID}/${id}`, { withCredentials: true })
                 setUtilisateur(response.data);
 
             } catch (error) {
@@ -100,42 +102,42 @@ const MonProfil = () => {
         const messageError = {};
         let isValid = true;
 
-        const lastnameRegexr = /^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
+        const lastnameRegexr = RGXR.NOM ;
         if (utilisateur.lastname && !lastnameRegexr.test(utilisateur.lastname)) {
             messageError.lastname = "Entre 2 et 30 caractères attendus."
             isValid = false;
         }
-        const firstnameRegexr = /^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/;
+        const firstnameRegexr = RGXR.PRENOM ;
         if (utilisateur.firstname && !firstnameRegexr.test(utilisateur.firstname)) {
             messageError.firstname = "Entre 2 et 30 caractères attendus."
             isValid = false;
         }
-        const emailRegexr = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const emailRegexr = RGXR.EMAIL ;
         if (utilisateur.email && !emailRegexr.test(utilisateur.email)) {
             messageError.email = "Entre 10 et 60 caractères attendus."
             isValid = false;
         }
-        const passwordRegexr = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$/;
+        const passwordRegexr = RGXR.PASSWORD ;
         if (newMDP && !passwordRegexr.test(newMDP)) {
             messageError.newMDP = "Entre 8 et 40 caractères, (au moins une minuscule, unemajuscule, un chiffre et un caractère spécial)."
             isValid = false;
         }
-        const phoneRegexr = /^\d{10}$/;
+        const phoneRegexr = RGXR.PHONE ;
         if (utilisateur.phone && !phoneRegexr.test(utilisateur.phone)) {
             messageError.phone = "10 chiffres attendus."
             isValid = false;
         }
-        const adressRegexr = /^[a-zA-Z0-9\s\-'^¨èéàù]{8,70}$/;
+        const adressRegexr = RGXR.ADRESS ;
         if (utilisateur.adress && !adressRegexr.test(utilisateur.adress)) {
             messageError.adress = "Adresse : Entre 8 et 70 caractères attendus."
             isValid = false;
         }
-        const postalRegexr = /^\d{5}$/;
+        const postalRegexr = RGXR.POSTAL ;
         if (utilisateur.postal && !postalRegexr.test(utilisateur.postal)) {
             messageError.postal = " Code postal : 5 chiffres attendus."
             isValid = false;
         }
-        const townRegexr = /^[a-zA-Z\s\-'^¨èéàù]{2,50}$/;
+        const townRegexr = RGXR.TOWN ;
         if (utilisateur.town && !townRegexr.test(utilisateur.town)) {
             messageError.town = "Ville : Entre 2 et 50 caractères attendus."
             isValid = false;
@@ -208,7 +210,7 @@ const MonProfil = () => {
         if (utilisateur.town !== "") updateUser.town = utilisateur.town
 
         try {
-            const response = await axios.put(`http://localhost:8000/api/user/update/${id}`, updateUser, { withCredentials: true }
+            const response = await axios.put(`${URL.USER_UPDATE}/${id}`, updateUser, { withCredentials: true }
             );
 
             if (response.status === 200) {
@@ -264,7 +266,7 @@ const MonProfil = () => {
                                             onBlur={checkInput}
                                             minLength={2}
                                             maxLength={30}
-                                            pattern="^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
+                                            pattern={PATTERN.NOM}
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase();
                                             }}
@@ -289,7 +291,7 @@ const MonProfil = () => {
                                             onBlur={checkInput}
                                             minLength={2}
                                             maxLength={30}
-                                            pattern="^(?=[a-zA-ZàèéùÀÈÉÙ'-\s]*[a-zA-ZàèéùÀÈÉÙ]{2})[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$"
+                                            pattern={PATTERN.PRENOM}
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '')
                                             }}
@@ -314,7 +316,7 @@ const MonProfil = () => {
                                             onBlur={checkInput}
                                             minLength={1}
                                             maxLength={60}
-                                            pattern="^[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]{2,30}\.[a-zA-Z]{2,4}$"
+                                            pattern={PATTERN.EMAIL}
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
                                             }} />
@@ -339,7 +341,7 @@ const MonProfil = () => {
                                                 value={ancienMDP}
                                                 minLength={8}
                                                 maxLength={40}
-                                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                                pattern={PATTERN.PASSWORD}
                                                 onChange={(event) => setAncienMDP(event.target.value)}
                                                 onBlur={checkInput}
                                                 onInput={(event) => {
@@ -353,7 +355,7 @@ const MonProfil = () => {
                                                 value={newMDP}
                                                 minLength={8}
                                                 maxLength={40}
-                                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                                pattern={PATTERN.PASSWORD}
                                                 onChange={(event) => setNewMDP(event.target.value)}
                                                 onBlur={checkInput}
                                                 onInput={(event) => {
@@ -366,7 +368,7 @@ const MonProfil = () => {
                                                 value={repeteMDP}
                                                 minLength={8}
                                                 maxLength={40}
-                                                pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                                                pattern={PATTERN.PASSWORD}
                                                 onChange={(event) => setRepeteMDP(event.target.value)}
                                                 onBlur={checkInput}
                                                 onInput={(event) => {
@@ -403,7 +405,7 @@ const MonProfil = () => {
                                             value={utilisateur?.phone || ""}
                                             minLength={1}
                                             maxLength={10}
-                                            pattern="^\d{10}$"
+                                            pattern={PATTERN.PHONE}
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/\D/g, '')
                                             }} />
@@ -429,7 +431,7 @@ const MonProfil = () => {
                                             value={utilisateur?.adress || ""}
                                             minLength={8}
                                             maxLength={70}
-                                            pattern="[a-zA-Z0-9\s\-'^¨èéàù]{8,70}"
+                                            pattern={PATTERN.ADRESS}
                                             onChange={handleChange}
                                             onBlur={checkInput}
                                             onInput={(event) => {
@@ -446,7 +448,7 @@ const MonProfil = () => {
                                             maxLength={5}
                                             onChange={handleChange}
                                             onBlur={checkInput}
-                                            pattern="^\d{5}$"
+                                            pattern={PATTERN.POSTAL}
                                             onInput={(event) => {
                                                 event.target.value = event.target.value.replace(/\D/g, '')
                                             }} />
@@ -460,7 +462,7 @@ const MonProfil = () => {
                                             maxLength={50}
                                             onChange={handleChange}
                                             onBlur={checkInput}
-                                            pattern="^[a-zA-Z\s\-'^¨èéàù]{2,50}$"
+                                            pattern={PATTERN.TOWN}
                                             onInput={(event) => {
                                                 // Remplacer tous les caractères non autorisés, y compris les chiffres
                                                 event.target.value = event.target.value.replace(/[^a-zA-Z\s\-'^¨èéàù]/g, '').toUpperCase();;

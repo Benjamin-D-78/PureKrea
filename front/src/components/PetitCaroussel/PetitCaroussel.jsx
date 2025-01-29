@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import gauche from "../../images/Icones/gauche.png";
 import droite from "../../images/Icones/droite.png";
 import caroussel from "./petitcaroussel.module.css";
+import { URL } from '../../utils/Constantes';
 
 const PetitCaroussel = () => {
 
@@ -22,7 +23,7 @@ const PetitCaroussel = () => {
     useEffect(() => {
         const pictures = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/item/all")
+                const response = await axios.get(URL.ITEM_ALL)
                 setImages(response.data);
                 // console.log(response.data)
             } catch (error) {

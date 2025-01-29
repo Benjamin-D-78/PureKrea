@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 import { toast } from 'react-toastify'
 import coin from "./coin.module.css"
+import { RGXR, PATTERN } from '../../utils/Regixr'
 
 // ICONES
 import voir from "../../images/Icones/voir.svg"
@@ -28,12 +29,12 @@ const Connexion = () => {
     const messageError = {};
     let isValid = true;
 
-    const emailRegexr = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegexr = RGXR.EMAIL ;
     if (user.email && !emailRegexr.test(user.email)) {
       messageError.email = "Format email, entre 10 et 60 caractères attendus."
       isValid = false;
     }
-    const passwordRegexr = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$/;
+    const passwordRegexr = RGXR.PASSWORD ;
     if (user.password && !passwordRegexr.test(user.password)) {
       messageError.password = "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)."
       isValid = false;
@@ -80,10 +81,12 @@ const Connexion = () => {
                 onChange={handleChange}
                 minLength={1}
                 maxLength={60}
-                pattern="^[a-zA-Z0-9._%+-]{1,50}@[a-zA-Z0-9.-]{2,30}\.[a-zA-Z]{2,4}$"
+                pattern={PATTERN.EMAIL}
                 onInput={(event) => {
                   event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
                 }} />
+              {error.email && <span className={coin.spanError}>{error.email}</span>}
+
               <br />
               <label className={coin.labelCoIn} htmlFor="password-connexion">Mot de passe <span className={coin.spanInscription}>*</span></label>
               <div className={coin.contientInputImg}>
@@ -96,7 +99,7 @@ const Connexion = () => {
                     onChange={handleChange}
                     minLength={8}
                     maxLength={40}
-                    pattern="^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\d))(?=(.*[,;.?!\*\(\)]))[\w\d,;.?!\*\(\)]{8,40}$"
+                    pattern={PATTERN.PASSWORD}
                     onInput={(event) => {
                       event.target.value = event.target.value.replace(/[^a-zA-Z0-9,;.?!\*\(\)]/g, '');
                     }} />
@@ -111,6 +114,7 @@ const Connexion = () => {
                 <button className={coin.submitCoIn}>Me connecter</button>
                 <Link className={coin.inscription} to="/inscription"> <button className={coin.alternatif}>Pas encore inscrit ?</button></Link>
               </div>
+              <Link className={coin.linkValidation} to="/renvoi"><p className={coin.validation}>Je veux recevoir un nouveau mail de validation</p></Link>
             </form>
           </div>
         </div>

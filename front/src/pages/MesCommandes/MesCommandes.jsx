@@ -2,6 +2,7 @@ import { React, useContext } from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios"
+import { URL } from '../../utils/Constantes.jsx';
 
 // COMPOSANTS
 import NavBar from '../../components/NavBar/NavBar'
@@ -32,7 +33,7 @@ const MesCommandes = () => {
         if (auth) {
             const commandesByUser = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:8000/api/commande/obtenir/commandes/${id}`, { withCredentials: true })
+                    const response = await axios.get(`${URL.COMMANDE_BY_USER}/${id}`, { withCredentials: true })
                     setCommandes(response.data)
                 } catch (error) {
                     console.error("Erreur lors de la recherche des commandes", error.message)

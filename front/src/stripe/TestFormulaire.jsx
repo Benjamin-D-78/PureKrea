@@ -3,6 +3,7 @@ import axios from "axios"
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Link } from "react-router-dom"
 import { toast } from 'react-toastify'
+import { URL } from '../utils/Constantes'
 
 // CONTEXT
 import { PanierContext } from '../context/PanierContext'
@@ -37,7 +38,7 @@ const TestFormulaire = () => {
         if (auth) {
             const userById = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:8000/api/user/obtenir/${auth._id}`);
+                    const response = await axios.get(`${URL.USER_BY_ID}/${auth._id}`);
                     setUtilisateur(response.data)
                 } catch (error) {
                     console.error("Erreur lors de la recherche d'utilisateur", error)
@@ -60,7 +61,7 @@ const TestFormulaire = () => {
             // envoi du token au back :
             try {
                 const { id } = paymentMethod;
-                const response = await axios.post("http://localhost:8000/api/paiement/chargement", {
+                const response = await axios.post(URL.CHARGEMENT, {
                     montant: prixTotal * 100,
                     id: id
                 })

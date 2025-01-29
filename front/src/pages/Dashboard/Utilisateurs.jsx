@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import boutique_dashboard from "./css/boutique_dashboard.module.css"
 import axios from "axios"
 import { toast } from 'react-toastify'
+import { URL } from '../../utils/Constantes'
 
 // ICONES
 import supprimer from "../../images/Icones/supprimer.png"
@@ -23,7 +24,7 @@ const Utilisateurs = () => {
 
     if (auth.role === "admin") {
       try {
-        const response = await axios.delete(`http://localhost:8000/api/user/delete/${id}`, { withCredentials: true })
+        const response = await axios.delete(`${URL.USER_DELETE}/${id}`, { withCredentials: true })
         if (response.status === 200) {
           console.log(response)
           toast.success("Utilisateur supprimé avec succès.", { autoClose: 1000 })
@@ -38,7 +39,7 @@ const Utilisateurs = () => {
 
   const depart = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/user/all", { withCredentials: true });
+      const response = await axios.get(URL.USER_ALL, { withCredentials: true });
       setUsers(response.data);
     } catch (error) {
       console.log("Erreur lors de l'appel API", error)
@@ -59,12 +60,13 @@ const Utilisateurs = () => {
           <tr className={boutique_dashboard.enteteItem}>
             <th>Nom</th>
             <th>Prénom</th>
-            <th>E-mail</th>
-            <th>Adresse</th>
-            <th>CP</th>
-            <th>Numéro</th>
-            <th>Role</th>
-            <th>Statut</th>
+            <th className={boutique_dashboard.thCache}>E-mail</th>
+            <th className={boutique_dashboard.thCache}>Adresse</th>
+            <th className={boutique_dashboard.thCache}>CP</th>
+            <th className={boutique_dashboard.thCache}>Ville</th>
+            <th className={boutique_dashboard.thCache}>Numéro</th>
+            <th className={boutique_dashboard.thCache}>Role</th>
+            <th className={boutique_dashboard.thCache}>Compte</th>
             <th className={boutique_dashboard.thButton}><button className={boutique_dashboard.refreshItems} onClick={depart}>Raffraîchir</button></th>
           </tr>
         </thead>
@@ -73,12 +75,13 @@ const Utilisateurs = () => {
             <tr key={user._id}>
               <td className={boutique_dashboard.autresTD}>{user.firstname}</td>
               <td className={boutique_dashboard.autresTD}>{user.lastname}</td>
-              <td className={boutique_dashboard.autresTD}>{user.email}</td>
-              <td className={boutique_dashboard.autresTD}>{user.adress}</td>
-              <td className={boutique_dashboard.autresTD}>{user.postal}</td>
-              <td className={boutique_dashboard.autresTD}>{user.phone}</td>
-              <td className={boutique_dashboard.autresTD}>{user.role}</td>
-              <td className={boutique_dashboard.autresTD}>{user.isActive}</td>
+              <td className={boutique_dashboard.autresTDcache}>{user.email}</td>
+              <td className={boutique_dashboard.autresTDcache}>{user.adress}</td>
+              <td className={boutique_dashboard.autresTDcache}>{user.postal}</td>
+              <td className={boutique_dashboard.autresTDcache}>{user.town}</td>
+              <td className={boutique_dashboard.autresTDcache}>{user.phone}</td>
+              <td className={boutique_dashboard.autresTDcache}>{user.role}</td>
+              <td className={boutique_dashboard.autresTDcache}>{user.isVerified ? "Vérifié" : "En attente"}</td>
               <td className={boutique_dashboard.boutonsTD}>
                 <div className={boutique_dashboard.contientIMG}>
                   <Link to={{ pathname: `/dashboard/update/utilisateur/${user._id}` }}><img src={modifier} alt="Icone de modification" /></Link>

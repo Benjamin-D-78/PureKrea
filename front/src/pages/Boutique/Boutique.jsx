@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import boutique from "./Boutique.module.css"
+import { URL } from "../../utils/Constantes.jsx";
 
 // COMPOSANTS
 import NavBar from "../../components/NavBar/NavBar.jsx";
@@ -49,7 +50,7 @@ const Boutique = () => {
     useEffect(() => { // On appelle la fonction "depart" qui déclenche mon action Redux pour indiquer qu'il n'y a pas encore de données (ITEM.DEPART)
         const depart = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/api/item/all");
+                const response = await axios.get(URL.ITEM_ALL);
                 setItems(response.data);
 
                 // On extrait les valeurs de chaque collection (category).
