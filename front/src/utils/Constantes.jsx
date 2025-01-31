@@ -22,6 +22,10 @@ export const URL = {
     // COMMANDE
     COMMANDE_CREATION: "http://localhost:8000/api/commande/creation",
     COMMANDE_BY_USER: "http://localhost:8000/api/commande/obtenir/commandes",
+    COMMANDE_BY_ID: "http://localhost:8000/api/commande/obtenir",
+    COMMANDE_ALL: "http://localhost:8000/api/commande/all",
+    COMMANDE_UPDATE: "http://localhost:8000/api/commande/update",
+    COMMANDE_DELETE: "http://localhost:8000/api/commande/delete",
 
     // PAIEMENT
     CHARGEMENT: "http://localhost:8000/api/paiement/chargement"

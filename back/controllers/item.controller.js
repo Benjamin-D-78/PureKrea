@@ -49,7 +49,6 @@ export const upItem = async (req,res) => {
 export const deleteItem = async (req, res) => {
     try {
         const response = await Item.findByIdAndDelete(req.params.id)
-
         res.status(200).json({Message: "Item supprimé avec succès.", response})
 
     } catch (error) {

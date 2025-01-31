@@ -14,6 +14,7 @@ import MonProfil from './pages/MonProfil/MonProfil';
 import VerificationEmail from './pages/Verification/VerificationEmail';
 import TestFormulaire from './stripe/TestFormulaire';
 import Renvoi from './pages/Utilisateurs/Renvoi';
+import Contact from './pages/Contact/Contact';
 
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
@@ -26,6 +27,9 @@ import UpdateItems from './pages/Dashboard/UpdateItems';
 import Utilisateurs from './pages/Dashboard/Utilisateurs';
 import AjoutUtilisateur from './pages/Dashboard/Users';
 import UpdateUsers from './pages/Dashboard/UpdateUsers';
+import CommandeDashboard from './pages/Dashboard/CommandeDashboard';
+import CommandeUpdate from "./pages/Dashboard/CommandeUpdate";
+import CommandeUtilisateur from './pages/Dashboard/CommandeUtilisateur';
 
 function App() {
   return (
@@ -36,6 +40,7 @@ function App() {
         <Route path="/details/:id" element={<Details />} />
         <Route path="/verification/:token" element={<VerificationEmail />} />
         <Route path="/renvoi" element={<Renvoi />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
       </Route>
 
@@ -58,6 +63,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="items" element={<Items />} />
           <Route path="utilisateurs" element={<Utilisateurs />} />
+          <Route path="commande" element={<CommandeDashboard />} />
+          <Route path="update/commande/:id" element={<CommandeUpdate />} />
+          <Route path="commande/utilisateur/:id" element={<CommandeUtilisateur />} />
           <Route path="update/item/:id" element={<UpdateItems />} />
           <Route path="ajout" element={<AjoutUtilisateur />} />
           <Route path="update/utilisateur/:id" element={<UpdateUsers />} />

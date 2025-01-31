@@ -182,18 +182,20 @@ export const PanierProvider = ({ children }) => {
                     totalPrice: item.totalPrice // On ajoute le prix total calculé pour l'article
                 })),
                 total: prixTotal,  // On indique le prix total de la commande.
-                comment: commentaire
+                comment: commentaire,
+                statut: "En attente"
             };
 
             const response = await axios.post(URL.COMMANDE_CREATION, commandeData);
 
             if (response.status === 201) {
                 toast.success("Commande validée avec succès!", { autoClose: 2000 });
+                console.log(response)
                 const id = response.data._id
 
                 for (let item of panier) {
                     try {
-                        const majStock = await axios.put(`${URL.ITEM_UPDATE}/${id}`, {stock: item.stock - item.quantite})
+                        const majStock = await axios.put(`${URL.ITEM_UPDATE}/${item._id}`, {stock: item.stock - item.quantite})
                         if(majStock.status === 200){
                             console.log("Stock des items mis à jour avec succès.")
                         }

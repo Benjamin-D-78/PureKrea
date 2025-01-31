@@ -11,7 +11,9 @@ const commandeSchema = mongoose.Schema({
     }],
     prixTotal: { type: Number, required: true },
     comment: {type: String, required: false, default: ""},
-    // statut: { type: String, default: 'en attente' },
+    statut: { type: String, 
+        enum: ["En attente", "Validée", "Refusée", "Annulée", "Expédiée"],
+        default: 'En attente' },
     date: { type: Date, default: Date.now }
 });
 

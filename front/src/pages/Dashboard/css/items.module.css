@@ -9,11 +9,13 @@
 .h1{
     text-align: center;
     font-size: 2rem;
-    margin-bottom: 2rem;}
+    margin-bottom: 2rem;
+    color: white;}
 
 .div1{
     width: 98%;
     margin: auto;
+    margin-bottom: 1rem;
     background-color: #265E92;
     padding: 2rem;
     border-radius: 0.5rem;}
@@ -41,6 +43,12 @@
     margin: 0 0 1rem 3rem;
     padding-left: 0.5rem;
     border-radius: 0.5rem;}
+
+.pUtilisateur{
+    display: inline;
+    color: white;
+    margin-left: 3rem;
+}
 
 .checkItem{margin-top: 2rem;}
 

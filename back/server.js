@@ -11,6 +11,7 @@ import userRoutes from "./routers/user.router.js"
 import itemRoutes from "./routers/item.router.js"
 import commandeRoutes from "./routers/commande.router.js"
 import paiementRoutes from "./routers/paiement.router.js"
+import messageRoutes from "./routers/message.router.js"
 
 // APP EXPRESS
 const app = express()
@@ -41,6 +42,7 @@ app.use("/api/user", userRoutes)
 app.use("/api/item", itemRoutes)
 app.use("/api/commande", commandeRoutes)
 app.use("/api/paiement", paiementRoutes)
+app.use("/api/contact", messageRoutes)
 
 // SERVER
 app.listen(PORT, () => {

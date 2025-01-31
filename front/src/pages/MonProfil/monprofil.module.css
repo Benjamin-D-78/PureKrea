@@ -6,7 +6,9 @@
     padding-left: 1rem;
     width: 55%;}
 
-.labelsProfil label{font-family: "Marko One", Arial, Helvetica, sans-serif;}
+.labelsProfil label{
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;}
 
 .labelsSepare, .inputsSepare{margin-bottom: 0.3rem;}
 

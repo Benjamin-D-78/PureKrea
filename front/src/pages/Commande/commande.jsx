@@ -93,7 +93,7 @@ const Commande = () => {
           <Accordeon />
         </div>
 
-        <div >
+        <div>
           <div className={commande.blocEntete1}>
             <div className={commande.entete1}>
               <p className={commande.pName}>Récapitulatif</p>

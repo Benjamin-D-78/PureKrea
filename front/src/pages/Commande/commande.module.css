@@ -72,7 +72,8 @@
     width: 35%;
     margin: 0 5rem 0.5rem 2rem;
     text-align: right;
-    font-family: "Marko One", Arial, Helvetica, sans-serif;}
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;}
 
 .inputUtilisateur input {
     display: flex;
@@ -90,7 +91,9 @@
     margin: 0 5rem 0.5rem 2rem;
     text-align: right;}
 
-.labelCommentaire {font-family: "Marko One", Arial, Helvetica, sans-serif;}
+.labelCommentaire {
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;}
 
 .areaUtilisateur {
     display: inline;

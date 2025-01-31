@@ -42,7 +42,7 @@ const Utilisateurs = () => {
       const response = await axios.get(URL.USER_ALL, { withCredentials: true });
       setUsers(response.data);
     } catch (error) {
-      console.log("Erreur lors de l'appel API", error)
+      console.log("Erreur lors du chargement des utilisateurs.", error)
       setError(error.message)
     }
   };
