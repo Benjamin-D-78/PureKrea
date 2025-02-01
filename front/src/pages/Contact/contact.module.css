@@ -189,6 +189,10 @@
     margin-top: 3rem;
 }
 
+.span {
+    color: red;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;}
+
 .textarea{
     padding: 0.5rem;
     width: 50%;
@@ -234,8 +238,26 @@
     display: inline;
     color: white;
     font-family: "Linden Hill", Arial, Helvetica, sans-serif;
-    text-align: center;
+    margin-left: 2rem;
 }
+
+.contientBtnValidation{
+    display: flex;
+    justify-content: center;
+}
+
+.btnValidation {
+    width: 50%;
+    max-width: 25rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    background-color: #C6E60F;
+    border: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: 1.5rem;
+    cursor: pointer;}
 
 @media screen and (min-width: 768px){
     .entete1{width: 80%;}

@@ -203,7 +203,6 @@ const Commande = () => {
                   onClick={errorValidation}
                   className={commande.btnValidation1}>Valider la commande
                 </button>
-
               </div>
               <div className={commande.contientBtnValidation2}>
                 <Link to={{ pathname: "/" }}><button className={commande.btnValidation2}>Revenir au panier</button></Link>

@@ -7,11 +7,13 @@ const contactSchema = mongoose.Schema({
     email: {type: String, required: true},
     phone: {type: String, required: false},
     content: {type: String, required: true},
-    verification: {type: Boolean, required: true},
-    preference: {type: String,
+    verification: {type: Boolean, required: true, default: false},
+    statut: {type: String,
         required: false,
-        enum: ["Matin", "Après-midi"]
-    }
+        enum: ["En cours", "Traité"],
+        default: "En cours"
+    },
+    preference: {type: String, required: false}
     }, {timestamps: {createdAT: true}}
 )
 

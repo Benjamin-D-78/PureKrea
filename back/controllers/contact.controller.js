@@ -31,6 +31,16 @@ export const messageID = async (req, res) => {
     }
 }
 
+// UPDATE MESSAGE
+export const updateMessage = async (req,res) => {
+    try {
+        const response = await Contact.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        res.status(200).json({Message: "Message modifié avec succès.", response});
+    } catch (error) {
+        res.status(500).json({Message: "Echec lors de la modification du message.", error})
+    }
+}
+
 // DELETE MESSAGE
 export const deleteMessage = async (req, res) => {
     try {

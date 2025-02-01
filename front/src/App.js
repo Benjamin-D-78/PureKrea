@@ -30,6 +30,7 @@ import UpdateUsers from './pages/Dashboard/UpdateUsers';
 import CommandeDashboard from './pages/Dashboard/CommandeDashboard';
 import CommandeUpdate from "./pages/Dashboard/CommandeUpdate";
 import CommandeUtilisateur from './pages/Dashboard/CommandeUtilisateur';
+import Messages from './pages/Dashboard/Messages';
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
           <Route path="update/item/:id" element={<UpdateItems />} />
           <Route path="ajout" element={<AjoutUtilisateur />} />
           <Route path="update/utilisateur/:id" element={<UpdateUsers />} />
+          <Route path="messages" element={<Messages />} />
         </Route>
       </Route>
     </Routes>

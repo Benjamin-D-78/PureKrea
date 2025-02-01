@@ -27,6 +27,12 @@ export const URL = {
     COMMANDE_UPDATE: "http://localhost:8000/api/commande/update",
     COMMANDE_DELETE: "http://localhost:8000/api/commande/delete",
 
+    // MESSAGES
+    MESSAGE_CREATION: "http://localhost:8000/api/contact/creation",
+    MESSAGE_ALL: "http://localhost:8000/api/contact/all",
+    MESSAGE_UPDATE: "http://localhost:8000/api/contact/update",
+    MESSAGE_DELETE: "http://localhost:8000/api/contact/delete",
+
     // PAIEMENT
     CHARGEMENT: "http://localhost:8000/api/paiement/chargement"
 }

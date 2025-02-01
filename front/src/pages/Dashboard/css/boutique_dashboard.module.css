@@ -26,6 +26,12 @@
 .autresTD{
     border: inset 1px;
     width: 8rem;}
+.autresTDcacheContent{
+    border: inset 1px;
+    width: 20rem;
+    text-align: justify;
+    padding: 1rem;
+}
 .autresTDcache{
     border: inset 1px;
     width: 8rem;}
@@ -68,6 +74,7 @@
 @media screen and (max-width: 768px) {
     .thCache{display: none;}
     .autresTDcache{display: none;}
+    .autresTDcacheContent{display: none;}
     .imagesTD{width: 15rem;}
     .contientIMG img{margin: 2rem;}
 }
