@@ -21,6 +21,9 @@ export default function Dashboard() {
           <li className={dashboard.LIdashboard}>
             <NavLink className={dashboard.a} to="/dashboard/messages">Messages</NavLink>
           </li>
+          <li className={dashboard.LIdashboard}>
+            <NavLink className={dashboard.a} to="/dashboard/abonnement">Abonnés</NavLink>
+          </li>
         </nav>
         <hr />
         <Outlet/> {/* Mes composants ressortent ici. */}

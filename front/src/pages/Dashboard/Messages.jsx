@@ -25,12 +25,15 @@ const Messages = () => {
 
     const updateStatut = async (id, statut) => {
         try {
-            const response = await axios.put(`${URL.MESSAGE_UPDATE}/${id}`, {statut})
+            const response = await axios.put(`${URL.MESSAGE_UPDATE}/${id}`, { statut })
             console.log(response)
             if (response.status === 200) {
-                // Mise à jour du tableau des messages avec le statut mis à jour
+                // Avec prevMessages on récupère la valeur précédente du state messages avant la MAJ. C'est l'état actuel de message au moment où on appelle la fonction.
+
                 setMessages((prevMessages) =>
                     prevMessages.map((message) =>
+                        // Si l'ID du message (message._id) correspond à l'ID (id), alors on modifie le message en mettant à jour la propriété statut avec la valeur response.data.statut
+                        // "...message" : on copie toutes les autres propriétés de l'objet message sans les modifier.
                         message._id === id ? { ...message, statut: response.data.statut } : message
                     )
                 );
@@ -40,7 +43,7 @@ const Messages = () => {
             console.log("Erreur lors de la mise à jour du statut.", error);
             toast.error("Erreur lors de la mise à jour du statut.", { autoClose: 3000 });
         }
-}
+    }
 
 
     const deleteMessage = async (id) => {

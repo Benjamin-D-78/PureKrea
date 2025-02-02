@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 import { toast } from 'react-toastify'
 import axios from "axios"
 
@@ -57,7 +57,6 @@ const Contact = () => {
 
         try {
             const response = await axios.post(URL.MESSAGE_CREATION, message)
-            console.log(response.data)
             toast.success("Message envoyé avec succès.", { autoClose: 1000 })
 
             setMessage({

@@ -33,6 +33,10 @@ export const URL = {
     MESSAGE_UPDATE: "http://localhost:8000/api/contact/update",
     MESSAGE_DELETE: "http://localhost:8000/api/contact/delete",
 
+    // NEWSLETTER
+    ABONNE_CREATION: "http://localhost:8000/api/abonnement/creation",
+    ABONNE_ALL: "http://localhost:8000/api/abonnement/all",
+
     // PAIEMENT
     CHARGEMENT: "http://localhost:8000/api/paiement/chargement"
 }

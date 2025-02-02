@@ -14,7 +14,7 @@ export const creationMessage = async (req, res) => {
 // GET ALL MESSAGES
 export const allMessage = async (req, res) => {
     try {
-        const response = await Contact.find();
+        const response = await Contact.find().sort({date: -1});
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({Message: "Echec lors de la récupération des messages.", error});
@@ -34,6 +34,9 @@ export const messageID = async (req, res) => {
 // UPDATE MESSAGE
 export const updateMessage = async (req,res) => {
     try {
+          //  "req.params.id" : on récupère l'id du document qu'on veut metre à jour.
+        //  "req.body" : contient les nouvelles données envoyées par le client dans le corps de la requête.
+        //  "{new: true}" : C'est une option qui permet à la méthode de retourner le document mis à jour plutôt que l'original. Si on ne met pas cette option, la méthode retournera l'état du document avant la MAJ.
         const response = await Contact.findByIdAndUpdate(req.params.id, req.body, {new: true});
         res.status(200).json({Message: "Message modifié avec succès.", response});
     } catch (error) {
