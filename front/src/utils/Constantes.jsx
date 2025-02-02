@@ -36,6 +36,8 @@ export const URL = {
     // NEWSLETTER
     ABONNE_CREATION: "http://localhost:8000/api/abonnement/creation",
     ABONNE_ALL: "http://localhost:8000/api/abonnement/all",
+    ABONNE_UPDATE: "http://localhost:8000/api/abonnement/update",
+    ABONNE_DELETE: "http://localhost:8000/api/abonnement/delete",
 
     // PAIEMENT
     CHARGEMENT: "http://localhost:8000/api/paiement/chargement"
