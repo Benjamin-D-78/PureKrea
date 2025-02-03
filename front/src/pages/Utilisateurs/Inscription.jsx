@@ -39,23 +39,35 @@ const Inscription = () => {
         const messageError = {};
         let isValid = true;
 
-        const lastnameRegexr = RGXR.NOM ;
+        const lastnameRegexr = RGXR.NOM;
         if (user.lastname && !lastnameRegexr.test(user.lastname)) {
             messageError.lastname = "Entre 2 et 30 caractères attendus."
             isValid = false;
+        } else if (user.lastname && (user.lastname.length < 2 || user.lastname.length > 30)) {
+            messageError.lastname = "Entre 2 et 30 caractères attendus."
+            isValid = false;
         }
-        const firstnameRegexr = RGXR.PRENOM ;
+        const firstnameRegexr = RGXR.PRENOM;
         if (user.firstname && !firstnameRegexr.test(user.firstname)) {
             messageError.firstname = "Entre 2 et 30 caractères attendus."
             isValid = false;
+        } else if (user.firstname && (user.firstname.length < 2 || user.firstname.length > 30)) {
+            messageError.firstname = "Entre 2 et 30 caractères attendus."
+            isValid = false;
         }
-        const emailRegexr = RGXR.EMAIL ;
+        const emailRegexr = RGXR.EMAIL;
         if (user.email && !emailRegexr.test(user.email)) {
             messageError.email = "Format email, entre 10 et 60 caractères attendus."
             isValid = false;
+        } else if (user.email && (user.email.length < 10 || user.email.length > 60)) {
+            messageError.email = "Format email, entre 10 et 60 caractères attendus."
+            isValid = false;
         }
-        const passwordRegexr = RGXR.PASSWORD ;
+        const passwordRegexr = RGXR.PASSWORD;
         if (user.password && !passwordRegexr.test(user.password)) {
+            isValid = false;
+        } else if (user.password && (user.password.length < 8 || user.password.length > 40)) {
+            messageError.password = "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)."
             isValid = false;
         }
         if (user.password !== user.repeatPassword) {

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { env } from "../config/index.js";
 import { sendEmail } from "../services/nodemailer.js";
+import { RGXR } from "../utils/regex.js";
 
 
 
@@ -10,6 +11,23 @@ import { sendEmail } from "../services/nodemailer.js";
 // SIGNUP ( hashage du MDP avec "bcrypt" contenu dans une variable)
 export const inscription = async (req, res, next) => {
     try {
+        const firstnameRegexr = RGXR.PRENOM;
+        if (!firstnameRegexr.test(req.body.firstname) || req.body.firstname.length < 2 || req.body.firstname.length > 30) {
+            return res.status(400).json({ Message: "Entre 2 et 30 caractères attendus." });
+        }
+        const lastnameRegexr = RGXR.NOM;
+        if (!lastnameRegexr.test(req.body.lastname) || req.body.lastname.length < 2 || req.body.lastname.length > 30) {
+            return res.status(400).json({ Message: "Entre 2 et 30 caractères attendus." });
+        }
+        const emailRegexr = RGXR.EMAIL;
+        if (!emailRegexr.test(req.body.email) || req.body.email.length < 10 || req.body.email.length > 60) {
+            return res.status(400).json({ Message: "Format email, entre 10 et 60 caractères attendus." });
+        }
+        const passwordRegexr = RGXR.PASSWORD;
+        if (!passwordRegexr.test(req.body.password) || req.body.password.length < 8 || req.body.password.length > 40) {
+            return res.status(400).json({ Message: "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)." });
+        }
+
         const hashedMDP = await bcrypt.hash(req.body.password, 10)
 
         const user = await userModel.create({ ...req.body, password: hashedMDP, isVerified: false });
@@ -76,6 +94,15 @@ export const renvoieEmail = async (req, res, next) => {
 // CONNEXION
 export const connexion = async (req, res, next) => {
     try {
+        const emailRegexr = RGXR.EMAIL;
+        if (!emailRegexr.test(req.body.email) || req.body.email.length < 10 || req.body.email.length > 60) {
+            return res.status(400).json({ Message: "Format email, entre 10 et 60 caractères attendus." });
+        }
+        const passwordRegexr = RGXR.PASSWORD;
+        if (!passwordRegexr.test(req.body.password) || req.body.password.length < 8 || req.body.password.length > 40) {
+            return res.status(400).json({ Message: "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)." });
+        }
+        
         // Recherche de l'utilisateur dans la BDD
         const rechercheUser = await userModel.findOne({ email: req.body.email });
 
