@@ -29,16 +29,20 @@ const Connexion = () => {
     const messageError = {};
     let isValid = true;
 
-    const emailRegexr = RGXR.EMAIL;
-    if (user.email && !emailRegexr.test(user.email) || user.email.length < 10 || user.email.length > 60) {
-      messageError.email = "Format email, entre 10 et 60 caractères attendus."
-      isValid = false;
+    if (user.email) {
+      const emailRegexr = RGXR.EMAIL;
+      if (!emailRegexr.test(user.email) || user.email.length < 10 || user.email.length > 60) {
+        messageError.email = "Format email, entre 10 et 60 caractères attendus."
+        isValid = false;
+      }
     }
 
-    const passwordRegexr = RGXR.PASSWORD;
-    if (user.password && !passwordRegexr.test(user.password) || user.password.length < 8 || user.password.length > 40) {
-      messageError.password = "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)."
-      isValid = false;
+    if (user.password) {
+      const passwordRegexr = RGXR.PASSWORD;
+      if (!passwordRegexr.test(user.password) || user.password.length < 8 || user.password.length > 40) {
+        messageError.password = "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)."
+        isValid = false;
+      }
     }
 
     setError(messageError);

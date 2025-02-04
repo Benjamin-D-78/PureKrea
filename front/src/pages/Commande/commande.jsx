@@ -87,7 +87,6 @@ const Commande = () => {
 
       <div className={commande.conteneurGlobal}>
         <div className={commande.conteneurG}>
-          {/* {auth ? <PanierTotal /> : <ConnectezVous />} */}
           <PetitCaroussel />
           <PrenezRendezVous />
           <Accordeon />

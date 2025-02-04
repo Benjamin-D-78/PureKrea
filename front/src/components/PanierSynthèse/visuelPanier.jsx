@@ -16,7 +16,7 @@ import imgDeconnexion from "../../images/Icones/deconnexion.png"
 
 const PanierTotal = () => {
 
-  const { incremente, decremente, ajouterArticle, retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, panier, prixTotal } = useContext(PanierContext)
+  const { retirerArticle, prixParQuantite, totalArticle, changerQuantite, videPanier, panier, prixTotal } = useContext(PanierContext)
   const { auth, deconnexion } = useContext(AuthContext); // On récupère l'objet utilisateur depuis le contexte
   const [utilisateur, setUtilisateur] = useState({
     firstname: "",

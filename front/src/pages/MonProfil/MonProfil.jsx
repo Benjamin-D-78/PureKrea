@@ -102,42 +102,44 @@ const MonProfil = () => {
         const messageError = {};
         let isValid = true;
 
-        const lastnameRegexr = RGXR.NOM ;
-        if (utilisateur.lastname && !lastnameRegexr.test(utilisateur.lastname)) {
-            messageError.lastname = "Entre 2 et 30 caractères attendus."
-            isValid = false;
+        if (utilisateur.lastname) {
+            const lastnameRegexr = RGXR.NOM;
+            if (!lastnameRegexr.test(utilisateur.lastname) || utilisateur.lastname.length <2 || utilisateur.lastname.length >30) {
+                messageError.lastname = "Entre 2 et 30 caractères attendus."
+                isValid = false;
+            }
         }
-        const firstnameRegexr = RGXR.PRENOM ;
+        const firstnameRegexr = RGXR.PRENOM;
         if (utilisateur.firstname && !firstnameRegexr.test(utilisateur.firstname)) {
             messageError.firstname = "Entre 2 et 30 caractères attendus."
             isValid = false;
         }
-        const emailRegexr = RGXR.EMAIL ;
+        const emailRegexr = RGXR.EMAIL;
         if (utilisateur.email && !emailRegexr.test(utilisateur.email)) {
             messageError.email = "Entre 10 et 60 caractères attendus."
             isValid = false;
         }
-        const passwordRegexr = RGXR.PASSWORD ;
+        const passwordRegexr = RGXR.PASSWORD;
         if (newMDP && !passwordRegexr.test(newMDP)) {
             messageError.newMDP = "Entre 8 et 40 caractères, (au moins une minuscule, unemajuscule, un chiffre et un caractère spécial)."
             isValid = false;
         }
-        const phoneRegexr = RGXR.PHONE ;
+        const phoneRegexr = RGXR.PHONE;
         if (utilisateur.phone && !phoneRegexr.test(utilisateur.phone)) {
             messageError.phone = "10 chiffres attendus."
             isValid = false;
         }
-        const adressRegexr = RGXR.ADRESS ;
+        const adressRegexr = RGXR.ADRESS;
         if (utilisateur.adress && !adressRegexr.test(utilisateur.adress)) {
             messageError.adress = "Adresse : Entre 8 et 70 caractères attendus."
             isValid = false;
         }
-        const postalRegexr = RGXR.POSTAL ;
+        const postalRegexr = RGXR.POSTAL;
         if (utilisateur.postal && !postalRegexr.test(utilisateur.postal)) {
             messageError.postal = " Code postal : 5 chiffres attendus."
             isValid = false;
         }
-        const townRegexr = RGXR.TOWN ;
+        const townRegexr = RGXR.TOWN;
         if (utilisateur.town && !townRegexr.test(utilisateur.town)) {
             messageError.town = "Ville : Entre 2 et 50 caractères attendus."
             isValid = false;
