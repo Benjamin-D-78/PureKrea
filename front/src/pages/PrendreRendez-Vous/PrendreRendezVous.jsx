@@ -1,20 +1,30 @@
 import { React, useEffect } from 'react'
 
+// CSS
+import commande from "../Commande/commande.module.css"
+import boutique from "../Boutique/Boutique.module.css"
+import contact from "../Contact/contact.module.css"
+
 // COMPOSANTS
 import NavBar from '../../components/NavBar/NavBar'
 import Footer from '../../components/Footer/Footer'
+import Accordeon from '../../components/Accordeon/accordeon'
+
+// ICONES
+import telephone from "../../images/Icones/telephone.png"
 
 
 const PrendreRendezVous = () => {
     useEffect(() => {
-        // Ajouter le script de Calendly au chargement du composant
+        // On créé ici un script dynamiquement avec createElement
         const script = document.createElement('script');
+        // On importe le fichier JS externe de calendly
         script.src = "https://assets.calendly.com/assets/external/widget.js";
-        script.async = true;
-        document.body.appendChild(script);
+        script.async = true; // Le reste du code de la page s'exécute pendant que ça charge
+        document.body.appendChild(script); // Le script est ajouté au body de la pahe HTML
 
-        // Nettoyage du script lorsqu'on démonte le composant
         return () => {
+            // Le script se "démonte" lorsque je changerai de page.
             document.body.removeChild(script);
         };
     }, []);
@@ -22,13 +32,9 @@ const PrendreRendezVous = () => {
     return (
         <div>
             <NavBar />
-            <div
-                className="calendly-inline-widget"
-                data-url="https://calendly.com/desmonet-idf/30min"
-                style={{ minWidth: "320px", height: "700px" }}
-            />
-            <Footer />
-        </div>
+
+        <Footer/>
+        </div >
     );
 };
 
