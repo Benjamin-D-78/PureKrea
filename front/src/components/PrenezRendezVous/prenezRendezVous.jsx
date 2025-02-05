@@ -7,7 +7,7 @@ const PrenezRendezVous = () => {
         <div className={calltoaction.contientCallToAction}>
             <p className={calltoaction.pCallToAction}>Laissez-vous tenter par le sur-mesure...</p>
             <div className={calltoaction.divBtnCallToAction}>
-                <Link><button className={calltoaction.btnCallToAction}>Prenez rendez-vous</button></Link>
+                <Link to="/rendez-vous"><button className={calltoaction.btnCallToAction}>Prenez rendez-vous</button></Link>
             </div>
         </div>
     )

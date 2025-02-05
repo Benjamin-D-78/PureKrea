@@ -16,6 +16,7 @@ import TestFormulaire from './stripe/TestFormulaire';
 import Renvoi from './pages/Utilisateurs/Renvoi';
 import Contact from './pages/Contact/Contact';
 import NousConnaitre from './pages/NousConnaitre/NousConnaitre';
+import PrendreRendezVous from './pages/PrendreRendez-Vous/PrendreRendezVous';
 
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
@@ -45,6 +46,7 @@ function App() {
         <Route path="/renvoi" element={<Renvoi />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/nous-connaitre" element={<NousConnaitre />} />
+        <Route path="/rendez-vous" element={<PrendreRendezVous />} />
         <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
       </Route>
 

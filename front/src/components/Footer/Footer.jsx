@@ -55,8 +55,8 @@ export default function Footer() {
           <p className={footerCSS.pGauche}>Suivez-nous</p>
         </div>
         <div className={footerCSS.contientReseaux}>
-          <Link href="www.linkedin.com/in/78600-benjamin-d"><img className={footerCSS.lg} src={linkedin} alt="Logo Linkedin" /></Link>
-          <Link href="https://github.com/Benjamin-D-78"><img className={footerCSS.lg} src={github} alt="Logo Linkedin" /></Link>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/78600-benjamin-d"><img className={footerCSS.lg} src={linkedin} alt="Logo Linkedin" /></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.github.com/Benjamin-D-78"><img className={footerCSS.lg} src={github} alt="Logo Linkedin" /></a>
         </div>
       </div>
       {/* Bloc centre */}
@@ -113,16 +113,16 @@ export default function Footer() {
           <nav>
             <ul>
               <li className={footerCSS.footerLI}>
-                <NavLink className={footerCSS.footerA}>Boutique</NavLink>
+                <NavLink className={footerCSS.footerA} to="/">Boutique</NavLink>
               </li>
               <li className={footerCSS.footerLI}>
-                <NavLink className={footerCSS.footerA}>Nous connaître</NavLink>
+                <NavLink className={footerCSS.footerA} to="/nous-connaitre">Nous connaître</NavLink>
               </li>
               <li className={footerCSS.footerLI}>
-                <NavLink className={footerCSS.footerA}>Prendre rendez-vous</NavLink>
+                <NavLink className={footerCSS.footerA} to="/rendez-vous">Prendre rendez-vous</NavLink>
               </li>
               <li className={footerCSS.footerLI}>
-                <NavLink className={footerCSS.footerA}>Contact</NavLink>
+                <NavLink className={footerCSS.footerA} to="/contact">Contact</NavLink>
               </li>
             </ul>
           </nav>
