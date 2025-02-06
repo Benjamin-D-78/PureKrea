@@ -1,4 +1,5 @@
 import { React, useEffect } from 'react'
+import rdv from "./prendrerdv.module.css"
 
 // CSS
 import commande from "../Commande/commande.module.css"
@@ -12,19 +13,17 @@ import Accordeon from '../../components/Accordeon/accordeon'
 
 // ICONES
 import telephone from "../../images/Icones/telephone.png"
+import ciseaux from "../../images/Sur-mesure.png"
 
 
 const PrendreRendezVous = () => {
     useEffect(() => {
-        // On créé ici un script dynamiquement avec createElement
         const script = document.createElement('script');
-        // On importe le fichier JS externe de calendly
         script.src = "https://assets.calendly.com/assets/external/widget.js";
-        script.async = true; // Le reste du code de la page s'exécute pendant que ça charge
-        document.body.appendChild(script); // Le script est ajouté au body de la pahe HTML
+        script.async = true;
+        document.body.appendChild(script);
 
         return () => {
-            // Le script se "démonte" lorsque je changerai de page.
             document.body.removeChild(script);
         };
     }, []);
@@ -32,8 +31,31 @@ const PrendreRendezVous = () => {
     return (
         <div>
             <NavBar />
-
-        <Footer/>
+            <h1 className={rdv.h1}>Prendre rendez-vous</h1>
+            <div className={rdv.conteneur}>
+                <div>
+                    <div className={rdv.divImg}>
+                        <img src={ciseaux} alt="prise de rendez-vous" />
+                        <a
+                            href="https://calendly.com/desmonet-idf/creons-votre-cravate"
+                            className="acuity-embed-button"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <button className={rdv.button}>Prendre rendez-vous</button>
+                        </a>
+                    </div>
+                    <div className={rdv.divBtn}>
+                        <a
+                            href="https://calendly.com/desmonet-idf/creons-votre-cravate"
+                            className="acuity-embed-button"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <button className={rdv.button}>Prendre rendez-vous</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <Footer />
         </div >
     );
 };
