@@ -82,12 +82,14 @@ const MonProfil = () => {
 
     useEffect(() => {
         const userById = async () => {
-            try {
-                const response = await axios.get(`${URL.USER_BY_ID}/${id}`, { withCredentials: true })
-                setUtilisateur(response.data);
+            if (URL.USER_BY_ID) {
+                try {
+                    const response = await axios.get(`${URL.USER_BY_ID}/${id}`, { withCredentials: true })
+                    setUtilisateur(response.data);
 
-            } catch (error) {
-                console.error("Erreur lors de la recherche de l'utilisateur", error.message)
+                } catch (error) {
+                    console.error("Erreur lors de la recherche de l'utilisateur", error.message)
+                }
             }
         }
         userById();

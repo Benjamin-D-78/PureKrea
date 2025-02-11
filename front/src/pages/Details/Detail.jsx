@@ -46,11 +46,13 @@ const Details = () => {
 
     useEffect(() => {
         const detailsItem = async () => {
-            try {
-                const { data, status } = await axios.get(`${URL.ITEM_BY_ID}/${id}`)
-                setItem(data);
-            } catch (error) {
-                setError("Erreur lors de la réception des données", error)
+            if (URL.ITEM_BY_ID) {
+                try {
+                    const { data, status } = await axios.get(`${URL.ITEM_BY_ID}/${id}`)
+                    setItem(data);
+                } catch (error) {
+                    setError("Erreur lors de la réception des données", error)
+                }
             }
         };
         detailsItem();
