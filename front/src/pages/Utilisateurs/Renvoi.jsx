@@ -27,10 +27,12 @@ const Renvoi = () => {
         const messageError = {};
         let isValid = true;
 
-        const emailRegexr = RGXR.EMAIL ;
-        if (user.email && !emailRegexr.test(user.email)) {
-            messageError.email = "Format email, entre 10 et 60 caractères attendus."
-            isValid = false;
+        if (user.email) {
+            const emailRegexr = RGXR.EMAIL;
+            if (!emailRegexr.test(user.email) || user.email.length < 8 || user.email.length > 60) {
+                messageError.email = "Format email, entre 8 et 60 caractères attendus."
+                isValid = false;
+            }
         }
 
         setError(messageError);
@@ -47,23 +49,27 @@ const Renvoi = () => {
 
         if (!formulaire()) return;
 
-        try {
-            const response = await axios.post(URL.EMAIL_VERIFICATION_BIS, { email })
-            setReponseMessage(response.data.message)
-            toast.success("Email envoyé avec succès, pensez à le valider pour pouvoir vous connecter.")
+        if (URL.EMAIL_VERIFICATION_BIS) {
+            try {
+                const response = await axios.post(URL.EMAIL_VERIFICATION_BIS, { email })
+                setReponseMessage(response.data.message)
+                toast.success("Email envoyé avec succès, pensez à le valider pour pouvoir vous connecter.")
 
-        } catch (error) {
-            if (error.response && error.response.status === 400) {
-                toast.error("L'adresse email est déjà validée.");
-            }
+            } catch (error) {
+                if (error.response && error.response.status === 400) {
+                    toast.error("L'adresse email est déjà validée.");
+                }
 
-            if (error.response && error.response.status === 404) {
-                toast.error("L'adresse mail n'est associée à aucun compte.")
-            }
+                if (error.response && error.response.status === 404) {
+                    toast.error("L'adresse mail n'est associée à aucun compte.")
+                }
 
-            if (error.response && error.response.status > 404) {
-                toast.error("Erreur interne. Veuillez nous contacter.")
+                if (error.response && error.response.status > 404) {
+                    toast.error("Erreur interne. Veuillez nous contacter.")
+                }
             }
+        } else {
+            toast.error("Veuillez réessayer plus tard.", { autoClose: 3000 })
         }
     }
 
@@ -81,7 +87,7 @@ const Renvoi = () => {
                                 name='email'
                                 id='email-connexion'
                                 className={coin.inputCoIn}
-                                minLength={1}
+                                minLength={8}
                                 maxLength={60}
                                 pattern={PATTERN.EMAIL}
                                 value={email}

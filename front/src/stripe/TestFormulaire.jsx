@@ -58,7 +58,7 @@ const TestFormulaire = () => {
         });
         if (!error) {
             console.log("Token généré : ", paymentMethod) // On génère grâce à paymentMethod un paiement qui sera en fait un Token. Ce token sera à envoyer au backend pour réaliser le paiement.
-            // envoi du token au back :
+            // on envoie le token au back
             try {
                 const { id } = paymentMethod;
                 const response = await axios.post(URL.CHARGEMENT, {

@@ -31,7 +31,7 @@ const Connexion = () => {
 
     if (user.email) {
       const emailRegexr = RGXR.EMAIL;
-      if (!emailRegexr.test(user.email) || user.email.length < 10 || user.email.length > 60) {
+      if (!emailRegexr.test(user.email) || user.email.length < 8 || user.email.length > 60) {
         messageError.email = "Format email, entre 10 et 60 caractères attendus."
         isValid = false;
       }
@@ -58,13 +58,13 @@ const Connexion = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-
-    if (!formulaire()) return;
-
+    
     if (!user.email || !user.password) {
       toast.error("Veuillez remplir tous les champs", { autoClose: 3000 })
       return;
     }
+    
+    if (!formulaire()) return;
 
     dataFormConnexion(user) // On appelle Context
   }
@@ -84,7 +84,7 @@ const Connexion = () => {
                 id='email-connexion'
                 className={coin.inputCoIn}
                 onChange={handleChange}
-                minLength={1}
+                minLength={10}
                 maxLength={60}
                 pattern={PATTERN.EMAIL}
                 onInput={(event) => {

@@ -55,8 +55,8 @@ const Inscription = () => {
         }
         if (user.email) {
             const emailRegexr = RGXR.EMAIL;
-            if (!emailRegexr.test(user.email) || user.email.length < 10 || user.email.length > 60) {
-                messageError.email = "Format email, entre 10 et 60 caractères attendus."
+            if (!emailRegexr.test(user.email) || user.email.length < 8 || user.email.length > 60) {
+                messageError.email = "Format email, entre 8 et 60 caractères attendus."
                 isValid = false;
             }
         }
@@ -107,15 +107,20 @@ const Inscription = () => {
             toast.error("Les mots de passe ne sont pas identiques.", { autoClose: 3000 })
             return;
         }
-        try {
-            const response = await axios.post(URL.USER_INSCRIPTION, user)
-            if (response.status === 201) {
-                navigate("/");
-                toast.success("Inscription effectuée avec succès.", { autoClose: 1000 })
+
+        if (URL.USER_INSCRIPTION) {
+            try {
+                const response = await axios.post(URL.USER_INSCRIPTION, user)
+                if (response.status === 201) {
+                    navigate("/");
+                    toast.success("Inscription effectuée avec succès.", { autoClose: 1000 })
+                }
+            } catch (error) {
+                console.log("Echec de l'inscription de l'utilisateur.", error.message)
+                toast.error("Un problème est survenu, veuillez nous contacter.", { autoClose: 3000 })
             }
-        } catch (error) {
-            console.log("Echec de l'inscription de l'utilisateur.", error.message)
-            toast.error("Un problème est survenu, veuillez nous contacter.", { autoClose: 3000 })
+        } else {
+            toast.error("Veuillez réessayer plus tard.", { autoClose: 3000 })
         }
     }
 
@@ -171,7 +176,7 @@ const Inscription = () => {
                                 id='email-inscription'
                                 onChange={handleChange}
                                 onBlur={checkInput}
-                                minLength={1}
+                                minLength={8}
                                 maxLength={60}
                                 pattern={PATTERN.EMAIL}
                                 onInput={(event) => {
