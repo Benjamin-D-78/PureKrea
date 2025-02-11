@@ -104,45 +104,64 @@ const MonProfil = () => {
 
         if (utilisateur.lastname) {
             const lastnameRegexr = RGXR.NOM;
-            if (!lastnameRegexr.test(utilisateur.lastname) || utilisateur.lastname.length <2 || utilisateur.lastname.length >30) {
+            if (!lastnameRegexr.test(utilisateur.lastname) || utilisateur.lastname.length < 2 || utilisateur.lastname.length > 30) {
                 messageError.lastname = "Entre 2 et 30 caractères attendus."
                 isValid = false;
             }
         }
-        const firstnameRegexr = RGXR.PRENOM;
-        if (utilisateur.firstname && !firstnameRegexr.test(utilisateur.firstname)) {
-            messageError.firstname = "Entre 2 et 30 caractères attendus."
-            isValid = false;
+
+        if (utilisateur.firstname) {
+            const firstnameRegexr = RGXR.PRENOM;
+            if (!firstnameRegexr.test(utilisateur.firstname) || utilisateur.firstname.length < 2 || utilisateur.firstname.length > 30) {
+                messageError.firstname = "Entre 2 et 30 caractères attendus."
+                isValid = false;
+            }
         }
-        const emailRegexr = RGXR.EMAIL;
-        if (utilisateur.email && !emailRegexr.test(utilisateur.email)) {
-            messageError.email = "Entre 10 et 60 caractères attendus."
-            isValid = false;
+
+        if (utilisateur.email) {
+            const emailRegexr = RGXR.EMAIL;
+            if (!emailRegexr.test(utilisateur.email) || utilisateur.email.length < 8 || utilisateur.email.length > 60) {
+                messageError.email = "Entre 8 et 60 caractères attendus."
+                isValid = false;
+            }
         }
+
         const passwordRegexr = RGXR.PASSWORD;
         if (newMDP && !passwordRegexr.test(newMDP)) {
-            messageError.newMDP = "Entre 8 et 40 caractères, (au moins une minuscule, unemajuscule, un chiffre et un caractère spécial)."
+            messageError.newMDP = "Entre 8 et 40 caractères, (au moins une minuscule, une majuscule, un chiffre et un caractère spécial)."
             isValid = false;
         }
-        const phoneRegexr = RGXR.PHONE;
-        if (utilisateur.phone && !phoneRegexr.test(utilisateur.phone)) {
-            messageError.phone = "10 chiffres attendus."
-            isValid = false;
+
+        if (utilisateur.phone) {
+            const phoneRegexr = RGXR.PHONE;
+            if (!phoneRegexr.test(utilisateur.phone) || utilisateur.phone.length < 10 || utilisateur.phone.length > 10) {
+                messageError.phone = "10 chiffres attendus."
+                isValid = false;
+            }
         }
-        const adressRegexr = RGXR.ADRESS;
-        if (utilisateur.adress && !adressRegexr.test(utilisateur.adress)) {
-            messageError.adress = "Adresse : Entre 8 et 70 caractères attendus."
-            isValid = false;
+
+        if (utilisateur.adress) {
+            const adressRegexr = RGXR.ADRESS;
+            if (!adressRegexr.test(utilisateur.adress) || utilisateur.adress.length < 8 || utilisateur.adress.length > 70) {
+                messageError.adress = "Adresse : Entre 8 et 70 caractères attendus."
+                isValid = false;
+            }
         }
-        const postalRegexr = RGXR.POSTAL;
-        if (utilisateur.postal && !postalRegexr.test(utilisateur.postal)) {
-            messageError.postal = " Code postal : 5 chiffres attendus."
-            isValid = false;
+
+        if (utilisateur.postal) {
+            const postalRegexr = RGXR.POSTAL;
+            if (!postalRegexr.test(utilisateur.postal) || utilisateur.postal.length < 5 || utilisateur.postal.length > 5) {
+                messageError.postal = " Code postal : 5 chiffres attendus."
+                isValid = false;
+            }
         }
-        const townRegexr = RGXR.TOWN;
-        if (utilisateur.town && !townRegexr.test(utilisateur.town)) {
-            messageError.town = "Ville : Entre 2 et 50 caractères attendus."
-            isValid = false;
+
+        if (utilisateur.town) {
+            const townRegexr = RGXR.TOWN;
+            if (!townRegexr.test(utilisateur.town) || utilisateur.town.length < 2 || utilisateur.town.length > 50) {
+                messageError.town = "Ville : Entre 2 et 50 caractères attendus."
+                isValid = false;
+            }
         }
 
         setError(messageError);
@@ -211,20 +230,24 @@ const MonProfil = () => {
         if (utilisateur.postal !== "") updateUser.postal = utilisateur.postal
         if (utilisateur.town !== "") updateUser.town = utilisateur.town
 
-        try {
-            const response = await axios.put(`${URL.USER_UPDATE}/${id}`, updateUser, { withCredentials: true }
-            );
+        if (URL.USER_UPDATE) {
+            try {
+                const response = await axios.put(`${URL.USER_UPDATE}/${id}`, updateUser, { withCredentials: true }
+                );
 
-            if (response.status === 200) {
-                toast.success("Profil mis à jour avec succès.", { autoClose: 3000 });
-                const updateAuth = { ...auth, ...response.data } //On incorpore les nouvelles données dans le auth, sinon ça écrase le auth déjà existant et le remet à zéro.
-                setAuth(updateAuth);
-                localStorage.setItem("auth", JSON.stringify(updateAuth)); // on met à jour le localStorage en convertissant l'objet updateAuth en chaîne de caractères.
+                if (response.status === 200) {
+                    toast.success("Profil mis à jour avec succès.", { autoClose: 3000 });
+                    const updateAuth = { ...auth, ...response.data } //On incorpore les nouvelles données dans le auth, sinon ça écrase le auth déjà existant et le remet à zéro.
+                    setAuth(updateAuth);
+                    localStorage.setItem("auth", JSON.stringify(updateAuth)); // on met à jour le localStorage en convertissant l'objet updateAuth en chaîne de caractères.
 
+                }
+            } catch (error) {
+                console.error("Erreur lors de la mise à jour des informations.", error);
+                toast.error("Une erreur s'est produite lors de la mise à jour des informations. Veuillez nous contacter.", { autoClose: 3000 });
             }
-        } catch (error) {
-            console.error("Erreur lors de la mise à jour des informations.", error);
-            toast.error("Une erreur s'est produite lors de la mise à jour des informations. Veuillez nous contacter.", { autoClose: 3000 });
+        } else {
+            toast.error("Veuillez réessayer plus tard.", { autoClose: 3000 })
         }
     };
 
@@ -316,7 +339,7 @@ const MonProfil = () => {
                                             id='emailProfil'
                                             onChange={handleChange}
                                             onBlur={checkInput}
-                                            minLength={1}
+                                            minLength={8}
                                             maxLength={60}
                                             pattern={PATTERN.EMAIL}
                                             onInput={(event) => {
@@ -405,7 +428,7 @@ const MonProfil = () => {
                                             onChange={handleChange}
                                             onBlur={checkInput}
                                             value={utilisateur?.phone || ""}
-                                            minLength={1}
+                                            minLength={10}
                                             maxLength={10}
                                             pattern={PATTERN.PHONE}
                                             onInput={(event) => {
@@ -446,7 +469,7 @@ const MonProfil = () => {
                                             name='postal'
                                             id='postal'
                                             value={utilisateur?.postal || ""}
-                                            minLength={1}
+                                            minLength={5}
                                             maxLength={5}
                                             onChange={handleChange}
                                             onBlur={checkInput}
