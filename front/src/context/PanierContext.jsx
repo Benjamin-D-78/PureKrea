@@ -169,6 +169,8 @@ export const PanierProvider = ({ children }) => {
             }));
 
             // On calcule le prix total de la commande :
+            // reduce réduit la tableau à une seule valeur en appliquant une fonction itérée à chaque élément du tableau
+            // 0 indique que la valeur de total commencera à 0 à la première itération.
             const prixTotal = panierTotal.reduce((total, item) => total + item.totalPrice, 0);
 
             // On créé notre objet de commande à envoyer à notre back.

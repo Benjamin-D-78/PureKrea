@@ -49,21 +49,23 @@ const Boutique = () => {
 
     useEffect(() => { // On appelle la fonction "depart" qui déclenche mon action Redux pour indiquer qu'il n'y a pas encore de données (ITEM.DEPART)
         const depart = async () => {
-            try {
-                const response = await axios.get(URL.ITEM_ALL);
-                setItems(response.data);
+            if (URL.ITEM_ALL) {
+                try {
+                    const response = await axios.get(URL.ITEM_ALL);
+                    setItems(response.data);
 
-                // On extrait les valeurs de chaque collection (category).
-                // "Set" est un objet JS qui stocke uniquement les valeurs uniques en supprimant les doublons.
-                // La fonction map parcours tous les "item" récupérés et en extrait la category, qui sont ensuite stockés dans "collections", qui appartient à la même lignée que "setCollections"
-                setCollections([...new Set(response.data.map(item => item.category))].sort((a, b) => b - a))
-                setPrix([...new Set(response.data.map(item => item.price))].sort((a, b) => a - b))
-                setLargeurs([...new Set(response.data.map(item => item.width))].sort((a, b) => a - b))
-                setCouleurs([...new Set(response.data.map(item => item.color))].sort())
+                    // On extrait les valeurs de chaque collection (category).
+                    // "Set" est un objet JS qui stocke uniquement les valeurs uniques en supprimant les doublons.
+                    // La fonction map parcours tous les "item" récupérés et en extrait la category, qui sont ensuite stockés dans "collections", qui appartient à la même lignée que "setCollections"
+                    setCollections([...new Set(response.data.map(item => item.category))].sort((a, b) => b - a))
+                    setPrix([...new Set(response.data.map(item => item.price))].sort((a, b) => a - b))
+                    setLargeurs([...new Set(response.data.map(item => item.width))].sort((a, b) => a - b))
+                    setCouleurs([...new Set(response.data.map(item => item.color))].sort())
 
-            } catch (error) {
-                console.log("Erreur lors de l'appel API", error)
-                setError(error.message);
+                } catch (error) {
+                    console.log("Erreur lors de l'appel API", error)
+                    setError(error.message);
+                }
             }
         };
         depart();
@@ -86,7 +88,9 @@ const Boutique = () => {
     )
 
 
-
+    // On utilise "..." pour créer un nouveau tableau à partir de l'objet Set (qui supprime les doublons)
+    // On extrait toutes les valeurs de la prop category de chaque objet item dans filtreItems.
+    // "map" créé un nouveau tableau où chaque élément est le résultat de l'exécution de la fonction fournie sur chaque élément de filtreItems. C'est ce qui rend les filtres dynamiques en focntion de ce qui est cliqué
     const collectionDisponible = [...new Set(filtreItems.map(item => item.category))].sort((a, b) => b - a);
     const prixDisponible = [...new Set(filtreItems.map(item => item.price))].sort((a, b) => a - b);
     const largeurDisponible = [...new Set(filtreItems.map(item => item.width))].sort((a, b) => a - b);

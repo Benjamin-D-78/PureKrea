@@ -123,19 +123,20 @@ const Contact = () => {
         if (URL.MESSAGE_CREATION) {
             try {
                 const response = await axios.post(URL.MESSAGE_CREATION, message)
-                toast.success("Message envoyé avec succès.", { autoClose: 1000 })
+                if (response.status === 201) {
+                    toast.success("Message envoyé avec succès.", { autoClose: 1000 })
 
-                setMessage({
-                    motif: "",
-                    firstname: "",
-                    lastname: "",
-                    email: "",
-                    phone: "",
-                    content: "",
-                    verification: false,
-                    preference: ""
-                })
-
+                    setMessage({
+                        motif: "",
+                        firstname: "",
+                        lastname: "",
+                        email: "",
+                        phone: "",
+                        content: "",
+                        verification: false,
+                        preference: ""
+                    })
+                }
             } catch (error) {
                 console.error("Echec de l'envoi du message : ", error.message)
                 toast.error("Echec de l'envoi du message.", { autoClose: 3000 })

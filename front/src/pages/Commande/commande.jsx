@@ -66,11 +66,13 @@ const Commande = () => {
   useEffect(() => {
     if (auth) {
       const userById = async () => {
-        try {
-          const response = await axios.get(`${URL.USER_BY_ID}/${auth._id}`);
-          setUtilisateur(response.data)
-        } catch (error) {
-          console.error("Erreur lors de la recherche de l'utilisateur", error)
+        if (URL.USER_BY_ID) {
+          try {
+            const response = await axios.get(`${URL.USER_BY_ID}/${auth._id}`);
+            setUtilisateur(response.data)
+          } catch (error) {
+            console.error("Erreur lors de la recherche de l'utilisateur", error)
+          }
         }
       };
       userById();

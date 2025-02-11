@@ -4,7 +4,7 @@ import accordeon from "./accordeon.module.css"
 
 
 
-export default function Accordeon({ titre, corps }) {
+export default function Accordeon() {
 
     const [ouvrirA, setOuvrirA] = useState(false)
     const [ouvrirB, setOuvrirB] = useState(false)

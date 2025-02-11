@@ -54,11 +54,13 @@ const PanierTotal = () => {
   useEffect(() => {
     if (auth) {
       const userById = async () => {
-        try {
-          const response = await axios.get(`${URL.USER_BY_ID}/${auth._id}`);
-          setUtilisateur(response.data)
-        } catch (error) {
-          console.error("Erreur lors de la recherche d'utilisateur", error)
+        if (URL.USER_BY_ID) {
+          try {
+            const response = await axios.get(`${URL.USER_BY_ID}/${auth._id}`);
+            setUtilisateur(response.data)
+          } catch (error) {
+            console.error("Erreur lors de la recherche d'utilisateur", error)
+          }
         }
       };
       userById();
