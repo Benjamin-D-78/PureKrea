@@ -4,6 +4,7 @@ import footerCSS from "./footer.module.css"
 import axios from "axios"
 import { URL } from '../../utils/Constantes'
 import { toast } from 'react-toastify'
+import { PATTERN, RGXR } from '../../utils/Regixr'
 
 // ICONES
 import linkedin from "../../images/Reseaux/linkedin.png"
@@ -19,6 +20,33 @@ export default function Footer() {
     email: ""
   })
 
+  const formulaire = () => {
+    let isValid = true;
+
+    if (abonne.lastname) {
+      const lastnameRegexr = RGXR.NOM;
+      if (!lastnameRegexr.test(abonne.lastname) || abonne.lastname.length < 2 || abonne.lastname > 30) {
+        isValid = false;
+      }
+    }
+
+    if (abonne.firstname) {
+      const firstnameRegexr = RGXR.PRENOM;
+      if (!firstnameRegexr.test(abonne.firstname) || abonne.firstname.length < 2 || abonne.firstname > 30) {
+        isValid = false;
+      }
+    }
+
+    if (abonne.email) {
+      const emailRegexr = RGXR.EMAIL;
+      if (!emailRegexr.test(abonne.email) || abonne.email.length < 8 || abonne.email > 60) {
+        isValid = false;
+      }
+    }
+
+    return isValid;
+  }
+
   const handleChange = (event) => {
     const { name, value } = event.target
     setAbonne((abonne) => ({ ...abonne, [name]: value }))
@@ -32,17 +60,26 @@ export default function Footer() {
       return;
     }
 
-    try {
-      const response = await axios.post(URL.ABONNE_CREATION, abonne)
-      toast.success("Merci de vous être abonné !", { autoClose: 3000 })
-      setAbonne({
-        firstname: "",
-        lastname: "",
-        email: ""
-      })
-    } catch (error) {
-      console.error("Echec de la tentative d'abonnement : ", error.message)
-      toast.error("Echec de la tentative d'abonnement.", { autoClose: 3000 })
+    if (!formulaire()) return;
+
+    if (URL.ABONNE_CREATION) {
+      try {
+        const response = await axios.post(URL.ABONNE_CREATION, abonne)
+        console.log(response)
+        if (response.status === 201) {
+          toast.success("Merci de vous être abonné !", { autoClose: 3000 })
+          setAbonne({
+            firstname: "",
+            lastname: "",
+            email: ""
+          })
+        }
+      } catch (error) {
+        console.error("Echec de la tentative d'abonnement : ", error.message)
+        toast.error("Echec de la tentative d'abonnement.", { autoClose: 3000 })
+      }
+    } else {
+      toast.error("Veuillez réessayer plus tard.", { autoClose: 3000 })
     }
   }
 
@@ -71,35 +108,56 @@ export default function Footer() {
           <div className={footerCSS.divFormNewsletter}>
             <form onSubmit={handleSubmit}>
               <div className={footerCSS.divFormNewsletterH}>
-                <input 
-                  className={footerCSS.inputFormNewsletterH} 
-                  placeholder='Nom' 
-                  type="text" 
-                  id='lastname' 
+                <input
+                  className={footerCSS.inputFormNewsletterH}
+                  placeholder='Nom'
+                  type="text"
+                  id='lastname'
                   name='lastname'
-                  value={abonne.lastname} 
+                  minLength={2}
+                  maxLength={30}
+                  pattern={PATTERN.NOM}
+                  value={abonne.lastname}
                   onChange={handleChange}
-                  required />
-                <input 
-                  className={footerCSS.inputFormNewsletterH} 
-                  placeholder='Prénom' 
-                  type="text" 
+                  required
+                  onInput={(event) => {
+                    event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '').toUpperCase();
+                  }}
+                />
+                <input
+                  className={footerCSS.inputFormNewsletterH}
+                  placeholder='Prénom'
+                  type="text"
                   id='firstname'
-                  name='firstname' 
+                  name='firstname'
+                  minLength={2}
+                  maxLength={30}
+                  pattern={PATTERN.PRENOM}
                   value={abonne.firstname}
                   onChange={handleChange}
-                  required />
+                  required
+                  onInput={(event) => {
+                    event.target.value = event.target.value.replace(/[^a-zA-ZàèéùÀÈÉÙ'-\s]/g, '')
+                  }}
+                />
               </div>
               <div className={footerCSS.divFormNewsletterB}>
-                <input 
-                  className={footerCSS.inputFormNewsletterB} 
-                  placeholder='E-mail' 
-                  type="email" 
-                  id='email' 
-                  name='email' 
+                <input
+                  className={footerCSS.inputFormNewsletterB}
+                  placeholder='E-mail'
+                  type="email"
+                  id='email'
+                  name='email'
+                  minLength={8}
+                  maxLength={60}
+                  pattern={PATTERN.EMAIL}
                   value={abonne.email}
                   onChange={handleChange}
-                  required />
+                  required
+                  onInput={(event) => {
+                    event.target.value = event.target.value.replace(/[^a-z0-9.@_-]/g, '').toLowerCase();
+                  }}
+                />
                 <button className={footerCSS.btnEnvoiFormNewsletter}>Je m'abonne</button>
               </div>
             </form>
