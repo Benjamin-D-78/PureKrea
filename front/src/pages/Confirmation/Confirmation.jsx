@@ -24,7 +24,7 @@ const Confirmation = () => {
                     <p>Comme mentionné dans nos CGV, nous nous engageons à expédier vos articles sous 48h à 72h.</p>
                     <p>Retrouvez toutes vos commandes en cliquant <Link to={{pathname: `/mescommandes/${auth?._id}`}} className={confirmation.a}>ici</Link></p>
                     <p>Vous avez des questions ou des rectifications à apporter sur votre commande ? <br />
-                        Contactez-nous <a className={confirmation.a} href="">ici</a> en précisant la commande :</p>
+                        Contactez-nous  <Link to={{pathname: "/contact"}} className={confirmation.a}>ici</Link> en précisant la commande :</p>
                     <p className={confirmation.numCommande}>N° {id}</p>
                     <p>Nous traiterons votre réclamation sous 24h.</p>
                 </div>

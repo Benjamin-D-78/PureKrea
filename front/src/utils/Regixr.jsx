@@ -7,7 +7,7 @@ export const RGXR = {
     ADRESS: /^[a-zA-Z0-9\s\-'^¨èéàù]{8,70}$/ ,
     POSTAL: /^\d{5}$/ ,
     TOWN: /^[a-zA-Z\s\-'^¨èéàù]{2,50}$/ ,
-    CONTENT: /^[a-zA-Z0-9,?!().\"' -]+$/
+    CONTENT: /^[a-zA-Z0-9\s,?!()."'éèêàùîôäëïöü -]+$/
 
 
 }
@@ -21,5 +21,5 @@ export const PATTERN = {
     ADRESS: "[a-zA-Z0-9\s\-'^¨èéàù]{8,70}",
     POSTAL: "^\d{5}$",
     TOWN: "^[a-zA-Z\s\-'^¨èéàù]{2,50}$",
-    CONTENT: "^[a-zA-Z0-9,?!().\"' -]+$"
+    CONTENT: "^[a-zA-Z0-9,?!().\"'éèêàùîôäëïöü -]+$"
 }

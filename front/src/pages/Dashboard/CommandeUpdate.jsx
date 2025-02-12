@@ -128,7 +128,7 @@ const CommandeUpdate = () => {
       <form onSubmit={handleSubmit}>
         {Array.isArray(commande.panier) && commande.panier.map((item, index) => (
           <div key={item.itemId} className={items.div1}>
-            <h2 className={items.h1}>{item.name}</h2>
+            <h2 className={items.h2}>{item.name}</h2>
             <label htmlFor="quantity">Quantité :</label>
             <input
               className={items.inputItem}

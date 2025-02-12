@@ -282,8 +282,9 @@ const Contact = () => {
                                         maxLength={500}
                                         pattern={PATTERN.CONTENT}
                                         onInput={(event) => {
-                                            event.target.value = event.target.value.replace(/[^a-zA-Z0-9,?!().\"' -]/g, '');
-                                        }}>
+                                            event.target.value = event.target.value.replace(/[^a-zA-Z0-9,?!().\"'éèêàùîôäëïöü -]/g, '');
+                                        }}
+                                    >
                                     </textarea>
                                     {error.content && <span className={monProfil.spanError}>{error.content}</span>}
                                 </div>

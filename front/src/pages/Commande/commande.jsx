@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { toast } from 'react-toastify'
 import { URL } from '../../utils/Constantes'
+import { PATTERN } from '../../utils/Regixr'
 
 // CSS
 import boutique from "../Boutique/Boutique.module.css"
@@ -26,6 +27,7 @@ const Commande = () => {
   const { auth } = useContext(AuthContext)
   const { validerCommande, prixParQuantite, totalArticle, panier, prixTotal, commentaire, setCommentaire } = useContext(PanierContext)
   const [checkboxCochee, setCheckboxCochee] = useState(false)
+
   const [utilisateur, setUtilisateur] = useState({
     firstname: "",
     lastname: "",
@@ -34,8 +36,6 @@ const Commande = () => {
     town: "",
     phone: ""
   });
-
-
 
 
   const handleCheckbox = () => {
@@ -130,17 +130,23 @@ const Commande = () => {
                     {utilisateur && utilisateur.phone ? <span className={commande.pUtilisateur}>{utilisateur.phone}</span> : <span className={commande.manquantUtilisateur}>Information manquante</span>}
                   </div>
                   <div className={commande.contientArea}>
-                    <div className={commande.labelArea}><label className={commande.labelCommentaire} htmlFor="">Commentaire : </label></div>
+                    <div className={commande.labelArea}><label className={commande.labelCommentaire} htmlFor="comment">Commentaire : </label></div>
                     <div className={commande.textArea}>
                       <textarea
                         value={commentaire}
                         className={commande.areaUtilisateur}
+                        minLength={3}
                         maxLength={500}
-                        name=""
-                        id=""
+                        name="comment"
+                        id="comment"
                         rows={4}
                         cols={24}
-                        onChange={(event) => setCommentaire(event.target.value)}>
+                        onChange={(event) => setCommentaire(event.target.value)}
+                        pattern={PATTERN.CONTENT}
+                        onInput={(event) => {
+                          event.target.value = event.target.value.replace(/[^a-zA-Z0-9,?!().\"'éèêàùîôäëïöü -]/g, '');
+                        }}
+                      >
                       </textarea>
                     </div>
                   </div>
