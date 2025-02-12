@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const itemSchema = mongoose.Schema({
     name: {type: String, unique: true, required: true},
-    width: {type: Number, required: true},
+    width: {type: String, required: true},
     color: {type: String, required: true},
     content: {type: String, required: true},
     detail: {type: String, required: true},
