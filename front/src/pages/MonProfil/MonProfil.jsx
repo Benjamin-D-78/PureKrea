@@ -491,7 +491,6 @@ const MonProfil = () => {
                                             onBlur={checkInput}
                                             pattern={PATTERN.TOWN}
                                             onInput={(event) => {
-                                                // Remplacer tous les caractères non autorisés, y compris les chiffres
                                                 event.target.value = event.target.value.replace(/[^a-zA-Z\s\-'^¨èéàù]/g, '').toUpperCase();;
                                             }} />
                                         {error.adress && <span className={monProfil.spanError}>{error.adress}</span>}
