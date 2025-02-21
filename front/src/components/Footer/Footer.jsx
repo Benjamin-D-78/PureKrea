@@ -5,6 +5,7 @@ import axios from "axios"
 import { URL } from '../../utils/Constantes'
 import { toast } from 'react-toastify'
 import { PATTERN, RGXR } from '../../utils/Regixr'
+import ModalePolitique from '../ModalPolitique/ModalePolitique'
 
 // ICONES
 import linkedin from "../../images/Reseaux/linkedin.png"
@@ -185,7 +186,7 @@ export default function Footer() {
             </ul>
           </nav>
         </div>
-        <div><p className={footerCSS.texteB}>En savoir plus sur les cookies et mentions légales de PureKréa</p></div>
+        <div><ModalePolitique /></div>
       </div>
     </footer>
   )

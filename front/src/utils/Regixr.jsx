@@ -9,8 +9,8 @@ export const RGXR = {
     TOWN: /^[a-zA-Z\s\-'^¨èéàù]{2,50}$/ ,
     CONTENT: /^[a-zA-Z0-9\s,?!()."'éèêàùîôäëïöü -]+$/ ,
 
-    ITEM_NAME: /^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$/ ,
-    ITEM_WIDTH: /^[\d,]{1,6}$/ ,
+    ITEM_NAME: /^[a-zA-ZàèéêùÀÈÉÙ'-\s]{2,30}$/ ,
+    ITEM_WIDTH: /^[\d.]{1,6}$/ ,
     ITEM_COLOR: /^[a-zA-ZàèéùÀÈÉÙ'()-\s]{2,30}$/ ,
     ITEM_CONTENT: /^[a-zA-ZàèéùÀÈÉÙ'()-\s,]{2,60}$/ ,
     ITEM_DETAIL: /^[a-zA-ZàèéùÀÈÉÙ'()-\s,]{2,60}$/ ,
@@ -32,7 +32,7 @@ export const PATTERN = {
     CONTENT: "^[a-zA-Z0-9,?!().\"'éèêàùîôäëïöü -]+$",
 
     ITEM_NAME: "^[a-zA-ZàèéùÀÈÉÙ'-\s]{2,30}$" ,
-    ITEM_WIDTH: "^[\\d,]{1,6}$" ,
+    ITEM_WIDTH: "^[\\d.]{1,6}$" ,
     ITEM_COLOR: "^[a-zA-ZàèéùÀÈÉÙ'()-\s]{2,30}$" ,
     ITEM_CONTENT: "^[a-zA-ZàèéùÀÈÉÙ'()-\s,]{2,60}$" ,
     ITEM_DETAIL: "^[a-zA-ZàèéùÀÈÉÙ'()-\s,]{2,60}$" ,

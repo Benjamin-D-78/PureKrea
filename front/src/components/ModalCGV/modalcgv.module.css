@@ -39,9 +39,13 @@ position: fixed;}
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     font-weight: 600;
+    font-size: 2.4rem;
+    color: black;
     margin: 2rem}
 
-.divPreambule p{margin: 0;}
+.divPreambule p{
+    margin: 0;
+    color: black;}
 
 .titre{
     text-align: center;
@@ -50,8 +54,15 @@ position: fixed;}
     margin: 3rem;}
 
 .divA1, .divA2, .divA3, .divA4, .divA5, .divA6, .divA62, .divA7, .divA8, .divA9, .divA10, .divA11, .divA12, .divA13, .divA14{
-    margin: 0;}
+    margin: 0;
+    color: black;}
 
+.li{
+    font-size: 1.3rem;
+    list-style-type: disc;
+    margin: 0;
+    margin-left: 2rem;
+}
 
 
 .contientBtnFermer{

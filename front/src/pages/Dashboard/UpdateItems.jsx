@@ -236,7 +236,7 @@ const UpdateItems = () => {
                         maxLength={6}
                         pattern={PATTERN.ITEM_WIDTH}
                         onInput={(event) => {
-                            event.target.value = event.target.value.replace(/[^0-9,]/g, '')
+                            event.target.value = event.target.value.replace(/[^0-9.]/g, '')
                         }} />
                     {error.width && <span className={items.spanError}>{error.width}</span>}
 

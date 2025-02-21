@@ -114,6 +114,11 @@ footer{
         font-family: 'Linden Hill', Arial, Helvetica, sans-serif;
         text-align: center;}
 
+    .texteB {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
     .footerLI{
         text-align: center;
         margin: 0.4rem 0 0.4rem 0;
