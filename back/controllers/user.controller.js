@@ -70,20 +70,20 @@ export const verifyEmail = async (req, res, next) => {
 export const renvoieEmail = async (req, res, next) => {
     try {
         // On regarde dans la BDD si un utilisateur a l'email correspondant à ce qui est indiqué dans le req.body
-        const user = await userModel.findOne({email: req.body.email});
-        if(!user) return res.status(404).json({Message : "Utilisateur non trouvé."})
+        const user = await userModel.findOne({ email: req.body.email });
+        if (!user) return res.status(404).json({ Message: "Utilisateur non trouvé." })
 
         if (user.isVerified) {
             return res.status(400).json({ message: "L'email est déjà vérifié." });
         }
-        
+
         // On créé un nouveau JWT qui prend trois paramètres : 
         // Le payload { id: user._id } qui inclu l'ID de l'utilisateur qui permet de vérifier l'identité de l'utilisateur à partir du token.
         // La clé secrète qui permet de signer le token et donc de le sécuriser.
         // L'option d'expiration (24h).
         const verificationToken = jwt.sign({ id: user._id }, env.TOKEN, { expiresIn: "24h" });
         await sendEmail(user, verificationToken);
-        res.status(200).json({Message : "Nouveau mail de vérification envoyé."})
+        res.status(200).json({ Message: "Nouveau mail de vérification envoyé." })
 
     } catch (error) {
         console.log("Erreur lors de l'envoi du nouveau mail de vérification : ", error)
@@ -102,15 +102,15 @@ export const connexion = async (req, res, next) => {
         if (!passwordRegexr.test(req.body.password) || req.body.password.length < 8 || req.body.password.length > 40) {
             return res.status(400).json({ Message: "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)." });
         }
-        
+
         // Recherche de l'utilisateur dans la BDD
         const rechercheUser = await userModel.findOne({ email: req.body.email });
 
         if (!rechercheUser) return res.status(404).json({ Message: "Utilisateur non trouvé." });
 
         // On vérifie si l'utilisateur a confirmé son email.
-        if(!rechercheUser.isVerified){
-            return res.status(403).json({message: "Veuillez vérifier votre email pour pouvoir vous connecter."})
+        if (!rechercheUser.isVerified) {
+            return res.status(403).json({ message: "Veuillez vérifier votre email pour pouvoir vous connecter." })
         }
 
         // Comparaison du MDP fourni dans la requête avec le MDP dans la BDD.
@@ -166,7 +166,57 @@ export const userID = async (req, res) => {
 
 // UPDATE USER
 export const upUser = async (req, res) => {
-    try { // On vérifie si l'utilisateur existe :
+    try {
+        if (req.body.firstname) {
+            const firstnameRegexr = RGXR.PRENOM;
+            if (!firstnameRegexr.test(req.body.firstname) || req.body.firstname.length < 2 || req.body.firstname.length > 30) {
+                return res.status(400).json({ Message: "Entre 2 et 30 caractères attendus." });
+            }
+        }
+        if (req.body.lastname) {
+            const lastnameRegexr = RGXR.NOM;
+            if (!lastnameRegexr.test(req.body.lastname) || req.body.lastname.length < 2 || req.body.lastname.length > 30) {
+                return res.status(400).json({ Message: "Entre 2 et 30 caractères attendus." });
+            }
+        }
+        if (req.body.email) {
+            const emailRegexr = RGXR.EMAIL;
+            if (!emailRegexr.test(req.body.email) || req.body.email.length < 10 || req.body.email.length > 60) {
+                return res.status(400).json({ Message: "Format email, entre 10 et 60 caractères attendus." });
+            }
+        }
+        if (req.body.password) {
+            const passwordRegexr = RGXR.PASSWORD;
+            if (!passwordRegexr.test(req.body.password) || req.body.password.length < 8 || req.body.password.length > 40) {
+                return res.status(400).json({ Message: "Entre 8 et 40 caractères, (au moins une minuscule, une majusculte, un chiffre et un caractère spécial)." });
+            }
+        }
+        if (req.body.phone) {
+            const phoneRegexr = RGXR.PHONE;
+            if (!phoneRegexr.test(req.body.phone) || req.body.phone.length != 10) {
+                return res.status(400).json({ Message: "10 chiffres attendus." })
+            }
+        }
+        if (req.body.adress) {
+            const adressRegexr = RGXR.ADRESS;
+            if (!adressRegexr.test(req.body.adress) || req.body.adress.length < 8 || req.body.adress.length > 70) {
+                return res.status(400).json({ Message: "Entre 8 et 70 aractères attendus." })
+            }
+        }
+        if (req.body.postal) {
+            const postalRegexr = RGXR.POSTAL;
+            if (!postalRegexr.test(req.body.postal) || req.body.postal.length != 5) {
+                return res.status(400).json({ Message: "5 chiffres attendus." })
+            }
+        }
+        if (req.body.town) {
+            const townRegexr = RGXR.TOWN;
+            if (!townRegexr.test(req.body.town) || req.body.town.length < 2 || req.body.town.length > 50) {
+                return res.status(400).json({ Message: "Entre 2 et 50 caractères attendus." })
+            }
+        }
+
+        // On vérifie si l'utilisateur existe :
         const response = await userModel.findById(req.params.id);
         if (!response) return res.status(404).json({ Message: "Utilisateur non trouvé." });
 

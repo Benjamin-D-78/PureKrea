@@ -313,7 +313,7 @@ const AjoutItem = () => {
             maxLength={7}
             pattern={PATTERN.ITEM_PRICE}
             onInput={(event) => {
-              event.target.value = event.target.value.replace(/[^0-9,]/g, '')
+              event.target.value = event.target.value.replace(/[^0-9.]/g, '')
             }} />
           {error.price && <span className={items.spanError}>{error.price}</span>}
           <br />

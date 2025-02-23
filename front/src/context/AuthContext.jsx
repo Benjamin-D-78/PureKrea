@@ -34,6 +34,9 @@ export const AuthProvider = ({ children }) => {
                 if (error.response && error.response.status === 403) {
                     toast.error("Vous devez valider votre adresse mail pour pouvoir vous connecter.", { autoClose: 3000 })
                 }
+                if (error.response && error.response.status === 404) {
+                    toast.error("Aucun compte n'est associé à cet email.", { autoClose: 3000 })
+                }
                 if (error.response && error.response.status === 500) {
                     toast.error("Erreur lors de la tentative de connexion. Veuillez nous contacter", { autoClose: 3000 })
                 }

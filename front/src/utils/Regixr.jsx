@@ -16,7 +16,7 @@ export const RGXR = {
     ITEM_DETAIL: /^[a-zA-ZàèéùÀÈÉÙ'()-\s,]{2,60}$/ ,
     ITEM_CATEGORY: /^\d{4}$/ ,
     ITEM_STOCK: /^\d{1,6}$/ ,
-    ITEM_PRICE: /^[\d,]{1,7}$/ ,
+    ITEM_PRICE: /^[\d.]{1,7}$/ ,
     ITEM_IMAGE: /^https:\/\/.*$/
 }
 

@@ -232,11 +232,13 @@ const MonProfil = () => {
         if (utilisateur.postal !== "") updateUser.postal = utilisateur.postal
         if (utilisateur.town !== "") updateUser.town = utilisateur.town
 
+        console.log(updateUser)
+
         if (URL.USER_UPDATE) {
             try {
                 const response = await axios.put(`${URL.USER_UPDATE}/${id}`, updateUser, { withCredentials: true }
                 );
-
+                console.log(response)
                 if (response.status === 200) {
                     toast.success("Profil mis à jour avec succès.", { autoClose: 3000 });
                     const updateAuth = { ...auth, ...response.data } //On incorpore les nouvelles données dans le auth, sinon ça écrase le auth déjà existant et le remet à zéro.

@@ -1,10 +1,24 @@
 import Newsletter from "../models/newsletter.model.js";
+import { RGXR } from "../utils/regex.js";
 
 // CREATION NEWSLETTER
 export const creationAbonne = async (req, res) => {
     try {
+        const firstnameRegexr = RGXR.PRENOM;
+        if (!firstnameRegexr.test(req.body.firstname) || req.body.firstname.length < 2 || req.body.firstname.length > 30) {
+            return res.status(400).json({ Message: "Entre 2 et 30 caractères attendus." });
+        }
+        const lastnameRegexr = RGXR.NOM;
+        if (!lastnameRegexr.test(req.body.lastname) || req.body.lastname.length < 2 || req.body.lastname.length > 30) {
+            return res.status(400).json({ Message: "Entre 2 et 30 caractères attendus." });
+        }
+        const emailRegexr = RGXR.EMAIL;
+        if (!emailRegexr.test(req.body.email) || req.body.email.length < 10 || req.body.email.length > 60) {
+            return res.status(400).json({ Message: "Format email, entre 10 et 60 caractères attendus." });
+        }
+
         const response = await Newsletter.create(req.body);
-        res.status(201).json({Message: "Abonnelent réalisé avec succès."})
+        res.status(201).json({Message: "Abonnement réalisé avec succès."})
     } catch (error) {
         console.error(error)
         res.status(500).json({Message: "Erreur lors de la création de l'abonné.", error});

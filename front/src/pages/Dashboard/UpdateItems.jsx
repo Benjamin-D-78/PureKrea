@@ -177,8 +177,6 @@ const UpdateItems = () => {
         }
 
         if (!formulaire()) return;
-        console.log('Valeur de width avant envoi :', item.width);
-
 
         if (URL.ITEM_UPDATE) {
             try {
@@ -347,7 +345,7 @@ const UpdateItems = () => {
                         maxLength={7}
                         pattern={PATTERN.ITEM_PRICE}
                         onInput={(event) => {
-                            event.target.value = event.target.value.replace(/[^0-9,]/g, '')
+                            event.target.value = event.target.value.replace(/[^0-9.]/g, '')
                         }} />
                     {error.price && <span className={items.spanError}>{error.price}</span>}
 
