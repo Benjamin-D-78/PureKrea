@@ -17,6 +17,7 @@ import Renvoi from './pages/Utilisateurs/Renvoi';
 import Contact from './pages/Contact/Contact';
 import NousConnaitre from './pages/NousConnaitre/NousConnaitre';
 import PrendreRendezVous from './pages/PrendreRendez-Vous/PrendreRendezVous';
+import ModaleCookies from './components/ModaleCookies/ModaleCookies';
 
 import Layout from './components/Layout';
 import RoutesPubliques from './components/RoutesPubliques';
@@ -37,49 +38,53 @@ import Abonnes from './pages/Dashboard/Abonnes';
 
 function App() {
   return (
-    <Routes>
-      {/* Routes constamment disponibles */}
-      <Route path='/' element={<Layout />}>
-        <Route index element={<Boutique />} />  {/* Page principale */}
-        <Route path="/details/:id" element={<Details />} />
-        <Route path="/verification/:token" element={<VerificationEmail />} />
-        <Route path="/renvoi" element={<Renvoi />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/nous-connaitre" element={<NousConnaitre />} />
-        <Route path="/rendez-vous" element={<PrendreRendezVous />} />
-        <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
-      </Route>
+    <>
+      <ModaleCookies />
 
-      <Route element={<RoutesConnexion />}>
-        <Route path="/commande" element={<Commande />} />
-        <Route path="/mescommandes/:id" element={<MesCommandes />} />
-        <Route path="/monprofil/:id" element={<MonProfil />} />
-        <Route path="/commande/paiement" element={<TestFormulaire />} />
-        <Route path="/commande/paiement/confirmation/:id" element={<Confirmation />} />
-      </Route>
-
-      {/* Routes publiques */}
-      <Route element={<RoutesPubliques />}>
-        <Route path="/inscription" element={<Inscription />} />
-        <Route path="/connexion" element={<Connexion />} />
-      </Route>
-
-      {/* Routes protégées */}
-      <Route element={<RoutesProtegees />}>
-        <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="items" element={<Items />} />
-          <Route path="utilisateurs" element={<Utilisateurs />} />
-          <Route path="commande" element={<CommandeDashboard />} />
-          <Route path="update/commande/:id" element={<CommandeUpdate />} />
-          <Route path="commande/utilisateur/:id" element={<CommandeUtilisateur />} />
-          <Route path="update/item/:id" element={<UpdateItems />} />
-          <Route path="ajout" element={<AjoutUtilisateur />} />
-          <Route path="update/utilisateur/:id" element={<UpdateUsers />} />
-          <Route path="messages" element={<Messages />} />
-          <Route path="abonnement" element={<Abonnes />} />
+      <Routes>
+        {/* Routes constamment disponibles */}
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Boutique />} />  {/* Page principale */}
+          <Route path="/details/:id" element={<Details />} />
+          <Route path="/verification/:token" element={<VerificationEmail />} />
+          <Route path="/renvoi" element={<Renvoi />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/nous-connaitre" element={<NousConnaitre />} />
+          <Route path="/rendez-vous" element={<PrendreRendezVous />} />
+          <Route path="*" element={<NotFound />} />  {/* Page NotFound */}
         </Route>
-      </Route>
-    </Routes>
+
+        <Route element={<RoutesConnexion />}>
+          <Route path="/commande" element={<Commande />} />
+          <Route path="/mescommandes/:id" element={<MesCommandes />} />
+          <Route path="/monprofil/:id" element={<MonProfil />} />
+          <Route path="/commande/paiement" element={<TestFormulaire />} />
+          <Route path="/commande/paiement/confirmation/:id" element={<Confirmation />} />
+        </Route>
+
+        {/* Routes publiques */}
+        <Route element={<RoutesPubliques />}>
+          <Route path="/inscription" element={<Inscription />} />
+          <Route path="/connexion" element={<Connexion />} />
+        </Route>
+
+        {/* Routes protégées */}
+        <Route element={<RoutesProtegees />}>
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="items" element={<Items />} />
+            <Route path="utilisateurs" element={<Utilisateurs />} />
+            <Route path="commande" element={<CommandeDashboard />} />
+            <Route path="update/commande/:id" element={<CommandeUpdate />} />
+            <Route path="commande/utilisateur/:id" element={<CommandeUtilisateur />} />
+            <Route path="update/item/:id" element={<UpdateItems />} />
+            <Route path="ajout" element={<AjoutUtilisateur />} />
+            <Route path="update/utilisateur/:id" element={<UpdateUsers />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="abonnement" element={<Abonnes />} />
+          </Route>
+        </Route>
+      </Routes>
+    </>
   );
 }
 

@@ -17,6 +17,17 @@ bottom: 0;
 left: 0;
 position: fixed;}
 
+.conteneurPrincipalCookie{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    z-index: 10;
+}
+
 .contientModal{background-color: rgba(211, 211, 211, 0.83);}
 
 .modalCGV{
@@ -46,6 +57,13 @@ position: fixed;}
 .divPreambule p{
     margin: 0;
     color: black;}
+
+.divCookies p {
+    margin: 0;
+    color: black;
+    text-align: center;
+
+}
 
 .titre{
     text-align: center;
@@ -139,8 +157,41 @@ position: fixed;}
     height: 3rem;
     cursor: pointer;}
 
+
+
 @media screen and (min-width: 768px) {
     .btnRevenir, .btnSuppression {
         width: 70%;
     font-size: 1.2rem; }
 }
+
+/* COOKIES */
+.divBtnCookies{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: auto;
+}
+
+.Accepter{
+    width: 100%;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    background-color: #C6E60F;
+    border-radius: 0.5rem;
+    margin: 2rem 0 1rem 0;
+}
+
+.Refuser{
+    width: 100%;
+    font-family: "Marko One", Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    border: solid 1px #C6E60F;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+/* 
+.divBtnCookies button{
+    margin: 2rem 0;
+} */
