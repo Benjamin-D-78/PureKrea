@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 
 const itemSchema = mongoose.Schema({
     name: {type: String, unique: true, required: true},
-    width: {type: String, required: true},
+    width: {type: Number, required: true},
     color: {type: String, required: true},
     content: {type: String, required: true},
     detail: {type: String, required: true},
-    category: {type: String, required: true},
-    stock: {type: String, required: false},
-    price: {type: String, required: true},
+    category: {type: Number, required: true},
+    stock: {type: Number, required: true},
+    price: {type: Number, required: true},
     picture: {
         img: {type: String, required: false},
         img2: {type: String},

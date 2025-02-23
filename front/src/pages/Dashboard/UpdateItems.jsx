@@ -224,18 +224,22 @@ const UpdateItems = () => {
                     <input
                         className={items.inputItem}
                         id="width"
-                        type="text"
+                        type="number"
                         name="width"
                         value={item.width}
                         required
                         onChange={handleChange}
                         onBlur={checkInput}
-                        minLength={1}
-                        maxLength={6}
+                        // minLength={1}
+                        // maxLength={6}
+                        min={1}
+                        max={100}
+                        step="0.1"
                         pattern={PATTERN.ITEM_WIDTH}
-                        onInput={(event) => {
-                            event.target.value = event.target.value.replace(/[^0-9.]/g, '')
-                        }} />
+                        // onInput={(event) => {
+                        //     event.target.value = event.target.value.replace(/[^0-9.]/g, '')
+                        // }} 
+                        />
                     {error.width && <span className={items.spanError}>{error.width}</span>}
 
                     <label htmlFor="color">Couleur :</label>
@@ -299,54 +303,60 @@ const UpdateItems = () => {
                     <input
                         className={items.inputItem}
                         id="category"
-                        type="text"
+                        type="number"
                         name="category"
                         value={item.category}
                         required
                         onChange={handleChange}
                         onBlur={checkInput}
-                        minLength={4}
-                        maxLength={4}
+                        // minLength={4}
+                        // maxLength={4}
                         pattern={PATTERN.ITEM_CATEGORY}
-                        onInput={(event) => {
-                            event.target.value = event.target.value.replace(/\D/g, '')
-                        }} />
+                        // onInput={(event) => {
+                        //     event.target.value = event.target.value.replace(/\D/g, '')
+                        // }} 
+                        />
                     {error.category && <span className={items.spanError}>{error.category}</span>}
 
                     <label htmlFor="stock">Stock :</label>
                     <input
                         className={items.inputItem}
                         id="stock"
-                        type="text"
+                        type="number"
                         name="stock"
                         value={item.stock}
                         required
                         onChange={handleChange}
                         onBlur={checkInput}
-                        minLength={1}
-                        maxLength={6}
+                        // minLength={1}
+                        // maxLength={6}
+                        max={999}
                         pattern={PATTERN.ITEM_STOCK}
-                        onInput={(event) => {
-                            event.target.value = event.target.value.replace(/\D/g, '')
-                        }} />
+                        // onInput={(event) => {
+                        //     event.target.value = event.target.value.replace(/\D/g, '')
+                        // }} 
+                        />
                     {error.stock && <span className={items.spanError}>{error.stock}</span>}
 
                     <label htmlFor="price">Prix :</label>
                     <input
                         className={items.inputItem}
                         id="price"
-                        type="text"
+                        type="number"
                         name="price"
                         value={item.price}
                         required
                         onChange={handleChange}
                         onBlur={checkInput}
-                        minLength={1}
-                        maxLength={7}
+                        // minLength={1}
+                        // maxLength={7}
+                        max={9999}
+                        step="0.1"
                         pattern={PATTERN.ITEM_PRICE}
-                        onInput={(event) => {
-                            event.target.value = event.target.value.replace(/[^0-9.]/g, '')
-                        }} />
+                        // onInput={(event) => {
+                        //     event.target.value = event.target.value.replace(/[^0-9.]/g, '')
+                        // }} 
+                        />
                     {error.price && <span className={items.spanError}>{error.price}</span>}
 
                     {images.map((imgName, index) => (

@@ -111,7 +111,7 @@ const CommandeUpdate = () => {
     try {
       const response = await axios.put(`${URL.COMMANDE_UPDATE}/${id}`, updateCommande)
       console.log("Réponse de l'API", response.data)
-      if (response.data.status === 200) {
+      if (response.status === 200) {
         navigate("/dashboard/commande")
         toast.success("Commande mise à jour avec succès.", { autoClose: 1000 })
       }
