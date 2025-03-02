@@ -25,12 +25,14 @@ const TestFormulaire = () => {
         phone: ""
     });
 
+    // La propriété complete appartient à l'objet event qui est renvoyé par le composant CardElement de Stripe.
     const carteCompletee = (event) => {
         // On vérifie si le champ est complet ou la carte valide.
         if (event.complete) {
             setPaiementValide(true)
         } else {
             setPaiementValide(false)
+            return;
         }
     }
 
@@ -57,8 +59,15 @@ const TestFormulaire = () => {
             card: elements.getElement(CardElement), // On récupère cette méthode de paiement avec le getElement
         });
         if (!error) {
-            console.log("Token généré : ", paymentMethod) // On génère grâce à paymentMethod un paiement qui sera en fait un Token. Ce token sera à envoyer au backend pour réaliser le paiement.
+            // console.log("Token généré : ", paymentMethod) // On génère grâce à paymentMethod un paiement qui sera en fait un Token. Ce token sera à envoyer au backend pour réaliser le paiement.
             // on envoie le token au back
+
+            const derniersChiffres = paymentMethod.card.last4;
+            if (derniersChiffres !== "4242") {
+                toast.error("Le numéro de carte doit être '4242 4242 4242 4242'")
+                return;
+            }
+
             try {
                 const { id } = paymentMethod;
                 const response = await axios.post(URL.CHARGEMENT, {
@@ -67,6 +76,7 @@ const TestFormulaire = () => {
                 })
                 if (response.data.success) {
                     toast.success("Paiement réalisé avec succès.", { autoClose: 2000 })
+                    validerCommande();
                 }
             } catch (error) {
                 toast.error("Votre paiement a échoué")
@@ -96,7 +106,6 @@ const TestFormulaire = () => {
                     <div className='flex justify-center align-items-center flex-column'>
                         <button
                             disabled={!paiementValide}
-                            onClick={validerCommande}
                             className='bg-[#C6E60F] mb-[1rem] w-[12rem] h-[2.5rem] font-marko text-[1.4rem] rounded-xl mt-[4rem]'>Payer
                         </button>
                         <Link className='border-1 border-[#C6E60F]  text-white rounded-md font-marko rounded-xl mb-[2rem]' to={{ pathname: "/" }}><button className='w-[12rem] h-[2.5rem] font-marko text-[1.4rem]'>Abandonner</button></Link>

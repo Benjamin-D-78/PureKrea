@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongooseUniqueValidator from 'mongoose-unique-validator'
 
 const itemSchema = mongoose.Schema({
     name: {type: String, unique: true, required: true},
@@ -18,4 +19,5 @@ const itemSchema = mongoose.Schema({
     status: {type: Boolean, required: true},
 })
 
+itemSchema.plugin(mongooseUniqueValidator) // Vérifie que les champs déclarés comme unique le sont bien dans la BDD
 export default mongoose.model("Item", itemSchema);

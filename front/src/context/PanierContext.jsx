@@ -197,8 +197,9 @@ export const PanierProvider = ({ children }) => {
 
                 for (let item of panier) {
                     try {
-                        const majStock = await axios.put(`${URL.ITEM_UPDATE}/${item._id}`, {stock: item.stock - item.quantite})
-                        if(majStock.status === 200){
+                        const majStock = await axios.put(`${URL.ITEM_STOCK}/${item._id}`, { stock: item.stock - item.quantite })
+                        console.log(majStock.data)
+                        if (majStock.status === 200) {
                             console.log("Stock des items mis à jour avec succès.")
                         }
                     } catch (error) {

@@ -17,6 +17,7 @@ export const URL = {
     ITEM_BY_ID: "http://localhost:8000/api/item/obtenir",
     ITEM_ALL: "http://localhost:8000/api/item/all",
     ITEM_UPDATE: "http://localhost:8000/api/item/update",
+    ITEM_STOCK: "http://localhost:8000/api/item/update/stock",
     ITEM_DELETE: "http://localhost:8000/api/item/delete",
 
     // COMMANDE
